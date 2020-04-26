@@ -24,12 +24,10 @@
 
 'use strict';
 
-let esprima = require('./3rdparty/esprima-1.0.0-dev'),
+const esprima = require('./3rdparty/esprima-1.0.0-dev'),
     escodegen = require('./loader'),
     chai = require('chai'),
-    { expect } = chai,
-    StringData,
-    ObjectData;
+    { expect } = chai;
 
 function make_eval(code) {
     return {
@@ -47,9 +45,9 @@ function make_eval(code) {
 }
 
 function runTest(expected, result, verbatim) {
-    let actual, options;
+    let actual;
 
-    options = {
+    const options = {
         indent: '    ',
         directive: true,
         parse: esprima.parse,
@@ -62,7 +60,7 @@ function runTest(expected, result, verbatim) {
     expect(expected).to.be.equal(actual);
 }
 
-StringData = {
+const StringData = {
     DISABLED: {
         'eval(\'foo\');': {
             type: 'ExpressionStatement',
@@ -143,7 +141,7 @@ describe('verbatim string test', function () {
     });
 });
 
-ObjectData = {
+const ObjectData = {
     verbatim: {
         // Floating point
         '(0).a': {

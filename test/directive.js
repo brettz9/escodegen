@@ -24,13 +24,12 @@
 
 'use strict';
 
-let esprima = require('./3rdparty/esprima-1.0.0-dev'),
+const esprima = require('./3rdparty/esprima-1.0.0-dev'),
     escodegen = require('./loader'),
     chai = require('chai'),
-    { expect } = chai,
-    data;
+    { expect } = chai;
 
-data = {
+const data = {
     DirectiveStatement: {
 
         '\'use strict\';': {
@@ -194,15 +193,13 @@ data = {
 };
 
 function runTest(expected, result) {
-    let actual, options;
-
-    options = {
+    const options = {
         indent: '    ',
         directive: true,
         parse: esprima.parse
     };
 
-    actual = escodegen.generate(result, options);
+    const actual = escodegen.generate(result, options);
     expect(actual).to.be.equal(expected);
 }
 

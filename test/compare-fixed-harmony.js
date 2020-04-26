@@ -31,50 +31,40 @@ const fs = require('fs'),
     { expect } = chai;
 
 function test(code, expected) {
-    let tree, actual, options, StringObject;
-
-    // alias, so that JSLint does not complain.
-    StringObject = String;
-
-    options = {
+    const options = {
         range: true,
         loc: false,
         tokens: true,
         raw: false
     };
 
-    tree = esprima.parse(code, options);
+    const tree = esprima.parse(code, options);
 
     // for UNIX text comment
-    actual = `${escodegen.generate(tree).replace(/[\n\r]$/, '')  }\n`;
+    const actual = `${escodegen.generate(tree).replace(/[\n\r]$/, '')  }\n`;
     expect(actual).to.be.equal(expected);
 }
 
 function testMin(code, expected) {
-    let tree, tree2, actual, actual2, options, StringObject;
-
-    // alias, so that JSLint does not complain.
-    StringObject = String;
-
-    options = {
+    const options = {
         range: true,
         loc: false,
         tokens: true,
         raw: false
     };
 
-    tree = esprima.parse(code, options);
+    const tree = esprima.parse(code, options);
 
     // for UNIX text comment
-    actual = `${escodegen.generate(tree, {
+    const actual = `${escodegen.generate(tree, {
         format: escodegen.FORMAT_MINIFY,
         raw: false
     }).replace(/[\n\r]$/, '')  }\n`;
     expect(actual).to.be.equal(expected);
 
     // And ensure that minified value is exactly equal.
-    tree2 = esprima.parse(actual, options);
-    actual2 = `${escodegen.generate(tree2, {
+    const tree2 = esprima.parse(actual, options);
+    const actual2 = `${escodegen.generate(tree2, {
         format: escodegen.FORMAT_MINIFY,
         raw: false
     }).replace(/[\n\r]$/, '')  }\n`;

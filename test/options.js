@@ -25,13 +25,12 @@
 
 'use strict';
 
-let esprima = require('./3rdparty/esprima-1.0.0-dev'),
+const esprima = require('./3rdparty/esprima-1.0.0-dev'),
     escodegen = require('./loader'),
     chai = require('chai'),
-    { expect } = chai,
-    data;
+    { expect } = chai;
 
-data = [{
+const data = [{
     options: {
         base: 2,
         indent: '    '
@@ -968,7 +967,8 @@ function adjustRegexLiteral(key, value) {
 }
 
 function runTest(options, source, expectedCode) {
-    let tree, actualTree, expectedTree, actualCode, optionsParser = {
+    let tree;
+    const optionsParser = {
         raw: true
     };
     if (options.comment) {
@@ -978,14 +978,14 @@ function runTest(options, source, expectedCode) {
         optionsParser.tokens = true;
     }
     tree = esprima.parse(source);
-    expectedTree = JSON.stringify(tree, adjustRegexLiteral, 4);
+    const expectedTree = JSON.stringify(tree, adjustRegexLiteral, 4);
     tree = esprima.parse(source, optionsParser);
     if (options.comment) {
         tree = escodegen.attachComments(tree, tree.comments, tree.tokens);
     }
-    actualCode = escodegen.generate(tree, options);
+    const actualCode = escodegen.generate(tree, options);
     tree = esprima.parse(actualCode);
-    actualTree = JSON.stringify(tree, adjustRegexLiteral, 4);
+    const actualTree = JSON.stringify(tree, adjustRegexLiteral, 4);
     expect(actualTree).to.be.equal(expectedTree);
     expect(actualCode).to.be.equal(expectedCode);
 }

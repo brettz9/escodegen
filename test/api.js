@@ -24,15 +24,16 @@
 
 'use strict';
 
-let esprima = require('./3rdparty/esprima-1.0.0-dev'),
+const // esprima = require('./3rdparty/esprima-1.0.0-dev'),
     escodegen = require('./loader'),
     chai = require('chai'),
-    { expect } = chai,
-    fixtures;
+    { expect } = chai;
 
+/*
 function slug(name) {
     return name.toLowerCase().replace(/\s/g, '-');
 }
+*/
 
 function adjustRegexLiteral(key, value) {
     if (key === 'value' && value instanceof RegExp) {
@@ -41,7 +42,7 @@ function adjustRegexLiteral(key, value) {
     return value;
 }
 
-fixtures = {
+const fixtures = {
     'generate with no options': {
         call: 'generate',
         args: [{
@@ -194,14 +195,14 @@ fixtures = {
 };
 
 function testAPI(code, result) {
-    let expected, res, actual;
-    expected = JSON.stringify(result.result, null, 4);
+    const expected = JSON.stringify(result.result, null, 4);
+    let res;
     if (typeof result.property !== 'undefined') {
         res = escodegen[result.property];
     } else {
         res = escodegen[result.call].apply(escodegen, result.args);
     }
-    actual = JSON.stringify(res, adjustRegexLiteral, 4);
+    const actual = JSON.stringify(res, adjustRegexLiteral, 4);
     expect(actual).to.be.equal(expected);
 }
 

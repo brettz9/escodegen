@@ -31,40 +31,30 @@ const fs = require('fs'),
     { expect } = chai;
 
 function test(code, expected) {
-    let tree, actual, options, StringObject;
-
-    // alias, so that JSLint does not complain.
-    StringObject = String;
-
-    options = {
+    const options = {
         ranges: true,
         locations: false,
         ecmaVersion: 7
     };
 
-    tree = acorn.parse(code, options);
+    const tree = acorn.parse(code, options);
 
     // for UNIX text comment
-    actual = `${escodegen.generate(tree).replace(/[\n\r]$/, '')  }\n`;
+    const actual = `${escodegen.generate(tree).replace(/[\n\r]$/, '')  }\n`;
     expect(actual).to.be.equal(expected);
 }
 
 function testMin(code, expected) {
-    let tree, actual, options, StringObject;
-
-    // alias, so that JSLint does not complain.
-    StringObject = String;
-
-    options = {
+    const options = {
         ranges: true,
         locations: false,
         ecmaVersion: 7
     };
 
-    tree = acorn.parse(code, options);
+    const tree = acorn.parse(code, options);
 
     // for UNIX text comment
-    actual = `${escodegen.generate(tree, {
+    const actual = `${escodegen.generate(tree, {
         format: escodegen.FORMAT_MINIFY,
         raw: false
     }).replace(/[\n\r]$/, '')  }\n`;
