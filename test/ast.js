@@ -24,13 +24,12 @@
 
 'use strict';
 
-let data,
-    esprima = require('./3rdparty/esprima-1.0.0-dev'),
+const esprima = require('./3rdparty/esprima-1.0.0-dev'),
     escodegen = require('./loader'),
     chai = require('chai'),
     { expect } = chai;
 
-data = {
+const data = {
     'RegExp string': [
         {
             type: 'Program',
@@ -169,14 +168,12 @@ data = {
 };
 
 function runTest(ast, expected) {
-    let actual, options;
-
-    options = {
+    const options = {
         indent: '    ',
         parse: esprima.parse
     };
 
-    actual = escodegen.generate(ast, options);
+    const actual = escodegen.generate(ast, options);
     expect(actual).to.be.equal(expected);
 }
 

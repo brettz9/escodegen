@@ -32,7 +32,7 @@ const fs = require('fs'),
 function freezing(escodegen) {
     const original = escodegen.generate;
     escodegen.generate = function () {
-        const ast = arguments[0];
+        const [ast] = arguments;
         Object.freeze(ast);
         return original.apply(this, arguments);
     };

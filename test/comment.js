@@ -31,12 +31,7 @@ const fs = require('fs'),
     { expect } = chai;
 
 function test(code, expected) {
-    let tree, actual, options, StringObject;
-
-    // alias, so that JSLint does not complain.
-    StringObject = String;
-
-    options = {
+    const options = {
         comment: true,
         range: true,
         loc: false,
@@ -44,11 +39,11 @@ function test(code, expected) {
         raw: false
     };
 
-    tree = esprima.parse(code, options);
+    let tree = esprima.parse(code, options);
     tree = escodegen.attachComments(tree, tree.comments, tree.tokens);
 
     // for UNIX text comment
-    actual = `${escodegen.generate(tree, {
+    const actual = `${escodegen.generate(tree, {
         comment: true,
         format: {
             indent: {

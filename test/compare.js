@@ -31,22 +31,17 @@ const fs = require('fs'),
     { expect } = chai;
 
 function test(code, expected) {
-    let tree, actual, options, StringObject;
-
-    // alias, so that JSLint does not complain.
-    StringObject = String;
-
-    options = {
+    const options = {
         range: true,
         loc: false,
         tokens: true,
         raw: false
     };
 
-    tree = esprima.parse(code, options);
+    const tree = esprima.parse(code, options);
 
     // for UNIX text comment
-    actual = `${escodegen.generate(tree).replace(/[\n\r]$/, '')  }\n`;
+    const actual = `${escodegen.generate(tree).replace(/[\n\r]$/, '')  }\n`;
     expect(actual).to.be.equal(expected);
 }
 

@@ -32,10 +32,7 @@ const fs = require('fs'),
     { expect } = chai;
 
 function test(code, expected) {
-    let tree, actual, options, StringObject;
-
-    // alias, so that JSLint does not complain.
-    StringObject = String;
+    let tree, options;
 
     options = {
         range: true,
@@ -55,7 +52,7 @@ function test(code, expected) {
     };
 
     // for UNIX text comment
-    actual = escodegen.generate(tree, options);
+    const actual = escodegen.generate(tree, options);
     expect(actual).to.be.equal(expected);
 }
 

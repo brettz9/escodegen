@@ -30,13 +30,12 @@
 
 'use strict';
 
-let esprima = require('./3rdparty/esprima-1.0.0-dev'),
+const esprima = require('./3rdparty/esprima-1.0.0-dev'),
     escodegen = require('./loader'),
     chai = require('chai'),
-    { expect } = chai,
-    data;
+    { expect } = chai;
 
-data = {
+const data = {
 
     'Primary Expression': {
 
@@ -13603,7 +13602,7 @@ data = {
                             expression: {
                                 type: 'Literal',
                                 value: 'use strict',
-                                raw: '\"use strict\"',
+                                raw: '"use strict"',
                                 range: [37, 49],
                                 loc: {
                                     start: { line: 1, column: 37 },
@@ -14911,12 +14910,9 @@ function adjustRegexLiteral(key, value) {
 }
 
 function testIdentity(code, syntax) {
-    let expected, tree, actual, actual2, options, StringObject;
+    let expected, tree, actual, actual2;
 
-    // alias, so that JSLint does not complain.
-    StringObject = String;
-
-    options = {
+    const options = {
         comment: false,
         range: false,
         loc: false,
@@ -14937,9 +14933,9 @@ function testIdentity(code, syntax) {
 }
 
 function testGenerate(expected, result) {
-    let actual, options;
+    let actual;
 
-    options = {
+    const options = {
         indent: '    ',
         parse: esprima.parse
     };
@@ -14950,13 +14946,15 @@ function testGenerate(expected, result) {
     expect(actual).to.be.equal(expected);
 }
 
+/*
 function isGeneratorIdentityFixture(result) {
-    return !result.hasOwnProperty('generateFrom') &&
-        !result.hasOwnProperty('result');
+    return !Object.hasOwnProperty.call(result, 'generateFrom') &&
+        !Object.hasOwnProperty.call(result, 'result');
 }
+*/
 
 function runTest(code, result) {
-    if (result.hasOwnProperty('generateFrom')) {
+    if (Object.hasOwnProperty.call(result, 'generateFrom')) {
         testGenerate(code, result);
     } else {
         testIdentity(code, result);
