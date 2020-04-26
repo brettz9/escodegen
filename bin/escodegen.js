@@ -25,7 +25,7 @@
 
 /*jslint sloppy:true node:true */
 
-var fs = require('fs'),
+const fs = require('fs'),
     path = require('path'),
     root = path.join(path.dirname(fs.realpathSync(__filename)), '..'),
     esprima = require('esprima'),
@@ -43,7 +43,6 @@ var fs = require('fs'),
     }),
     args = optionator.parse(process.argv),
     files = args._,
-    options,
     esprimaOptions = {
         raw: true,
         tokens: true,
@@ -56,6 +55,8 @@ if (files.length === 0) {
     process.exit(1);
 }
 
+let options;
+
 if (args.config) {
     try {
         options = JSON.parse(fs.readFileSync(args.config, 'utf-8'));
@@ -65,7 +66,7 @@ if (args.config) {
 }
 
 files.forEach(function (filename) {
-    var content = fs.readFileSync(filename, 'utf-8'),
+    const content = fs.readFileSync(filename, 'utf-8'),
         syntax = esprima.parse(content, esprimaOptions);
 
     if (options.comment) {

@@ -24,11 +24,11 @@
 
 'use strict';
 
-var data,
+let data,
     esprima = require('./3rdparty/esprima-1.0.0-dev'),
     escodegen = require('./loader'),
     chai = require('chai'),
-    expect = chai.expect;
+    { expect } = chai;
 
 data = {
     'RegExp string': [
@@ -138,7 +138,7 @@ data = {
                 expression: {
                     type: 'Literal',
                     value: {
-                        toString: function() { return new RegExp('', 'i').toString(); },
+                        toString() { return new RegExp('', 'i').toString(); },
                         source: ''
                     }
                 },
@@ -169,7 +169,7 @@ data = {
 };
 
 function runTest(ast, expected) {
-    var actual, options;
+    let actual, options;
 
     options = {
         indent: '    ',
@@ -182,7 +182,7 @@ function runTest(ast, expected) {
 
 describe('AST', function () {
     Object.keys(data).forEach(function (category) {
-        it(category + ' test', function () {
+        it(`${category  } test`, function () {
             data[category].forEach(function (ast) {
                 runTest(ast, ast.expected);
             });

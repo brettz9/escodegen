@@ -25,13 +25,12 @@
 'use strict';
 
 module.exports = function (context) {
-    var MESSAGE = '"push" with multiple arguments hurts performance since optimizing compiler would not support it';
+    const MESSAGE = '"push" with multiple arguments hurts performance since optimizing compiler would not support it';
     function checkPush(node) {
-        var member;
         if (node.callee.type !== 'MemberExpression') {
             return;
         }
-        member = node.callee;
+        const member = node.callee;
         if (member.computed) {
             return;
         }
@@ -48,6 +47,6 @@ module.exports = function (context) {
     }
 
     return {
-        'CallExpression': checkPush
+        CallExpression: checkPush
     };
 };
