@@ -45,6 +45,8 @@
         "source-map": "~0.7.3"
     },
     "devDependencies": {
+        "@babel/cli": "^7.8.4",
+        "@babel/preset-env": "^7.9.5",
         "acorn": "^7.3.1",
         "browserify": "^16.5.1",
         "chai": "^4.2.0",
@@ -69,11 +71,13 @@
         ]
     },
     "scripts": {
+        "build-watch": "babel src/escodegen.js --out-file escodegen.js --source-maps --watch",
+        "build": "babel src/escodegen.js --out-file escodegen.js --source-maps",
+        "browser-build-min": "browserify -t uglifyify -e tools/entry-point.js -o escodegen.browser.min.js",
+        "browser-build": "browserify -e tools/entry-point.js -o escodegen.browser.js",
         "test": "npm run unit-test && npm run lint",
         "unit-test": "nyc mocha test/*.js --timeout 100000",
         "lint": "eslint --rulesdir tools/rules/ .",
-        "release": "node tools/release.js",
-        "build-min": "browserify -t uglifyify -e tools/entry-point.js -o escodegen.browser.min.js",
-        "build": "browserify -e tools/entry-point.js -o escodegen.browser.js"
+        "release": "node tools/release.js"
     }
 }

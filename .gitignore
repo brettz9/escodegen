@@ -14,3 +14,5 @@ npm-debug.log
 
 escodegen.browser.min.js
 escodegen.browser.js
+escodegen.js
+escodegen.js.map
