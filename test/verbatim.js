@@ -45,8 +45,6 @@ function make_eval(code) {
 }
 
 function runTest(expected, result, verbatim) {
-    let actual;
-
     const options = {
         indent: '    ',
         directive: true,
@@ -54,6 +52,7 @@ function runTest(expected, result, verbatim) {
         verbatim
     };
 
+    let actual;
     expect(function () {
         actual = escodegen.generate(result, options);
     }).not.to.be.throw();

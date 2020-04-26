@@ -47,12 +47,11 @@ function test(code, expected) {
 
 describe('compare test', function () {
     fs.readdirSync(`${__dirname  }/compare`).sort().forEach(function(file) {
-        let code, expected, p;
         if (/\.js$/.test(file) && !/expected\.js$/.test(file)) {
             it(file, function () {
-                p = file.replace(/\.js$/, '.expected.js');
-                code = fs.readFileSync(`${__dirname  }/compare/${  file}`, 'utf-8');
-                expected = fs.readFileSync(`${__dirname  }/compare/${  p}`, 'utf-8');
+                const p = file.replace(/\.js$/, '.expected.js');
+                const code = fs.readFileSync(`${__dirname  }/compare/${  file}`, 'utf-8');
+                const expected = fs.readFileSync(`${__dirname  }/compare/${  p}`, 'utf-8');
                 test(code, expected);
             });
         }

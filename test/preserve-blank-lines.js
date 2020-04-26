@@ -32,15 +32,13 @@ const fs = require('fs'),
     { expect } = chai;
 
 function test(code, expected) {
-    let tree, options;
-
-    options = {
+    let options = {
         range: true,
         tokens: true,
         comment: true
     };
 
-    tree = esprima.parse(code, options);
+    let tree = esprima.parse(code, options);
     tree = escodegen.attachComments(tree, tree.comments, tree.tokens);
 
     options = {
@@ -58,12 +56,11 @@ function test(code, expected) {
 
 describe('preserve blank lines test', function () {
     fs.readdirSync(`${__dirname  }/preserve-blank-lines`).sort().forEach(function(file) {
-        let code, expected, p;
         if (/\.js$/.test(file) && !/expected\.js$/.test(file)) {
             it(file, function () {
-                p = file.replace(/\.js$/, '.expected.js');
-                code = fs.readFileSync(`${__dirname  }/preserve-blank-lines/${  file}`, 'utf-8');
-                expected = fs.readFileSync(`${__dirname  }/preserve-blank-lines/${  p}`, 'utf-8');
+                const p = file.replace(/\.js$/, '.expected.js');
+                const code = fs.readFileSync(`${__dirname  }/preserve-blank-lines/${  file}`, 'utf-8');
+                const expected = fs.readFileSync(`${__dirname  }/preserve-blank-lines/${  p}`, 'utf-8');
                 test(code, expected);
             });
         }

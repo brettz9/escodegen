@@ -73,13 +73,12 @@ function testMin(code, expected) {
 
 describe('compare harmony test', function () {
     fs.readdirSync(`${__dirname  }/compare-fixed-harmony`).sort().forEach(function(file) {
-        let code, expected, exp, min;
         if (/\.js$/.test(file) && !/expected\.js$/.test(file) && !/expected\.min\.js$/.test(file)) {
             it(file, function () {
-                exp = file.replace(/\.js$/, '.expected.js');
-                min = file.replace(/\.js$/, '.expected.min.js');
-                code = fs.readFileSync(`${__dirname  }/compare-fixed-harmony/${  file}`, 'utf-8');
-                expected = fs.readFileSync(`${__dirname  }/compare-fixed-harmony/${  exp}`, 'utf-8');
+                const exp = file.replace(/\.js$/, '.expected.js');
+                const min = file.replace(/\.js$/, '.expected.min.js');
+                const code = fs.readFileSync(`${__dirname  }/compare-fixed-harmony/${  file}`, 'utf-8');
+                let expected = fs.readFileSync(`${__dirname  }/compare-fixed-harmony/${  exp}`, 'utf-8');
                 test(code, expected);
                 if (fs.existsSync(`${__dirname  }/compare-fixed-harmony/${  min}`)) {
                     expected = fs.readFileSync(`${__dirname  }/compare-fixed-harmony/${  min}`, 'utf-8');

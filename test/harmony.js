@@ -6926,15 +6926,13 @@ const data = {
 };
 
 function updateDeeply(target, override) {
-    let key, val;
-
     function isHashObject(target) {
         return typeof target === 'object' && target instanceof Object && !(target instanceof RegExp);
     }
 
-    for (key in override) {
+    for (const key in override) {
         if (Object.hasOwnProperty.call(override, key)) {
-            val = override[key];
+            const val = override[key];
             if (isHashObject(val)) {
                 if (isHashObject(target[key])) {
                     updateDeeply(target[key], val);
@@ -6983,9 +6981,7 @@ function testIdentity(code, syntax) {
 
 function testGenerate(expected, result) {
     'use strict';
-    let options;
-
-    options = {
+    let options = {
         indent: '    ',
         parse: esprima.parse
     };
