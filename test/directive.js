@@ -24,14 +24,14 @@
 
 'use strict';
 
-var esprima = require('./3rdparty/esprima-1.0.0-dev'),
+let esprima = require('./3rdparty/esprima-1.0.0-dev'),
     escodegen = require('./loader'),
     chai = require('chai'),
-    expect = chai.expect,
+    { expect } = chai,
     data;
 
 data = {
-    'DirectiveStatement': {
+    DirectiveStatement: {
 
         '\'use strict\';': {
             type: 'Program',
@@ -194,7 +194,7 @@ data = {
 };
 
 function runTest(expected, result) {
-    var actual, options;
+    let actual, options;
 
     options = {
         indent: '    ',

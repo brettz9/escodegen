@@ -23,21 +23,21 @@
 */
 'use strict';
 
-var fs = require('fs'),
+const fs = require('fs'),
     path = require('path'),
     root = path.join(path.dirname(fs.realpathSync(__filename)), '..'),
     escodegen = require(root);
 
 // Make generate's first argument freezed.
 function freezing(escodegen) {
-    var original = escodegen.generate;
+    const original = escodegen.generate;
     escodegen.generate = function () {
-        var ast = arguments[0];
+        const ast = arguments[0];
         Object.freeze(ast);
         return original.apply(this, arguments);
     };
     return escodegen;
-};
+}
 
 module.exports = freezing(escodegen);
 

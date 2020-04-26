@@ -25,7 +25,7 @@
 
 /*jslint sloppy:true node:true */
 
-var fs = require('fs'),
+const fs = require('fs'),
     path = require('path'),
     root = path.join(path.dirname(fs.realpathSync(__filename)), '..'),
     escodegen = require(root),
@@ -41,24 +41,25 @@ var fs = require('fs'),
         ]
     }),
     args = optionator.parse(process.argv),
-    files = args._,
-    options;
+    files = args._;
 
 if (files.length === 0) {
     console.log(optionator.generateHelp());
     process.exit(1);
 }
 
+let options;
+
 if (args.config) {
     try {
-        options = JSON.parse(fs.readFileSync(args.config, 'utf-8'))
+        options = JSON.parse(fs.readFileSync(args.config, 'utf-8'));
     } catch (err) {
         console.error('Error parsing config: ', err);
     }
 }
 
 files.forEach(function (filename) {
-    var content = fs.readFileSync(filename, 'utf-8');
+    const content = fs.readFileSync(filename, 'utf-8');
     console.log(escodegen.generate(JSON.parse(content), options));
 });
 /* vim: set sw=4 ts=4 et tw=80 : */

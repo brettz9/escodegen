@@ -1,10 +1,10 @@
-var fs = require('fs'),
-    path = require('path'),
-    esprima = require('esprima');
+const fs = require('fs'),
+    path = require('path');
+    // esprima = require('esprima');
 
-var FILES_PATH = path.join(__dirname, './asts');
+const FILES_PATH = path.join(__dirname, './asts');
 
-var FILES = [
+const FILES = [
     'jQuery 1.7.1',
     'jQuery 1.6.4',
     'jQuery.Mobile 1.0',
@@ -23,7 +23,7 @@ function slug(name) {
 }
 
 module.exports = FILES.map(function (file) {
-    var astJson = fs.readFileSync(FILES_PATH + '/' + slug(file) + '-ast.json');
+    const astJson = fs.readFileSync(`${FILES_PATH  }/${  slug(file)  }-ast.json`);
 
     return JSON.parse(astJson);
 });

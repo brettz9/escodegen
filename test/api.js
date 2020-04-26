@@ -24,10 +24,10 @@
 
 'use strict';
 
-var esprima = require('./3rdparty/esprima-1.0.0-dev'),
+let esprima = require('./3rdparty/esprima-1.0.0-dev'),
     escodegen = require('./loader'),
     chai = require('chai'),
-    expect = chai.expect,
+    { expect } = chai,
     fixtures;
 
 function slug(name) {
@@ -194,7 +194,7 @@ fixtures = {
 };
 
 function testAPI(code, result) {
-    var expected, res, actual;
+    let expected, res, actual;
     expected = JSON.stringify(result.result, null, 4);
     if (typeof result.property !== 'undefined') {
         res = escodegen[result.property];

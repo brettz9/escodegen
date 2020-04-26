@@ -25,14 +25,14 @@
 
 'use strict';
 
-var fs = require('fs'),
+const fs = require('fs'),
     esprima = require('esprima'),
     escodegen = require('./loader'),
     chai = require('chai'),
-    expect = chai.expect;
+    { expect } = chai;
 
 function test(code, expected) {
-    var tree, actual, options, StringObject;
+    let tree, actual, options, StringObject;
 
     // alias, so that JSLint does not complain.
     StringObject = String;
@@ -60,13 +60,13 @@ function test(code, expected) {
 }
 
 describe('preserve blank lines test', function () {
-    fs.readdirSync(__dirname + '/preserve-blank-lines').sort().forEach(function(file) {
-        var code, expected, p;
+    fs.readdirSync(`${__dirname  }/preserve-blank-lines`).sort().forEach(function(file) {
+        let code, expected, p;
         if (/\.js$/.test(file) && !/expected\.js$/.test(file)) {
             it(file, function () {
                 p = file.replace(/\.js$/, '.expected.js');
-                code = fs.readFileSync(__dirname + '/preserve-blank-lines/' + file, 'utf-8');
-                expected = fs.readFileSync(__dirname + '/preserve-blank-lines/' + p, 'utf-8');
+                code = fs.readFileSync(`${__dirname  }/preserve-blank-lines/${  file}`, 'utf-8');
+                expected = fs.readFileSync(`${__dirname  }/preserve-blank-lines/${  p}`, 'utf-8');
                 test(code, expected);
             });
         }

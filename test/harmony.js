@@ -31,10 +31,10 @@
 
 'use strict';
 
-var esprima = require('./3rdparty/esprima-harmony.original'),
+let esprima = require('./3rdparty/esprima-harmony.original'),
     escodegen = require('./loader'),
     chai = require('chai'),
-    expect = chai.expect,
+    { expect } = chai,
     data;
 
 data = {
@@ -257,46 +257,46 @@ data = {
 
         'var a = function* () {\n    yield 1;\n};': {
             generateFrom: {
-                "type": "Program",
-                "body": [
+                type: 'Program',
+                body: [
                     {
-                        "type": "VariableDeclaration",
-                        "declarations": [
+                        type: 'VariableDeclaration',
+                        declarations: [
                             {
-                                "type": "VariableDeclarator",
-                                "id": {
-                                    "type": "Identifier",
-                                    "name": "a"
+                                type: 'VariableDeclarator',
+                                id: {
+                                    type: 'Identifier',
+                                    name: 'a'
                                 },
-                                "init": {
-                                    "type": "FunctionExpression",
-                                    "id": null,
-                                    "params": [],
-                                    "defaults": [],
-                                    "body": {
-                                        "type": "BlockStatement",
-                                        "body": [
+                                init: {
+                                    type: 'FunctionExpression',
+                                    id: null,
+                                    params: [],
+                                    defaults: [],
+                                    body: {
+                                        type: 'BlockStatement',
+                                        body: [
                                             {
-                                                "type": "ExpressionStatement",
-                                                "expression": {
-                                                    "type": "YieldExpression",
-                                                    "argument": {
-                                                        "type": "Literal",
-                                                        "value": 1,
-                                                        "raw": "1"
+                                                type: 'ExpressionStatement',
+                                                expression: {
+                                                    type: 'YieldExpression',
+                                                    argument: {
+                                                        type: 'Literal',
+                                                        value: 1,
+                                                        raw: '1'
                                                     },
-                                                    "delegate": false
+                                                    delegate: false
                                                 }
                                             }
                                         ]
                                     },
-                                    "rest": null,
-                                    "generator": true,
-                                    "expression": false
+                                    rest: null,
+                                    generator: true,
+                                    expression: false
                                 }
                             }
                         ],
-                        "kind": "var"
+                        kind: 'var'
                     }
                 ]
             }
@@ -304,49 +304,49 @@ data = {
 
         'var a = function* b() {\n    yield 1;\n};': {
             generateFrom: {
-                "type": "Program",
-                "body": [
+                type: 'Program',
+                body: [
                     {
-                        "type": "VariableDeclaration",
-                        "declarations": [
+                        type: 'VariableDeclaration',
+                        declarations: [
                             {
-                                "type": "VariableDeclarator",
-                                "id": {
-                                    "type": "Identifier",
-                                    "name": "a"
+                                type: 'VariableDeclarator',
+                                id: {
+                                    type: 'Identifier',
+                                    name: 'a'
                                 },
-                                "init": {
-                                    "type": "FunctionExpression",
-                                    "id": {
-                                        "type": "Identifier",
-                                        "name": "b"
+                                init: {
+                                    type: 'FunctionExpression',
+                                    id: {
+                                        type: 'Identifier',
+                                        name: 'b'
                                     },
-                                    "params": [],
-                                    "defaults": [],
-                                    "body": {
-                                        "type": "BlockStatement",
-                                        "body": [
+                                    params: [],
+                                    defaults: [],
+                                    body: {
+                                        type: 'BlockStatement',
+                                        body: [
                                             {
-                                                "type": "ExpressionStatement",
-                                                "expression": {
-                                                    "type": "YieldExpression",
-                                                    "argument": {
-                                                        "type": "Literal",
-                                                        "value": 1,
-                                                        "raw": "1"
+                                                type: 'ExpressionStatement',
+                                                expression: {
+                                                    type: 'YieldExpression',
+                                                    argument: {
+                                                        type: 'Literal',
+                                                        value: 1,
+                                                        raw: '1'
                                                     },
-                                                    "delegate": false
+                                                    delegate: false
                                                 }
                                             }
                                         ]
                                     },
-                                    "rest": null,
-                                    "generator": true,
-                                    "expression": false
+                                    rest: null,
+                                    generator: true,
+                                    expression: false
                                 }
                             }
                         ],
-                        "kind": "var"
+                        kind: 'var'
                     }
                 ]
             }
@@ -510,7 +510,7 @@ data = {
     },
 
     'Object destructuring (and aliasing)':  {
-        "let {\n    test: myvar = 'a'\n} = { test: 'b' };": {
+        'let {\n    test: myvar = \'a\'\n} = { test: \'b\' };': {
             generateFrom: {
                 loc: {
                     start: {
@@ -522,280 +522,280 @@ data = {
                         column: 23
                     }
                 },
-                type: "Program",
+                type: 'Program',
                 body: [
                     {
-                    loc: {
-                        start: {
-                            line: 1,
-                            column: 0
-                        },
-                        end: {
-                            line: 3,
-                            column: 23
-                        }
-                    },
-                    type: "VariableDeclaration",
-                    declarations: [
-                        {
                         loc: {
                             start: {
                                 line: 1,
-                                column: 4
+                                column: 0
                             },
                             end: {
                                 line: 3,
-                                column: 22
+                                column: 23
                             }
                         },
-                        type: "VariableDeclarator",
-                        id: {
-                            loc: {
-                                start: {
-                                    line: 1,
-                                    column: 4
-                                },
-                                end: {
-                                    line: 3,
-                                    column: 1
-                                }
-                            },
-                            type: "ObjectPattern",
-                            properties: [
-                                {
+                        type: 'VariableDeclaration',
+                        declarations: [
+                            {
                                 loc: {
                                     start: {
-                                        line: 2,
+                                        line: 1,
                                         column: 4
                                     },
                                     end: {
-                                        line: 2,
-                                        column: 27
+                                        line: 3,
+                                        column: 22
                                     }
                                 },
-                                type: "Property",
-                                key: {
+                                type: 'VariableDeclarator',
+                                id: {
                                     loc: {
                                         start: {
-                                            line: 2,
+                                            line: 1,
                                             column: 4
                                         },
                                         end: {
-                                            line: 2,
-                                            column: 8
+                                            line: 3,
+                                            column: 1
                                         }
                                     },
-                                    type: "Identifier",
-                                    name: "test"
+                                    type: 'ObjectPattern',
+                                    properties: [
+                                        {
+                                            loc: {
+                                                start: {
+                                                    line: 2,
+                                                    column: 4
+                                                },
+                                                end: {
+                                                    line: 2,
+                                                    column: 27
+                                                }
+                                            },
+                                            type: 'Property',
+                                            key: {
+                                                loc: {
+                                                    start: {
+                                                        line: 2,
+                                                        column: 4
+                                                    },
+                                                    end: {
+                                                        line: 2,
+                                                        column: 8
+                                                    }
+                                                },
+                                                type: 'Identifier',
+                                                name: 'test'
+                                            },
+                                            computed: false,
+                                            value: {
+                                                loc: {
+                                                    start: {
+                                                        line: 2,
+                                                        column: 10
+                                                    },
+                                                    end: {
+                                                        line: 2,
+                                                        column: 27
+                                                    }
+                                                },
+                                                type: 'AssignmentPattern',
+                                                left: {
+                                                    loc: {
+                                                        start: {
+                                                            line: 2,
+                                                            column: 10
+                                                        },
+                                                        end: {
+                                                            line: 2,
+                                                            column: 15
+                                                        }
+                                                    },
+                                                    type: 'Identifier',
+                                                    name: 'myvar'
+                                                },
+                                                right: {
+                                                    loc: {
+                                                        start: {
+                                                            line: 2,
+                                                            column: 18
+                                                        },
+                                                        end: {
+                                                            line: 2,
+                                                            column: 27
+                                                        }
+                                                    },
+                                                    type: 'Literal',
+                                                    value: 'a',
+                                                    raw: '\'a\''
+                                                }
+                                            },
+                                            kind: 'init',
+                                            method: false,
+                                            shorthand: false
+                                        }
+                                    ]
                                 },
-                                computed: false,
-                                value: {
+                                init: {
                                     loc: {
                                         start: {
-                                            line: 2,
-                                            column: 10
+                                            line: 3,
+                                            column: 4
                                         },
                                         end: {
-                                            line: 2,
-                                            column: 27
+                                            line: 3,
+                                            column: 22
                                         }
                                     },
-                                    type: "AssignmentPattern",
-                                    left: {
-                                        loc: {
-                                            start: {
-                                                line: 2,
-                                                column: 10
+                                    type: 'ObjectExpression',
+                                    properties: [
+                                        {
+                                            loc: {
+                                                start: {
+                                                    line: 3,
+                                                    column: 6
+                                                },
+                                                end: {
+                                                    line: 3,
+                                                    column: 20
+                                                }
                                             },
-                                            end: {
-                                                line: 2,
-                                                column: 15
-                                            }
-                                        },
-                                        type: "Identifier",
-                                        name: "myvar"
-                                    },
-                                    right: {
-                                        loc: {
-                                            start: {
-                                                line: 2,
-                                                column: 18
+                                            type: 'Property',
+                                            key: {
+                                                loc: {
+                                                    start: {
+                                                        line: 3,
+                                                        column: 6
+                                                    },
+                                                    end: {
+                                                        line: 3,
+                                                        column: 10
+                                                    }
+                                                },
+                                                type: 'Identifier',
+                                                name: 'test'
                                             },
-                                            end: {
-                                                line: 2,
-                                                column: 27
-                                            }
-                                        },
-                                        type: "Literal",
-                                        value: "a",
-                                        raw: "'a'"
-                                    }
-                                },
-                                kind: "init",
-                                method: false,
-                                shorthand: false
-                            }
-                            ]
-                        },
-                        init: {
-                            loc: {
-                                start: {
-                                    line: 3,
-                                    column: 4
-                                },
-                                end: {
-                                    line: 3,
-                                    column: 22
+                                            computed: false,
+                                            value: {
+                                                loc: {
+                                                    start: {
+                                                        line: 3,
+                                                        column: 12
+                                                    },
+                                                    end: {
+                                                        line: 3,
+                                                        column: 20
+                                                    }
+                                                },
+                                                type: 'Literal',
+                                                value: 'b',
+                                                raw: '\'b\''
+                                            },
+                                            kind: 'init',
+                                            method: false,
+                                            shorthand: false
+                                        }
+                                    ]
                                 }
-                            },
-                            type: "ObjectExpression",
-                            properties: [
-                                {
-                                loc: {
-                                    start: {
-                                        line: 3,
-                                        column: 6
-                                    },
-                                    end: {
-                                        line: 3,
-                                        column: 20
-                                    }
-                                },
-                                type: "Property",
-                                key: {
-                                    loc: {
-                                        start: {
-                                            line: 3,
-                                            column: 6
-                                        },
-                                        end: {
-                                            line: 3,
-                                            column: 10
-                                        }
-                                    },
-                                    type: "Identifier",
-                                    name: "test"
-                                },
-                                computed: false,
-                                value: {
-                                    loc: {
-                                        start: {
-                                            line: 3,
-                                            column: 12
-                                        },
-                                        end: {
-                                            line: 3,
-                                            column: 20
-                                        }
-                                    },
-                                    type: "Literal",
-                                    value: "b",
-                                    raw: "'b'"
-                                },
-                                kind: "init",
-                                method: false,
-                                shorthand: false
                             }
-                            ]
-                        }
+                        ],
+                        kind: 'let'
                     }
-                    ],
-                    kind: "let"
-                }
                 ],
-                sourceType: "script"
+                sourceType: 'script'
             }
         },
 
         '({a = "b", b = {\n        c: "d",\n        e: "f"\n    }} = {}) => {\n};': {
             generateFrom: {
-                type: "ExpressionStatement",
+                type: 'ExpressionStatement',
                 expression: {
-                    type: "ArrowFunctionExpression",
+                    type: 'ArrowFunctionExpression',
                     id: null,
                     params: [{
-                        type: "ObjectPattern",
+                        type: 'ObjectPattern',
                         properties: [{
-                            type: "Property",
+                            type: 'Property',
                             key: {
-                                type: "Identifier",
-                                name: "a"
+                                type: 'Identifier',
+                                name: 'a'
                             },
                             computed: false,
                             value: {
-                                type: "AssignmentPattern",
+                                type: 'AssignmentPattern',
                                 left: {
-                                    type: "Identifier",
-                                    name: "a"
+                                    type: 'Identifier',
+                                    name: 'a'
                                 },
                                 right: {
-                                    type: "Literal",
-                                    value: "b",
-                                    raw: "\"b\""
+                                    type: 'Literal',
+                                    value: 'b',
+                                    raw: '"b"'
                                 }
                             },
-                            kind: "init",
+                            kind: 'init',
                             method: false,
                             shorthand: true
                         }, {
-                            type: "Property",
+                            type: 'Property',
                             key: {
-                                type: "Identifier",
-                                name: "b"
+                                type: 'Identifier',
+                                name: 'b'
                             },
                             computed: false,
                             value: {
-                                type: "AssignmentPattern",
+                                type: 'AssignmentPattern',
                                 left: {
-                                    type: "Identifier",
-                                    name: "b"
+                                    type: 'Identifier',
+                                    name: 'b'
                                 },
                                 right: {
-                                    type: "ObjectExpression",
+                                    type: 'ObjectExpression',
                                     properties: [{
-                                        type: "Property",
+                                        type: 'Property',
                                         key: {
-                                            type: "Identifier",
-                                            name: "c"
+                                            type: 'Identifier',
+                                            name: 'c'
                                         },
                                         computed: false,
                                         value: {
-                                            type: "Literal",
-                                            value: "d",
-                                            raw: "\"d\""
+                                            type: 'Literal',
+                                            value: 'd',
+                                            raw: '"d"'
                                         },
-                                        kind: "init",
+                                        kind: 'init',
                                         method: false,
                                         shorthand: false
                                     }, {
-                                        type: "Property",
+                                        type: 'Property',
                                         key: {
-                                            type: "Identifier",
-                                            name: "e"
+                                            type: 'Identifier',
+                                            name: 'e'
                                         },
                                         computed: false,
                                         value: {
-                                            type: "Literal",
-                                            value: "f",
-                                            raw: "\"f\""
+                                            type: 'Literal',
+                                            value: 'f',
+                                            raw: '"f"'
                                         },
-                                        kind: "init",
+                                        kind: 'init',
                                         method: false,
                                         shorthand: false
                                     }]
                                 }
                             },
-                            kind: "init",
+                            kind: 'init',
                             method: false,
                             shorthand: true
                         }]
                     }],
                     defaults: [{
-                        type: "ObjectExpression",
+                        type: 'ObjectExpression',
                         properties: []
                     }],
                     body: {
-                        type: "BlockStatement",
+                        type: 'BlockStatement',
                         body: []
                     },
                     generator: false,
@@ -1722,7 +1722,7 @@ data = {
                     type: 'FunctionDeclaration',
                     id: {
                         type: 'Identifier',
-                        name: "getIdField"
+                        name: 'getIdField'
                     },
                     params: [
                         {
@@ -1730,15 +1730,15 @@ data = {
                             elements: [
                                 {
                                     type: 'Identifier',
-                                    name: "a"
+                                    name: 'a'
                                 },
                                 {
                                     type: 'Identifier',
-                                    name: "b"
+                                    name: 'b'
                                 },
                                 {
                                     type: 'Identifier',
-                                    name: "c"
+                                    name: 'c'
                                 }
                             ]
                         }
@@ -1757,32 +1757,32 @@ data = {
 
         '[x, ...y] = list;': {
             generateFrom: {
-                "type": "Program",
-                "body": [
+                type: 'Program',
+                body: [
                     {
-                        "type": "ExpressionStatement",
-                        "expression": {
-                            "type": "AssignmentExpression",
-                            "operator": "=",
-                            "left": {
-                                "type": "ArrayPattern",
-                                "elements": [
+                        type: 'ExpressionStatement',
+                        expression: {
+                            type: 'AssignmentExpression',
+                            operator: '=',
+                            left: {
+                                type: 'ArrayPattern',
+                                elements: [
                                     {
-                                        "type": "Identifier",
-                                        "name": "x"
+                                        type: 'Identifier',
+                                        name: 'x'
                                     },
                                     {
-                                        "type": "RestElement",
-                                        "argument": {
-                                            "type": "Identifier",
-                                            "name": "y"
+                                        type: 'RestElement',
+                                        argument: {
+                                            type: 'Identifier',
+                                            name: 'y'
                                         }
                                     }
                                 ]
                             },
-                            "right": {
-                                "type": "Identifier",
-                                "name": "list"
+                            right: {
+                                type: 'Identifier',
+                                name: 'list'
                             }
                         }
                     }
@@ -1790,41 +1790,41 @@ data = {
             }
         },
         '[x, ...[y,z]] = list;': {
-            "type": "Program",
-            "body": [
+            type: 'Program',
+            body: [
                 {
-                    "type": "ExpressionStatement",
-                    "expression": {
-                        "type": "AssignmentExpression",
-                        "operator": "=",
-                        "left": {
-                            "type": "ArrayPattern",
-                            "elements": [
+                    type: 'ExpressionStatement',
+                    expression: {
+                        type: 'AssignmentExpression',
+                        operator: '=',
+                        left: {
+                            type: 'ArrayPattern',
+                            elements: [
                                 {
-                                    "type": "Identifier",
-                                    "name": "x"
+                                    type: 'Identifier',
+                                    name: 'x'
                                 },
                                 {
-                                    "type": "RestElement",
-                                    "argument": {
-                                        "type": "ArrayPattern",
-                                        "elements": [
+                                    type: 'RestElement',
+                                    argument: {
+                                        type: 'ArrayPattern',
+                                        elements: [
                                             {
-                                                "type": "Identifier",
-                                                "name": "y"
+                                                type: 'Identifier',
+                                                name: 'y'
                                             },
                                             {
-                                                "type": "Identifier",
-                                                "name": "z"
+                                                type: 'Identifier',
+                                                name: 'z'
                                             }
                                         ]
                                     }
                                 }
                             ]
                         },
-                        "right": {
-                            "type": "Identifier",
-                            "name": "list"
+                        right: {
+                            type: 'Identifier',
+                            name: 'list'
                         }
                     }
                 }
@@ -1977,7 +1977,7 @@ data = {
                                 type: 'Identifier',
                                 name: 'f'
                             },
-                            'arguments': [{
+                            arguments: [{
                                 type: 'Identifier',
                                 name: 'x'
                             }]
@@ -2018,7 +2018,7 @@ data = {
                                 type: 'Identifier',
                                 name: 'f'
                             },
-                            'arguments': [{
+                            arguments: [{
                                 type: 'Identifier',
                                 name: 'x'
                             }]
@@ -2064,7 +2064,7 @@ data = {
                                 type: 'Identifier',
                                 name: 'f'
                             },
-                            'arguments': [{
+                            arguments: [{
                                 type: 'Identifier',
                                 name: 'x'
                             }]
@@ -2105,7 +2105,7 @@ data = {
                                 type: 'Identifier',
                                 name: 'f'
                             },
-                            'arguments': [{
+                            arguments: [{
                                 type: 'Identifier',
                                 name: 'x'
                             }]
@@ -3204,7 +3204,7 @@ data = {
                                 }
                             },
                             kind: '',
-                            'static': true,
+                            static: true,
                             computed: true,
                             range: [22, 36],
                             loc: {
@@ -3299,7 +3299,7 @@ data = {
                                 }
                             },
                             kind: '',
-                            'static': true,
+                            static: true,
                             computed: false,
                             range: [22, 36],
                             loc: {
@@ -3342,7 +3342,7 @@ data = {
                                 }
                             },
                             kind: 'get',
-                            'static': true,
+                            static: true,
                             computed: false,
                             range: [36, 54],
                             loc: {
@@ -3393,7 +3393,7 @@ data = {
                                 }
                             },
                             kind: 'set',
-                            'static': true,
+                            static: true,
                             computed: false,
                             range: [54, 73],
                             loc: {
@@ -3435,7 +3435,7 @@ data = {
                                 }
                             },
                             kind: '',
-                            'static': true,
+                            static: true,
                             computed: false,
                             range: [73, 87],
                             loc: {
@@ -3530,7 +3530,7 @@ data = {
                                 }
                             },
                             kind: '',
-                            'static': false,
+                            static: false,
                             computed: false,
                             range: [22, 30],
                             loc: {
@@ -3573,7 +3573,7 @@ data = {
                                 }
                             },
                             kind: 'get',
-                            'static': false,
+                            static: false,
                             computed: false,
                             range: [30, 41],
                             loc: {
@@ -3624,7 +3624,7 @@ data = {
                                 }
                             },
                             kind: 'set',
-                            'static': false,
+                            static: false,
                             computed: false,
                             range: [41, 53],
                             loc: {
@@ -3666,7 +3666,7 @@ data = {
                                 }
                             },
                             kind: '',
-                            'static': false,
+                            static: false,
                             computed: false,
                             range: [53, 61],
                             loc: {
@@ -3760,7 +3760,7 @@ data = {
                                 }
                             },
                             kind: '',
-                            'static': false,
+                            static: false,
                             computed: false,
                             range: [22, 28],
                             loc: {
@@ -3802,7 +3802,7 @@ data = {
                                 }
                             },
                             kind: 'get',
-                            'static': false,
+                            static: false,
                             computed: false,
                             range: [28, 38],
                             loc: {
@@ -3852,7 +3852,7 @@ data = {
                                 }
                             },
                             kind: 'set',
-                            'static': false,
+                            static: false,
                             computed: false,
                             range: [38, 49],
                             loc: {
@@ -3894,7 +3894,7 @@ data = {
                                 }
                             },
                             kind: '',
-                            'static': false,
+                            static: false,
                             computed: false,
                             range: [49, 57],
                             loc: {
@@ -3989,7 +3989,7 @@ data = {
                                 }
                             },
                             kind: '',
-                            'static': false,
+                            static: false,
                             computed: false,
                             range: [22, 27],
                             loc: {
@@ -4032,7 +4032,7 @@ data = {
                                 }
                             },
                             kind: 'get',
-                            'static': false,
+                            static: false,
                             computed: false,
                             range: [27, 36],
                             loc: {
@@ -4083,7 +4083,7 @@ data = {
                                 }
                             },
                             kind: 'set',
-                            'static': false,
+                            static: false,
                             computed: false,
                             range: [36, 47],
                             loc: {
@@ -4126,7 +4126,7 @@ data = {
                                 }
                             },
                             kind: '',
-                            'static': false,
+                            static: false,
                             computed: false,
                             range: [47, 53],
                             loc: {
@@ -4213,7 +4213,7 @@ data = {
                                     }
                                 },
                                 kind: '',
-                                'static': true,
+                                static: true,
                                 computed: true,
                                 range: [17, 31],
                                 loc: {
@@ -4315,7 +4315,7 @@ data = {
                                     }
                                 },
                                 kind: '',
-                                'static': true,
+                                static: true,
                                 computed: true,
                                 range: [17, 31],
                                 loc: {
@@ -4417,7 +4417,7 @@ data = {
                                     }
                                 },
                                 kind: '',
-                                'static': true,
+                                static: true,
                                 computed: true,
                                 range: [17, 31],
                                 loc: {
@@ -4511,7 +4511,7 @@ data = {
                                     }
                                 },
                                 kind: '',
-                                'static': true,
+                                static: true,
                                 computed: true,
                                 range: [22, 36],
                                 loc: {
@@ -4604,7 +4604,7 @@ data = {
                                     }
                                 },
                                 kind: '',
-                                'static': true,
+                                static: true,
                                 computed: true,
                                 range: [21, 35],
                                 loc: {
@@ -4706,7 +4706,7 @@ data = {
                                     }
                                 },
                                 kind: '',
-                                'static': true,
+                                static: true,
                                 computed: true,
                                 range: [24, 38],
                                 loc: {
@@ -4823,108 +4823,108 @@ data = {
     'Harmony async/await': {
         'async function foo(promise) {\n    await promise;\n}': {
             generateFrom: {
-                "type": "FunctionDeclaration",
-                "id": {
-                    "type": "Identifier",
-                    "name": "foo",
-                    "range": [15, 18],
-                    "loc": {
-                        "start": {
-                            "line": 1,
-                            "column": 15
+                type: 'FunctionDeclaration',
+                id: {
+                    type: 'Identifier',
+                    name: 'foo',
+                    range: [15, 18],
+                    loc: {
+                        start: {
+                            line: 1,
+                            column: 15
                         },
-                        "end": {
-                            "line": 1,
-                            "column": 18
+                        end: {
+                            line: 1,
+                            column: 18
                         }
                     }
                 },
-                "params": [{
-                    "type": "Identifier",
-                    "name": "promise",
-                    "range": [19, 26],
-                    "loc": {
-                        "start": {
-                            "line": 1,
-                            "column": 19
+                params: [{
+                    type: 'Identifier',
+                    name: 'promise',
+                    range: [19, 26],
+                    loc: {
+                        start: {
+                            line: 1,
+                            column: 19
                         },
-                        "end": {
-                            "line": 1,
-                            "column": 26
+                        end: {
+                            line: 1,
+                            column: 26
                         }
                     }
                 }],
-                "defaults": [],
-                "body": {
-                    "type": "BlockStatement",
-                    "body": [{
-                        "type": "ExpressionStatement",
-                        "expression": {
-                            "type": "AwaitExpression",
-                            "argument": {
-                                "type": "Identifier",
-                                "name": "promise",
-                                "range": [36, 43],
-                                "loc": {
-                                    "start": {
-                                        "line": 1,
-                                        "column": 36
+                defaults: [],
+                body: {
+                    type: 'BlockStatement',
+                    body: [{
+                        type: 'ExpressionStatement',
+                        expression: {
+                            type: 'AwaitExpression',
+                            argument: {
+                                type: 'Identifier',
+                                name: 'promise',
+                                range: [36, 43],
+                                loc: {
+                                    start: {
+                                        line: 1,
+                                        column: 36
                                     },
-                                    "end": {
-                                        "line": 1,
-                                        "column": 43
+                                    end: {
+                                        line: 1,
+                                        column: 43
                                     }
                                 }
                             },
-                            "range": [30, 43],
-                            "loc": {
-                                "start": {
-                                    "line": 1,
-                                    "column": 30
+                            range: [30, 43],
+                            loc: {
+                                start: {
+                                    line: 1,
+                                    column: 30
                                 },
-                                "end": {
-                                    "line": 1,
-                                    "column": 43
+                                end: {
+                                    line: 1,
+                                    column: 43
                                 }
                             }
                         },
-                        "range": [30, 44],
-                        "loc": {
-                            "start": {
-                                "line": 1,
-                                "column": 30
+                        range: [30, 44],
+                        loc: {
+                            start: {
+                                line: 1,
+                                column: 30
                             },
-                            "end": {
-                                "line": 1,
-                                "column": 44
+                            end: {
+                                line: 1,
+                                column: 44
                             }
                         }
                     }],
-                    "range": [28, 46],
-                    "loc": {
-                        "start": {
-                            "line": 1,
-                            "column": 28
+                    range: [28, 46],
+                    loc: {
+                        start: {
+                            line: 1,
+                            column: 28
                         },
-                        "end": {
-                            "line": 1,
-                            "column": 46
+                        end: {
+                            line: 1,
+                            column: 46
                         }
                     }
                 },
-                "rest": null,
-                "generator": false,
-                "expression": false,
-                "async": true,
-                "range": [0, 46],
-                "loc": {
-                    "start": {
-                        "line": 1,
-                        "column": 0
+                rest: null,
+                generator: false,
+                expression: false,
+                async: true,
+                range: [0, 46],
+                loc: {
+                    start: {
+                        line: 1,
+                        column: 0
                     },
-                    "end": {
-                        "line": 1,
-                        "column": 46
+                    end: {
+                        line: 1,
+                        column: 46
                     }
                 }
             }
@@ -4932,80 +4932,80 @@ data = {
 
         'async x => x;': {
             generateFrom: {
-                "type": "ExpressionStatement",
-                "expression": {
-                    "type": "ArrowFunctionExpression",
-                    "id": null,
-                    "params": [
+                type: 'ExpressionStatement',
+                expression: {
+                    type: 'ArrowFunctionExpression',
+                    id: null,
+                    params: [
                         {
-                            "type": "Identifier",
-                            "name": "x",
-                            "range": [
+                            type: 'Identifier',
+                            name: 'x',
+                            range: [
                                 6,
                                 7
                             ],
-                            "loc": {
-                                "start": {
-                                    "line": 1,
-                                    "column": 6
+                            loc: {
+                                start: {
+                                    line: 1,
+                                    column: 6
                                 },
-                                "end": {
-                                    "line": 1,
-                                    "column": 7
+                                end: {
+                                    line: 1,
+                                    column: 7
                                 }
                             }
                         }
                     ],
-                    "defaults": [],
-                    "body": {
-                        "type": "Identifier",
-                        "name": "x",
-                        "range": [
+                    defaults: [],
+                    body: {
+                        type: 'Identifier',
+                        name: 'x',
+                        range: [
                             11,
                             12
                         ],
-                        "loc": {
-                            "start": {
-                                "line": 1,
-                                "column": 11
+                        loc: {
+                            start: {
+                                line: 1,
+                                column: 11
                             },
-                            "end": {
-                                "line": 1,
-                                "column": 12
+                            end: {
+                                line: 1,
+                                column: 12
                             }
                         }
                     },
-                    "rest": null,
-                    "generator": false,
-                    "expression": true,
-                    "async": true,
-                    "range": [
+                    rest: null,
+                    generator: false,
+                    expression: true,
+                    async: true,
+                    range: [
                         0,
                         12
                     ],
-                    "loc": {
-                        "start": {
-                            "line": 1,
-                            "column": 0
+                    loc: {
+                        start: {
+                            line: 1,
+                            column: 0
                         },
-                        "end": {
-                            "line": 1,
-                            "column": 12
+                        end: {
+                            line: 1,
+                            column: 12
                         }
                     }
                 },
-                "range": [
+                range: [
                     0,
                     12
                 ],
-                "loc": {
-                    "start": {
-                        "line": 1,
-                        "column": 0
+                loc: {
+                    start: {
+                        line: 1,
+                        column: 0
                     },
-                    "end": {
-                        "line": 1,
-                        "column": 12
+                    end: {
+                        line: 1,
+                        column: 12
                     }
                 }
             }
@@ -5013,192 +5013,192 @@ data = {
 
         '(function (x) {\n    async function inner() {\n        await x;\n    }\n});': {
             generateFrom: {
-                "type": "ExpressionStatement",
-                "expression": {
-                    "type": "FunctionExpression",
-                    "id": null,
-                    "params": [
+                type: 'ExpressionStatement',
+                expression: {
+                    type: 'FunctionExpression',
+                    id: null,
+                    params: [
                         {
-                            "type": "Identifier",
-                            "name": "x",
-                            "range": [
+                            type: 'Identifier',
+                            name: 'x',
+                            range: [
                                 10,
                                 11
                             ],
-                            "loc": {
-                                "start": {
-                                    "line": 1,
-                                    "column": 10
+                            loc: {
+                                start: {
+                                    line: 1,
+                                    column: 10
                                 },
-                                "end": {
-                                    "line": 1,
-                                    "column": 11
+                                end: {
+                                    line: 1,
+                                    column: 11
                                 }
                             }
                         }
                     ],
-                    "defaults": [],
-                    "body": {
-                        "type": "BlockStatement",
-                        "body": [
+                    defaults: [],
+                    body: {
+                        type: 'BlockStatement',
+                        body: [
                             {
-                                "type": "FunctionDeclaration",
-                                "id": {
-                                    "type": "Identifier",
-                                    "name": "inner",
-                                    "range": [
+                                type: 'FunctionDeclaration',
+                                id: {
+                                    type: 'Identifier',
+                                    name: 'inner',
+                                    range: [
                                         30,
                                         35
                                     ],
-                                    "loc": {
-                                        "start": {
-                                            "line": 1,
-                                            "column": 30
+                                    loc: {
+                                        start: {
+                                            line: 1,
+                                            column: 30
                                         },
-                                        "end": {
-                                            "line": 1,
-                                            "column": 35
+                                        end: {
+                                            line: 1,
+                                            column: 35
                                         }
                                     }
                                 },
-                                "params": [],
-                                "defaults": [],
-                                "body": {
-                                    "type": "BlockStatement",
-                                    "body": [
+                                params: [],
+                                defaults: [],
+                                body: {
+                                    type: 'BlockStatement',
+                                    body: [
                                         {
-                                            "type": "ExpressionStatement",
-                                            "expression": {
-                                                "type": "AwaitExpression",
-                                                "argument": {
-                                                    "type": "Identifier",
-                                                    "name": "x",
-                                                    "range": [
+                                            type: 'ExpressionStatement',
+                                            expression: {
+                                                type: 'AwaitExpression',
+                                                argument: {
+                                                    type: 'Identifier',
+                                                    name: 'x',
+                                                    range: [
                                                         46,
                                                         47
                                                     ],
-                                                    "loc": {
-                                                        "start": {
-                                                            "line": 1,
-                                                            "column": 46
+                                                    loc: {
+                                                        start: {
+                                                            line: 1,
+                                                            column: 46
                                                         },
-                                                        "end": {
-                                                            "line": 1,
-                                                            "column": 47
+                                                        end: {
+                                                            line: 1,
+                                                            column: 47
                                                         }
                                                     }
                                                 },
-                                                "range": [
+                                                range: [
                                                     40,
                                                     47
                                                 ],
-                                                "loc": {
-                                                    "start": {
-                                                        "line": 1,
-                                                        "column": 40
+                                                loc: {
+                                                    start: {
+                                                        line: 1,
+                                                        column: 40
                                                     },
-                                                    "end": {
-                                                        "line": 1,
-                                                        "column": 47
+                                                    end: {
+                                                        line: 1,
+                                                        column: 47
                                                     }
                                                 }
                                             },
-                                            "range": [
+                                            range: [
                                                 40,
                                                 48
                                             ],
-                                            "loc": {
-                                                "start": {
-                                                    "line": 1,
-                                                    "column": 40
+                                            loc: {
+                                                start: {
+                                                    line: 1,
+                                                    column: 40
                                                 },
-                                                "end": {
-                                                    "line": 1,
-                                                    "column": 48
+                                                end: {
+                                                    line: 1,
+                                                    column: 48
                                                 }
                                             }
                                         }
                                     ],
-                                    "range": [
+                                    range: [
                                         38,
                                         49
                                     ],
-                                    "loc": {
-                                        "start": {
-                                            "line": 1,
-                                            "column": 38
+                                    loc: {
+                                        start: {
+                                            line: 1,
+                                            column: 38
                                         },
-                                        "end": {
-                                            "line": 1,
-                                            "column": 49
+                                        end: {
+                                            line: 1,
+                                            column: 49
                                         }
                                     }
                                 },
-                                "rest": null,
-                                "generator": false,
-                                "expression": false,
-                                "async": true,
-                                "range": [
+                                rest: null,
+                                generator: false,
+                                expression: false,
+                                async: true,
+                                range: [
                                     15,
                                     49
                                 ],
-                                "loc": {
-                                    "start": {
-                                        "line": 1,
-                                        "column": 15
+                                loc: {
+                                    start: {
+                                        line: 1,
+                                        column: 15
                                     },
-                                    "end": {
-                                        "line": 1,
-                                        "column": 49
+                                    end: {
+                                        line: 1,
+                                        column: 49
                                     }
                                 }
                             }
                         ],
-                        "range": [
+                        range: [
                             13,
                             51
                         ],
-                        "loc": {
-                            "start": {
-                                "line": 1,
-                                "column": 13
+                        loc: {
+                            start: {
+                                line: 1,
+                                column: 13
                             },
-                            "end": {
-                                "line": 1,
-                                "column": 51
+                            end: {
+                                line: 1,
+                                column: 51
                             }
                         }
                     },
-                    "rest": null,
-                    "generator": false,
-                    "expression": false,
-                    "range": [
+                    rest: null,
+                    generator: false,
+                    expression: false,
+                    range: [
                         1,
                         51
                     ],
-                    "loc": {
-                        "start": {
-                            "line": 1,
-                            "column": 1
+                    loc: {
+                        start: {
+                            line: 1,
+                            column: 1
                         },
-                        "end": {
-                            "line": 1,
-                            "column": 51
+                        end: {
+                            line: 1,
+                            column: 51
                         }
                     }
                 },
-                "range": [
+                range: [
                     0,
                     52
                 ],
-                "loc": {
-                    "start": {
-                        "line": 1,
-                        "column": 0
+                loc: {
+                    start: {
+                        line: 1,
+                        column: 0
                     },
-                    "end": {
-                        "line": 1,
-                        "column": 52
+                    end: {
+                        line: 1,
+                        column: 52
                     }
                 }
             }
@@ -5206,171 +5206,171 @@ data = {
 
         'var foo = async function (promise) {\n    await promise;\n};': {
             generateFrom: {
-                "type": "VariableDeclaration",
-                "declarations": [
+                type: 'VariableDeclaration',
+                declarations: [
                     {
-                        "type": "VariableDeclarator",
-                        "id": {
-                            "type": "Identifier",
-                            "name": "foo",
-                            "range": [
+                        type: 'VariableDeclarator',
+                        id: {
+                            type: 'Identifier',
+                            name: 'foo',
+                            range: [
                                 4,
                                 7
                             ],
-                            "loc": {
-                                "start": {
-                                    "line": 1,
-                                    "column": 4
+                            loc: {
+                                start: {
+                                    line: 1,
+                                    column: 4
                                 },
-                                "end": {
-                                    "line": 1,
-                                    "column": 7
+                                end: {
+                                    line: 1,
+                                    column: 7
                                 }
                             }
                         },
-                        "init": {
-                            "type": "FunctionExpression",
-                            "id": null,
-                            "params": [
+                        init: {
+                            type: 'FunctionExpression',
+                            id: null,
+                            params: [
                                 {
-                                    "type": "Identifier",
-                                    "name": "promise",
-                                    "range": [
+                                    type: 'Identifier',
+                                    name: 'promise',
+                                    range: [
                                         25,
                                         32
                                     ],
-                                    "loc": {
-                                        "start": {
-                                            "line": 1,
-                                            "column": 25
+                                    loc: {
+                                        start: {
+                                            line: 1,
+                                            column: 25
                                         },
-                                        "end": {
-                                            "line": 1,
-                                            "column": 32
+                                        end: {
+                                            line: 1,
+                                            column: 32
                                         }
                                     }
                                 }
                             ],
-                            "defaults": [],
-                            "body": {
-                                "type": "BlockStatement",
-                                "body": [
+                            defaults: [],
+                            body: {
+                                type: 'BlockStatement',
+                                body: [
                                     {
-                                        "type": "ExpressionStatement",
-                                        "expression": {
-                                            "type": "AwaitExpression",
-                                            "argument": {
-                                                "type": "Identifier",
-                                                "name": "promise",
-                                                "range": [
+                                        type: 'ExpressionStatement',
+                                        expression: {
+                                            type: 'AwaitExpression',
+                                            argument: {
+                                                type: 'Identifier',
+                                                name: 'promise',
+                                                range: [
                                                     42,
                                                     49
                                                 ],
-                                                "loc": {
-                                                    "start": {
-                                                        "line": 1,
-                                                        "column": 42
+                                                loc: {
+                                                    start: {
+                                                        line: 1,
+                                                        column: 42
                                                     },
-                                                    "end": {
-                                                        "line": 1,
-                                                        "column": 49
+                                                    end: {
+                                                        line: 1,
+                                                        column: 49
                                                     }
                                                 }
                                             },
-                                            "range": [
+                                            range: [
                                                 36,
                                                 49
                                             ],
-                                            "loc": {
-                                                "start": {
-                                                    "line": 1,
-                                                    "column": 36
+                                            loc: {
+                                                start: {
+                                                    line: 1,
+                                                    column: 36
                                                 },
-                                                "end": {
-                                                    "line": 1,
-                                                    "column": 49
+                                                end: {
+                                                    line: 1,
+                                                    column: 49
                                                 }
                                             }
                                         },
-                                        "range": [
+                                        range: [
                                             36,
                                             50
                                         ],
-                                        "loc": {
-                                            "start": {
-                                                "line": 1,
-                                                "column": 36
+                                        loc: {
+                                            start: {
+                                                line: 1,
+                                                column: 36
                                             },
-                                            "end": {
-                                                "line": 1,
-                                                "column": 50
+                                            end: {
+                                                line: 1,
+                                                column: 50
                                             }
                                         }
                                     }
                                 ],
-                                "range": [
+                                range: [
                                     34,
                                     52
                                 ],
-                                "loc": {
-                                    "start": {
-                                        "line": 1,
-                                        "column": 34
+                                loc: {
+                                    start: {
+                                        line: 1,
+                                        column: 34
                                     },
-                                    "end": {
-                                        "line": 1,
-                                        "column": 52
+                                    end: {
+                                        line: 1,
+                                        column: 52
                                     }
                                 }
                             },
-                            "rest": null,
-                            "generator": false,
-                            "expression": false,
-                            "async": true,
-                            "range": [
+                            rest: null,
+                            generator: false,
+                            expression: false,
+                            async: true,
+                            range: [
                                 10,
                                 52
                             ],
-                            "loc": {
-                                "start": {
-                                    "line": 1,
-                                    "column": 10
+                            loc: {
+                                start: {
+                                    line: 1,
+                                    column: 10
                                 },
-                                "end": {
-                                    "line": 1,
-                                    "column": 52
+                                end: {
+                                    line: 1,
+                                    column: 52
                                 }
                             }
                         },
-                        "range": [
+                        range: [
                             4,
                             52
                         ],
-                        "loc": {
-                            "start": {
-                                "line": 1,
-                                "column": 4
+                        loc: {
+                            start: {
+                                line: 1,
+                                column: 4
                             },
-                            "end": {
-                                "line": 1,
-                                "column": 52
+                            end: {
+                                line: 1,
+                                column: 52
                             }
                         }
                     }
                 ],
-                "kind": "var",
-                "range": [
+                kind: 'var',
+                range: [
                     0,
                     52
                 ],
-                "loc": {
-                    "start": {
-                        "line": 1,
-                        "column": 0
+                loc: {
+                    start: {
+                        line: 1,
+                        column: 0
                     },
-                    "end": {
-                        "line": 1,
-                        "column": 52
+                    end: {
+                        line: 1,
+                        column: 52
                     }
                 }
             }
@@ -5378,287 +5378,287 @@ data = {
 
         'var o = {\n    a: 1,\n    async foo(promise) {\n        await promise;\n    }\n};': {
             generateFrom: {
-                "type": "VariableDeclaration",
-                "declarations": [
+                type: 'VariableDeclaration',
+                declarations: [
                     {
-                        "type": "VariableDeclarator",
-                        "id": {
-                            "type": "Identifier",
-                            "name": "o",
-                            "range": [
+                        type: 'VariableDeclarator',
+                        id: {
+                            type: 'Identifier',
+                            name: 'o',
+                            range: [
                                 4,
                                 5
                             ],
-                            "loc": {
-                                "start": {
-                                    "line": 1,
-                                    "column": 4
+                            loc: {
+                                start: {
+                                    line: 1,
+                                    column: 4
                                 },
-                                "end": {
-                                    "line": 1,
-                                    "column": 5
+                                end: {
+                                    line: 1,
+                                    column: 5
                                 }
                             }
                         },
-                        "init": {
-                            "type": "ObjectExpression",
-                            "properties": [
+                        init: {
+                            type: 'ObjectExpression',
+                            properties: [
                                 {
-                                    "type": "Property",
-                                    "key": {
-                                        "type": "Identifier",
-                                        "name": "a",
-                                        "range": [
+                                    type: 'Property',
+                                    key: {
+                                        type: 'Identifier',
+                                        name: 'a',
+                                        range: [
                                             10,
                                             11
                                         ],
-                                        "loc": {
-                                            "start": {
-                                                "line": 1,
-                                                "column": 10
+                                        loc: {
+                                            start: {
+                                                line: 1,
+                                                column: 10
                                             },
-                                            "end": {
-                                                "line": 1,
-                                                "column": 11
+                                            end: {
+                                                line: 1,
+                                                column: 11
                                             }
                                         }
                                     },
-                                    "value": {
-                                        "type": "Literal",
-                                        "value": 1,
-                                        "raw": "1",
-                                        "range": [
+                                    value: {
+                                        type: 'Literal',
+                                        value: 1,
+                                        raw: '1',
+                                        range: [
                                             13,
                                             14
                                         ],
-                                        "loc": {
-                                            "start": {
-                                                "line": 1,
-                                                "column": 13
+                                        loc: {
+                                            start: {
+                                                line: 1,
+                                                column: 13
                                             },
-                                            "end": {
-                                                "line": 1,
-                                                "column": 14
+                                            end: {
+                                                line: 1,
+                                                column: 14
                                             }
                                         }
                                     },
-                                    "kind": "init",
-                                    "method": false,
-                                    "shorthand": false,
-                                    "computed": false,
-                                    "range": [
+                                    kind: 'init',
+                                    method: false,
+                                    shorthand: false,
+                                    computed: false,
+                                    range: [
                                         10,
                                         14
                                     ],
-                                    "loc": {
-                                        "start": {
-                                            "line": 1,
-                                            "column": 10
+                                    loc: {
+                                        start: {
+                                            line: 1,
+                                            column: 10
                                         },
-                                        "end": {
-                                            "line": 1,
-                                            "column": 14
+                                        end: {
+                                            line: 1,
+                                            column: 14
                                         }
                                     }
                                 },
                                 {
-                                    "type": "Property",
-                                    "key": {
-                                        "type": "Identifier",
-                                        "name": "foo",
-                                        "range": [
+                                    type: 'Property',
+                                    key: {
+                                        type: 'Identifier',
+                                        name: 'foo',
+                                        range: [
                                             22,
                                             25
                                         ],
-                                        "loc": {
-                                            "start": {
-                                                "line": 1,
-                                                "column": 22
+                                        loc: {
+                                            start: {
+                                                line: 1,
+                                                column: 22
                                             },
-                                            "end": {
-                                                "line": 1,
-                                                "column": 25
+                                            end: {
+                                                line: 1,
+                                                column: 25
                                             }
                                         }
                                     },
-                                    "value": {
-                                        "type": "FunctionExpression",
-                                        "id": null,
-                                        "params": [
+                                    value: {
+                                        type: 'FunctionExpression',
+                                        id: null,
+                                        params: [
                                             {
-                                                "type": "Identifier",
-                                                "name": "promise",
-                                                "range": [
+                                                type: 'Identifier',
+                                                name: 'promise',
+                                                range: [
                                                     26,
                                                     33
                                                 ],
-                                                "loc": {
-                                                    "start": {
-                                                        "line": 1,
-                                                        "column": 26
+                                                loc: {
+                                                    start: {
+                                                        line: 1,
+                                                        column: 26
                                                     },
-                                                    "end": {
-                                                        "line": 1,
-                                                        "column": 33
+                                                    end: {
+                                                        line: 1,
+                                                        column: 33
                                                     }
                                                 }
                                             }
                                         ],
-                                        "defaults": [],
-                                        "body": {
-                                            "type": "BlockStatement",
-                                            "body": [
+                                        defaults: [],
+                                        body: {
+                                            type: 'BlockStatement',
+                                            body: [
                                                 {
-                                                    "type": "ExpressionStatement",
-                                                    "expression": {
-                                                        "type": "AwaitExpression",
-                                                        "argument": {
-                                                            "type": "Identifier",
-                                                            "name": "promise",
-                                                            "range": [
+                                                    type: 'ExpressionStatement',
+                                                    expression: {
+                                                        type: 'AwaitExpression',
+                                                        argument: {
+                                                            type: 'Identifier',
+                                                            name: 'promise',
+                                                            range: [
                                                                 43,
                                                                 50
                                                             ],
-                                                            "loc": {
-                                                                "start": {
-                                                                    "line": 1,
-                                                                    "column": 43
+                                                            loc: {
+                                                                start: {
+                                                                    line: 1,
+                                                                    column: 43
                                                                 },
-                                                                "end": {
-                                                                    "line": 1,
-                                                                    "column": 50
+                                                                end: {
+                                                                    line: 1,
+                                                                    column: 50
                                                                 }
                                                             }
                                                         },
-                                                        "range": [
+                                                        range: [
                                                             37,
                                                             50
                                                         ],
-                                                        "loc": {
-                                                            "start": {
-                                                                "line": 1,
-                                                                "column": 37
+                                                        loc: {
+                                                            start: {
+                                                                line: 1,
+                                                                column: 37
                                                             },
-                                                            "end": {
-                                                                "line": 1,
-                                                                "column": 50
+                                                            end: {
+                                                                line: 1,
+                                                                column: 50
                                                             }
                                                         }
                                                     },
-                                                    "range": [
+                                                    range: [
                                                         37,
                                                         51
                                                     ],
-                                                    "loc": {
-                                                        "start": {
-                                                            "line": 1,
-                                                            "column": 37
+                                                    loc: {
+                                                        start: {
+                                                            line: 1,
+                                                            column: 37
                                                         },
-                                                        "end": {
-                                                            "line": 1,
-                                                            "column": 51
+                                                        end: {
+                                                            line: 1,
+                                                            column: 51
                                                         }
                                                     }
                                                 }
                                             ],
-                                            "range": [
+                                            range: [
                                                 35,
                                                 52
                                             ],
-                                            "loc": {
-                                                "start": {
-                                                    "line": 1,
-                                                    "column": 35
+                                            loc: {
+                                                start: {
+                                                    line: 1,
+                                                    column: 35
                                                 },
-                                                "end": {
-                                                    "line": 1,
-                                                    "column": 52
+                                                end: {
+                                                    line: 1,
+                                                    column: 52
                                                 }
                                             }
                                         },
-                                        "rest": null,
-                                        "generator": false,
-                                        "expression": false,
-                                        "async": true,
-                                        "range": [
+                                        rest: null,
+                                        generator: false,
+                                        expression: false,
+                                        async: true,
+                                        range: [
                                             35,
                                             52
                                         ],
-                                        "loc": {
-                                            "start": {
-                                                "line": 1,
-                                                "column": 35
+                                        loc: {
+                                            start: {
+                                                line: 1,
+                                                column: 35
                                             },
-                                            "end": {
-                                                "line": 1,
-                                                "column": 52
+                                            end: {
+                                                line: 1,
+                                                column: 52
                                             }
                                         }
                                     },
-                                    "kind": "init",
-                                    "method": true,
-                                    "shorthand": false,
-                                    "computed": false,
-                                    "range": [
+                                    kind: 'init',
+                                    method: true,
+                                    shorthand: false,
+                                    computed: false,
+                                    range: [
                                         16,
                                         52
                                     ],
-                                    "loc": {
-                                        "start": {
-                                            "line": 1,
-                                            "column": 16
+                                    loc: {
+                                        start: {
+                                            line: 1,
+                                            column: 16
                                         },
-                                        "end": {
-                                            "line": 1,
-                                            "column": 52
+                                        end: {
+                                            line: 1,
+                                            column: 52
                                         }
                                     }
                                 }
                             ],
-                            "range": [
+                            range: [
                                 8,
                                 54
                             ],
-                            "loc": {
-                                "start": {
-                                    "line": 1,
-                                    "column": 8
+                            loc: {
+                                start: {
+                                    line: 1,
+                                    column: 8
                                 },
-                                "end": {
-                                    "line": 1,
-                                    "column": 54
+                                end: {
+                                    line: 1,
+                                    column: 54
                                 }
                             }
                         },
-                        "range": [
+                        range: [
                             4,
                             54
                         ],
-                        "loc": {
-                            "start": {
-                                "line": 1,
-                                "column": 4
+                        loc: {
+                            start: {
+                                line: 1,
+                                column: 4
                             },
-                            "end": {
-                                "line": 1,
-                                "column": 54
+                            end: {
+                                line: 1,
+                                column: 54
                             }
                         }
                     }
                 ],
-                "kind": "var",
-                "range": [
+                kind: 'var',
+                range: [
                     0,
                     54
                 ],
-                "loc": {
-                    "start": {
-                        "line": 1,
-                        "column": 0
+                loc: {
+                    start: {
+                        line: 1,
+                        column: 0
                     },
-                    "end": {
-                        "line": 1,
-                        "column": 54
+                    end: {
+                        line: 1,
+                        column: 54
                     }
                 }
             }
@@ -5666,209 +5666,209 @@ data = {
 
         'class Foo {\n    async bar(promise) {\n        await promise;\n    }\n}': {
             generateFrom: {
-                "type": "ClassDeclaration",
-                "id": {
-                    "type": "Identifier",
-                    "name": "Foo",
-                    "range": [
+                type: 'ClassDeclaration',
+                id: {
+                    type: 'Identifier',
+                    name: 'Foo',
+                    range: [
                         6,
                         9
                     ],
-                    "loc": {
-                        "start": {
-                            "line": 1,
-                            "column": 6
+                    loc: {
+                        start: {
+                            line: 1,
+                            column: 6
                         },
-                        "end": {
-                            "line": 1,
-                            "column": 9
+                        end: {
+                            line: 1,
+                            column: 9
                         }
                     }
                 },
-                "superClass": null,
-                "body": {
-                    "type": "ClassBody",
-                    "body": [
+                superClass: null,
+                body: {
+                    type: 'ClassBody',
+                    body: [
                         {
-                            "type": "MethodDefinition",
-                            "key": {
-                                "type": "Identifier",
-                                "name": "bar",
-                                "range": [
+                            type: 'MethodDefinition',
+                            key: {
+                                type: 'Identifier',
+                                name: 'bar',
+                                range: [
                                     18,
                                     21
                                 ],
-                                "loc": {
-                                    "start": {
-                                        "line": 1,
-                                        "column": 18
+                                loc: {
+                                    start: {
+                                        line: 1,
+                                        column: 18
                                     },
-                                    "end": {
-                                        "line": 1,
-                                        "column": 21
+                                    end: {
+                                        line: 1,
+                                        column: 21
                                     }
                                 }
                             },
-                            "value": {
-                                "type": "FunctionExpression",
-                                "id": null,
-                                "params": [
+                            value: {
+                                type: 'FunctionExpression',
+                                id: null,
+                                params: [
                                     {
-                                        "type": "Identifier",
-                                        "name": "promise",
-                                        "range": [
+                                        type: 'Identifier',
+                                        name: 'promise',
+                                        range: [
                                             22,
                                             29
                                         ],
-                                        "loc": {
-                                            "start": {
-                                                "line": 1,
-                                                "column": 22
+                                        loc: {
+                                            start: {
+                                                line: 1,
+                                                column: 22
                                             },
-                                            "end": {
-                                                "line": 1,
-                                                "column": 29
+                                            end: {
+                                                line: 1,
+                                                column: 29
                                             }
                                         }
                                     }
                                 ],
-                                "defaults": [],
-                                "body": {
-                                    "type": "BlockStatement",
-                                    "body": [
+                                defaults: [],
+                                body: {
+                                    type: 'BlockStatement',
+                                    body: [
                                         {
-                                            "type": "ExpressionStatement",
-                                            "expression": {
-                                                "type": "AwaitExpression",
-                                                "argument": {
-                                                    "type": "Identifier",
-                                                    "name": "promise",
-                                                    "range": [
+                                            type: 'ExpressionStatement',
+                                            expression: {
+                                                type: 'AwaitExpression',
+                                                argument: {
+                                                    type: 'Identifier',
+                                                    name: 'promise',
+                                                    range: [
                                                         39,
                                                         46
                                                     ],
-                                                    "loc": {
-                                                        "start": {
-                                                            "line": 1,
-                                                            "column": 39
+                                                    loc: {
+                                                        start: {
+                                                            line: 1,
+                                                            column: 39
                                                         },
-                                                        "end": {
-                                                            "line": 1,
-                                                            "column": 46
+                                                        end: {
+                                                            line: 1,
+                                                            column: 46
                                                         }
                                                     }
                                                 },
-                                                "range": [
+                                                range: [
                                                     33,
                                                     46
                                                 ],
-                                                "loc": {
-                                                    "start": {
-                                                        "line": 1,
-                                                        "column": 33
+                                                loc: {
+                                                    start: {
+                                                        line: 1,
+                                                        column: 33
                                                     },
-                                                    "end": {
-                                                        "line": 1,
-                                                        "column": 46
+                                                    end: {
+                                                        line: 1,
+                                                        column: 46
                                                     }
                                                 }
                                             },
-                                            "range": [
+                                            range: [
                                                 33,
                                                 47
                                             ],
-                                            "loc": {
-                                                "start": {
-                                                    "line": 1,
-                                                    "column": 33
+                                            loc: {
+                                                start: {
+                                                    line: 1,
+                                                    column: 33
                                                 },
-                                                "end": {
-                                                    "line": 1,
-                                                    "column": 47
+                                                end: {
+                                                    line: 1,
+                                                    column: 47
                                                 }
                                             }
                                         }
                                     ],
-                                    "range": [
+                                    range: [
                                         31,
                                         48
                                     ],
-                                    "loc": {
-                                        "start": {
-                                            "line": 1,
-                                            "column": 31
+                                    loc: {
+                                        start: {
+                                            line: 1,
+                                            column: 31
                                         },
-                                        "end": {
-                                            "line": 1,
-                                            "column": 48
+                                        end: {
+                                            line: 1,
+                                            column: 48
                                         }
                                     }
                                 },
-                                "rest": null,
-                                "generator": false,
-                                "expression": false,
-                                "async": true,
-                                "range": [
+                                rest: null,
+                                generator: false,
+                                expression: false,
+                                async: true,
+                                range: [
                                     31,
                                     48
                                 ],
-                                "loc": {
-                                    "start": {
-                                        "line": 1,
-                                        "column": 31
+                                loc: {
+                                    start: {
+                                        line: 1,
+                                        column: 31
                                     },
-                                    "end": {
-                                        "line": 1,
-                                        "column": 48
+                                    end: {
+                                        line: 1,
+                                        column: 48
                                     }
                                 }
                             },
-                            "kind": "",
-                            "static": false,
-                            "computed": false,
-                            "range": [
+                            kind: '',
+                            static: false,
+                            computed: false,
+                            range: [
                                 12,
                                 48
                             ],
-                            "loc": {
-                                "start": {
-                                    "line": 1,
-                                    "column": 12
+                            loc: {
+                                start: {
+                                    line: 1,
+                                    column: 12
                                 },
-                                "end": {
-                                    "line": 1,
-                                    "column": 48
+                                end: {
+                                    line: 1,
+                                    column: 48
                                 }
                             }
                         }
                     ],
-                    "range": [
+                    range: [
                         10,
                         50
                     ],
-                    "loc": {
-                        "start": {
-                            "line": 1,
-                            "column": 10
+                    loc: {
+                        start: {
+                            line: 1,
+                            column: 10
                         },
-                        "end": {
-                            "line": 1,
-                            "column": 50
+                        end: {
+                            line: 1,
+                            column: 50
                         }
                     }
                 },
-                "range": [
+                range: [
                     0,
                     50
                 ],
-                "loc": {
-                    "start": {
-                        "line": 1,
-                        "column": 0
+                loc: {
+                    start: {
+                        line: 1,
+                        column: 0
                     },
-                    "end": {
-                        "line": 1,
-                        "column": 50
+                    end: {
+                        line: 1,
+                        column: 50
                     }
                 }
             }
@@ -5876,152 +5876,152 @@ data = {
 
         'f(a, async promise => await promise);': {
             generateFrom: {
-                "type": "ExpressionStatement",
-                "expression": {
-                    "type": "CallExpression",
-                    "callee": {
-                        "type": "Identifier",
-                        "name": "f",
-                        "range": [
+                type: 'ExpressionStatement',
+                expression: {
+                    type: 'CallExpression',
+                    callee: {
+                        type: 'Identifier',
+                        name: 'f',
+                        range: [
                             0,
                             1
                         ],
-                        "loc": {
-                            "start": {
-                                "line": 1,
-                                "column": 0
+                        loc: {
+                            start: {
+                                line: 1,
+                                column: 0
                             },
-                            "end": {
-                                "line": 1,
-                                "column": 1
+                            end: {
+                                line: 1,
+                                column: 1
                             }
                         }
                     },
-                    "arguments": [
+                    arguments: [
                         {
-                            "type": "Identifier",
-                            "name": "a",
-                            "range": [
+                            type: 'Identifier',
+                            name: 'a',
+                            range: [
                                 2,
                                 3
                             ],
-                            "loc": {
-                                "start": {
-                                    "line": 1,
-                                    "column": 2
+                            loc: {
+                                start: {
+                                    line: 1,
+                                    column: 2
                                 },
-                                "end": {
-                                    "line": 1,
-                                    "column": 3
+                                end: {
+                                    line: 1,
+                                    column: 3
                                 }
                             }
                         },
                         {
-                            "type": "ArrowFunctionExpression",
-                            "id": null,
-                            "params": [
+                            type: 'ArrowFunctionExpression',
+                            id: null,
+                            params: [
                                 {
-                                    "type": "Identifier",
-                                    "name": "promise",
-                                    "range": [
+                                    type: 'Identifier',
+                                    name: 'promise',
+                                    range: [
                                         11,
                                         18
                                     ],
-                                    "loc": {
-                                        "start": {
-                                            "line": 1,
-                                            "column": 11
+                                    loc: {
+                                        start: {
+                                            line: 1,
+                                            column: 11
                                         },
-                                        "end": {
-                                            "line": 1,
-                                            "column": 18
+                                        end: {
+                                            line: 1,
+                                            column: 18
                                         }
                                     }
                                 }
                             ],
-                            "defaults": [],
-                            "body": {
-                                "type": "AwaitExpression",
-                                "argument": {
-                                    "type": "Identifier",
-                                    "name": "promise",
-                                    "range": [
+                            defaults: [],
+                            body: {
+                                type: 'AwaitExpression',
+                                argument: {
+                                    type: 'Identifier',
+                                    name: 'promise',
+                                    range: [
                                         28,
                                         35
                                     ],
-                                    "loc": {
-                                        "start": {
-                                            "line": 1,
-                                            "column": 28
+                                    loc: {
+                                        start: {
+                                            line: 1,
+                                            column: 28
                                         },
-                                        "end": {
-                                            "line": 1,
-                                            "column": 35
+                                        end: {
+                                            line: 1,
+                                            column: 35
                                         }
                                     }
                                 },
-                                "range": [
+                                range: [
                                     22,
                                     35
                                 ],
-                                "loc": {
-                                    "start": {
-                                        "line": 1,
-                                        "column": 22
+                                loc: {
+                                    start: {
+                                        line: 1,
+                                        column: 22
                                     },
-                                    "end": {
-                                        "line": 1,
-                                        "column": 35
+                                    end: {
+                                        line: 1,
+                                        column: 35
                                     }
                                 }
                             },
-                            "rest": null,
-                            "generator": false,
-                            "expression": true,
-                            "async": true,
-                            "range": [
+                            rest: null,
+                            generator: false,
+                            expression: true,
+                            async: true,
+                            range: [
                                 5,
                                 35
                             ],
-                            "loc": {
-                                "start": {
-                                    "line": 1,
-                                    "column": 5
+                            loc: {
+                                start: {
+                                    line: 1,
+                                    column: 5
                                 },
-                                "end": {
-                                    "line": 1,
-                                    "column": 35
+                                end: {
+                                    line: 1,
+                                    column: 35
                                 }
                             }
                         }
                     ],
-                    "range": [
+                    range: [
                         0,
                         36
                     ],
-                    "loc": {
-                        "start": {
-                            "line": 1,
-                            "column": 0
+                    loc: {
+                        start: {
+                            line: 1,
+                            column: 0
                         },
-                        "end": {
-                            "line": 1,
-                            "column": 36
+                        end: {
+                            line: 1,
+                            column: 36
                         }
                     }
                 },
-                "range": [
+                range: [
                     0,
                     36
                 ],
-                "loc": {
-                    "start": {
-                        "line": 1,
-                        "column": 0
+                loc: {
+                    start: {
+                        line: 1,
+                        column: 0
                     },
-                    "end": {
-                        "line": 1,
-                        "column": 36
+                    end: {
+                        line: 1,
+                        column: 36
                     }
                 }
             }
@@ -6029,225 +6029,225 @@ data = {
 
         'f(a, async (x, y) => await [\n    x,\n    y\n], b);': {
             generateFrom: {
-                "type": "ExpressionStatement",
-                "expression": {
-                    "type": "CallExpression",
-                    "callee": {
-                        "type": "Identifier",
-                        "name": "f",
-                        "range": [
+                type: 'ExpressionStatement',
+                expression: {
+                    type: 'CallExpression',
+                    callee: {
+                        type: 'Identifier',
+                        name: 'f',
+                        range: [
                             0,
                             1
                         ],
-                        "loc": {
-                            "start": {
-                                "line": 1,
-                                "column": 0
+                        loc: {
+                            start: {
+                                line: 1,
+                                column: 0
                             },
-                            "end": {
-                                "line": 1,
-                                "column": 1
+                            end: {
+                                line: 1,
+                                column: 1
                             }
                         }
                     },
-                    "arguments": [
+                    arguments: [
                         {
-                            "type": "Identifier",
-                            "name": "a",
-                            "range": [
+                            type: 'Identifier',
+                            name: 'a',
+                            range: [
                                 2,
                                 3
                             ],
-                            "loc": {
-                                "start": {
-                                    "line": 1,
-                                    "column": 2
+                            loc: {
+                                start: {
+                                    line: 1,
+                                    column: 2
                                 },
-                                "end": {
-                                    "line": 1,
-                                    "column": 3
+                                end: {
+                                    line: 1,
+                                    column: 3
                                 }
                             }
                         },
                         {
-                            "type": "ArrowFunctionExpression",
-                            "id": null,
-                            "params": [
+                            type: 'ArrowFunctionExpression',
+                            id: null,
+                            params: [
                                 {
-                                    "type": "Identifier",
-                                    "name": "x",
-                                    "range": [
+                                    type: 'Identifier',
+                                    name: 'x',
+                                    range: [
                                         11,
                                         12
                                     ],
-                                    "loc": {
-                                        "start": {
-                                            "line": 1,
-                                            "column": 11
+                                    loc: {
+                                        start: {
+                                            line: 1,
+                                            column: 11
                                         },
-                                        "end": {
-                                            "line": 1,
-                                            "column": 12
+                                        end: {
+                                            line: 1,
+                                            column: 12
                                         }
                                     }
                                 },
                                 {
-                                    "type": "Identifier",
-                                    "name": "y",
-                                    "range": [
+                                    type: 'Identifier',
+                                    name: 'y',
+                                    range: [
                                         14,
                                         15
                                     ],
-                                    "loc": {
-                                        "start": {
-                                            "line": 1,
-                                            "column": 14
+                                    loc: {
+                                        start: {
+                                            line: 1,
+                                            column: 14
                                         },
-                                        "end": {
-                                            "line": 1,
-                                            "column": 15
+                                        end: {
+                                            line: 1,
+                                            column: 15
                                         }
                                     }
                                 }
                             ],
-                            "defaults": [],
-                            "body": {
-                                "type": "AwaitExpression",
-                                "argument": {
-                                    "type": "ArrayExpression",
-                                    "elements": [
+                            defaults: [],
+                            body: {
+                                type: 'AwaitExpression',
+                                argument: {
+                                    type: 'ArrayExpression',
+                                    elements: [
                                         {
-                                            "type": "Identifier",
-                                            "name": "x",
-                                            "range": [
+                                            type: 'Identifier',
+                                            name: 'x',
+                                            range: [
                                                 27,
                                                 28
                                             ],
-                                            "loc": {
-                                                "start": {
-                                                    "line": 1,
-                                                    "column": 27
+                                            loc: {
+                                                start: {
+                                                    line: 1,
+                                                    column: 27
                                                 },
-                                                "end": {
-                                                    "line": 1,
-                                                    "column": 28
+                                                end: {
+                                                    line: 1,
+                                                    column: 28
                                                 }
                                             }
                                         },
                                         {
-                                            "type": "Identifier",
-                                            "name": "y",
-                                            "range": [
+                                            type: 'Identifier',
+                                            name: 'y',
+                                            range: [
                                                 30,
                                                 31
                                             ],
-                                            "loc": {
-                                                "start": {
-                                                    "line": 1,
-                                                    "column": 30
+                                            loc: {
+                                                start: {
+                                                    line: 1,
+                                                    column: 30
                                                 },
-                                                "end": {
-                                                    "line": 1,
-                                                    "column": 31
+                                                end: {
+                                                    line: 1,
+                                                    column: 31
                                                 }
                                             }
                                         }
                                     ],
-                                    "range": [
+                                    range: [
                                         26,
                                         32
                                     ],
-                                    "loc": {
-                                        "start": {
-                                            "line": 1,
-                                            "column": 26
+                                    loc: {
+                                        start: {
+                                            line: 1,
+                                            column: 26
                                         },
-                                        "end": {
-                                            "line": 1,
-                                            "column": 32
+                                        end: {
+                                            line: 1,
+                                            column: 32
                                         }
                                     }
                                 },
-                                "range": [
+                                range: [
                                     20,
                                     32
                                 ],
-                                "loc": {
-                                    "start": {
-                                        "line": 1,
-                                        "column": 20
+                                loc: {
+                                    start: {
+                                        line: 1,
+                                        column: 20
                                     },
-                                    "end": {
-                                        "line": 1,
-                                        "column": 32
+                                    end: {
+                                        line: 1,
+                                        column: 32
                                     }
                                 }
                             },
-                            "rest": null,
-                            "generator": false,
-                            "expression": true,
-                            "async": true,
-                            "range": [
+                            rest: null,
+                            generator: false,
+                            expression: true,
+                            async: true,
+                            range: [
                                 5,
                                 32
                             ],
-                            "loc": {
-                                "start": {
-                                    "line": 1,
-                                    "column": 5
+                            loc: {
+                                start: {
+                                    line: 1,
+                                    column: 5
                                 },
-                                "end": {
-                                    "line": 1,
-                                    "column": 32
+                                end: {
+                                    line: 1,
+                                    column: 32
                                 }
                             }
                         },
                         {
-                            "type": "Identifier",
-                            "name": "b",
-                            "range": [
+                            type: 'Identifier',
+                            name: 'b',
+                            range: [
                                 34,
                                 35
                             ],
-                            "loc": {
-                                "start": {
-                                    "line": 1,
-                                    "column": 34
+                            loc: {
+                                start: {
+                                    line: 1,
+                                    column: 34
                                 },
-                                "end": {
-                                    "line": 1,
-                                    "column": 35
+                                end: {
+                                    line: 1,
+                                    column: 35
                                 }
                             }
                         }
                     ],
-                    "range": [
+                    range: [
                         0,
                         36
                     ],
-                    "loc": {
-                        "start": {
-                            "line": 1,
-                            "column": 0
+                    loc: {
+                        start: {
+                            line: 1,
+                            column: 0
                         },
-                        "end": {
-                            "line": 1,
-                            "column": 36
+                        end: {
+                            line: 1,
+                            column: 36
                         }
                     }
                 },
-                "range": [
+                range: [
                     0,
                     36
                 ],
-                "loc": {
-                    "start": {
-                        "line": 1,
-                        "column": 0
+                loc: {
+                    start: {
+                        line: 1,
+                        column: 0
                     },
-                    "end": {
-                        "line": 1,
-                        "column": 36
+                    end: {
+                        line: 1,
+                        column: 36
                     }
                 }
             }
@@ -6255,210 +6255,210 @@ data = {
 
         'async function test() {\n    await (foo ? bar : quux);\n}': {
             generateFrom: {
-                "type": "FunctionDeclaration",
-                "id": {
-                    "type": "Identifier",
-                    "name": "test"
+                type: 'FunctionDeclaration',
+                id: {
+                    type: 'Identifier',
+                    name: 'test'
                 },
-                "params": [],
-                "body": {
-                    "type": "BlockStatement",
-                    "body": [
+                params: [],
+                body: {
+                    type: 'BlockStatement',
+                    body: [
                         {
-                            "type": "ExpressionStatement",
-                            "expression": {
-                                "type": "AwaitExpression",
-                                "argument": {
-                                    "type": "ConditionalExpression",
-                                    "test": {
-                                        "type": "Identifier",
-                                        "name": "foo"
+                            type: 'ExpressionStatement',
+                            expression: {
+                                type: 'AwaitExpression',
+                                argument: {
+                                    type: 'ConditionalExpression',
+                                    test: {
+                                        type: 'Identifier',
+                                        name: 'foo'
                                     },
-                                    "consequent": {
-                                        "type": "Identifier",
-                                        "name": "bar"
+                                    consequent: {
+                                        type: 'Identifier',
+                                        name: 'bar'
                                     },
-                                    "alternate": {
-                                        "type": "Identifier",
-                                        "name": "quux"
+                                    alternate: {
+                                        type: 'Identifier',
+                                        name: 'quux'
                                     }
                                 }
                             }
                         }
                     ]
                 },
-                "generator": false,
-                "expression": false,
-                "async": true
+                generator: false,
+                expression: false,
+                async: true
             }   
         },
 
         'f(async function (promise) {\n    await promise;\n});': {
             generateFrom: {
-                "type": "ExpressionStatement",
-                "expression": {
-                    "type": "CallExpression",
-                    "callee": {
-                        "type": "Identifier",
-                        "name": "f",
-                        "range": [
+                type: 'ExpressionStatement',
+                expression: {
+                    type: 'CallExpression',
+                    callee: {
+                        type: 'Identifier',
+                        name: 'f',
+                        range: [
                             0,
                             1
                         ],
-                        "loc": {
-                            "start": {
-                                "line": 1,
-                                "column": 0
+                        loc: {
+                            start: {
+                                line: 1,
+                                column: 0
                             },
-                            "end": {
-                                "line": 1,
-                                "column": 1
+                            end: {
+                                line: 1,
+                                column: 1
                             }
                         }
                     },
-                    "arguments": [
+                    arguments: [
                         {
-                            "type": "FunctionExpression",
-                            "id": null,
-                            "params": [
+                            type: 'FunctionExpression',
+                            id: null,
+                            params: [
                                 {
-                                    "type": "Identifier",
-                                    "name": "promise",
-                                    "range": [
+                                    type: 'Identifier',
+                                    name: 'promise',
+                                    range: [
                                         17,
                                         24
                                     ],
-                                    "loc": {
-                                        "start": {
-                                            "line": 1,
-                                            "column": 17
+                                    loc: {
+                                        start: {
+                                            line: 1,
+                                            column: 17
                                         },
-                                        "end": {
-                                            "line": 1,
-                                            "column": 24
+                                        end: {
+                                            line: 1,
+                                            column: 24
                                         }
                                     }
                                 }
                             ],
-                            "defaults": [],
-                            "body": {
-                                "type": "BlockStatement",
-                                "body": [
+                            defaults: [],
+                            body: {
+                                type: 'BlockStatement',
+                                body: [
                                     {
-                                        "type": "ExpressionStatement",
-                                        "expression": {
-                                            "type": "AwaitExpression",
-                                            "argument": {
-                                                "type": "Identifier",
-                                                "name": "promise",
-                                                "range": [
+                                        type: 'ExpressionStatement',
+                                        expression: {
+                                            type: 'AwaitExpression',
+                                            argument: {
+                                                type: 'Identifier',
+                                                name: 'promise',
+                                                range: [
                                                     34,
                                                     41
                                                 ],
-                                                "loc": {
-                                                    "start": {
-                                                        "line": 1,
-                                                        "column": 34
+                                                loc: {
+                                                    start: {
+                                                        line: 1,
+                                                        column: 34
                                                     },
-                                                    "end": {
-                                                        "line": 1,
-                                                        "column": 41
+                                                    end: {
+                                                        line: 1,
+                                                        column: 41
                                                     }
                                                 }
                                             },
-                                            "range": [
+                                            range: [
                                                 28,
                                                 41
                                             ],
-                                            "loc": {
-                                                "start": {
-                                                    "line": 1,
-                                                    "column": 28
+                                            loc: {
+                                                start: {
+                                                    line: 1,
+                                                    column: 28
                                                 },
-                                                "end": {
-                                                    "line": 1,
-                                                    "column": 41
+                                                end: {
+                                                    line: 1,
+                                                    column: 41
                                                 }
                                             }
                                         },
-                                        "range": [
+                                        range: [
                                             28,
                                             42
                                         ],
-                                        "loc": {
-                                            "start": {
-                                                "line": 1,
-                                                "column": 28
+                                        loc: {
+                                            start: {
+                                                line: 1,
+                                                column: 28
                                             },
-                                            "end": {
-                                                "line": 1,
-                                                "column": 42
+                                            end: {
+                                                line: 1,
+                                                column: 42
                                             }
                                         }
                                     }
                                 ],
-                                "range": [
+                                range: [
                                     26,
                                     43
                                 ],
-                                "loc": {
-                                    "start": {
-                                        "line": 1,
-                                        "column": 26
+                                loc: {
+                                    start: {
+                                        line: 1,
+                                        column: 26
                                     },
-                                    "end": {
-                                        "line": 1,
-                                        "column": 43
+                                    end: {
+                                        line: 1,
+                                        column: 43
                                     }
                                 }
                             },
-                            "rest": null,
-                            "generator": false,
-                            "expression": false,
-                            "async": true,
-                            "range": [
+                            rest: null,
+                            generator: false,
+                            expression: false,
+                            async: true,
+                            range: [
                                 2,
                                 43
                             ],
-                            "loc": {
-                                "start": {
-                                    "line": 1,
-                                    "column": 2
+                            loc: {
+                                start: {
+                                    line: 1,
+                                    column: 2
                                 },
-                                "end": {
-                                    "line": 1,
-                                    "column": 43
+                                end: {
+                                    line: 1,
+                                    column: 43
                                 }
                             }
                         }
                     ],
-                    "range": [
+                    range: [
                         0,
                         44
                     ],
-                    "loc": {
-                        "start": {
-                            "line": 1,
-                            "column": 0
+                    loc: {
+                        start: {
+                            line: 1,
+                            column: 0
                         },
-                        "end": {
-                            "line": 1,
-                            "column": 44
+                        end: {
+                            line: 1,
+                            column: 44
                         }
                     }
                 },
-                "range": [
+                range: [
                     0,
                     44
                 ],
-                "loc": {
-                    "start": {
-                        "line": 1,
-                        "column": 0
+                loc: {
+                    start: {
+                        line: 1,
+                        column: 0
                     },
-                    "end": {
-                        "line": 1,
-                        "column": 44
+                    end: {
+                        line: 1,
+                        column: 44
                     }
                 }
             }
@@ -6466,112 +6466,112 @@ data = {
 
         '(async function (promise) {\n    await promise;\n});': {
             generateFrom: {
-                "type": "ExpressionStatement",
-                "expression": {
-                    "type": "FunctionExpression",
-                    "id": null,
-                    "params": [
+                type: 'ExpressionStatement',
+                expression: {
+                    type: 'FunctionExpression',
+                    id: null,
+                    params: [
                         {
-                            "type": "Identifier",
-                            "name": "promise"
+                            type: 'Identifier',
+                            name: 'promise'
                         }
                     ],
-                    "defaults": [],
-                    "body": {
-                        "type": "BlockStatement",
-                        "body": [
+                    defaults: [],
+                    body: {
+                        type: 'BlockStatement',
+                        body: [
                             {
-                                "type": "ExpressionStatement",
-                                "expression": {
-                                    "type": "AwaitExpression",
-                                    "argument": {
-                                        "type": "Identifier",
-                                        "name": "promise"
+                                type: 'ExpressionStatement',
+                                expression: {
+                                    type: 'AwaitExpression',
+                                    argument: {
+                                        type: 'Identifier',
+                                        name: 'promise'
                                     }
                                 }
                             }
                         ]
                     },
-                    "rest": null,
-                    "generator": false,
-                    "expression": false,
-                    "async": true
+                    rest: null,
+                    generator: false,
+                    expression: false,
+                    async: true
                 }
             }
         },
 
         '(async function hello(promise) {\n    await promise;\n});': {
             generateFrom: {
-                "type": "ExpressionStatement",
-                "expression": {
-                    "type": "FunctionExpression",
-                    "id": {
-                        "type": "Identifier",
-                        "name": "hello"
+                type: 'ExpressionStatement',
+                expression: {
+                    type: 'FunctionExpression',
+                    id: {
+                        type: 'Identifier',
+                        name: 'hello'
                     },
-                    "params": [
+                    params: [
                         {
-                            "type": "Identifier",
-                            "name": "promise"
+                            type: 'Identifier',
+                            name: 'promise'
                         }
                     ],
-                    "defaults": [],
-                    "body": {
-                        "type": "BlockStatement",
-                        "body": [
+                    defaults: [],
+                    body: {
+                        type: 'BlockStatement',
+                        body: [
                             {
-                                "type": "ExpressionStatement",
-                                "expression": {
-                                    "type": "AwaitExpression",
-                                    "argument": {
-                                        "type": "Identifier",
-                                        "name": "promise"
+                                type: 'ExpressionStatement',
+                                expression: {
+                                    type: 'AwaitExpression',
+                                    argument: {
+                                        type: 'Identifier',
+                                        name: 'promise'
                                     }
                                 }
                             }
                         ]
                     },
-                    "rest": null,
-                    "generator": false,
-                    "expression": false,
-                    "async": true
+                    rest: null,
+                    generator: false,
+                    expression: false,
+                    async: true
                 }
             }
         },
 
         'async function hello(promise) {\n    await promise;\n}': {
             generateFrom: {
-                "type": "FunctionDeclaration",
-                "id": {
-                    "type": "Identifier",
-                    "name": "hello"
+                type: 'FunctionDeclaration',
+                id: {
+                    type: 'Identifier',
+                    name: 'hello'
                 },
-                "params": [
+                params: [
                     {
-                        "type": "Identifier",
-                        "name": "promise"
+                        type: 'Identifier',
+                        name: 'promise'
                     }
                 ],
-                "defaults": [],
-                "body": {
-                    "type": "BlockStatement",
-                    "body": [
+                defaults: [],
+                body: {
+                    type: 'BlockStatement',
+                    body: [
                         {
-                            "type": "ExpressionStatement",
-                            "expression": {
-                                "type": "AwaitExpression",
-                                "argument": {
-                                    "type": "Identifier",
-                                    "name": "promise"
+                            type: 'ExpressionStatement',
+                            expression: {
+                                type: 'AwaitExpression',
+                                argument: {
+                                    type: 'Identifier',
+                                    name: 'promise'
                                 }
                             }
                         }
                     ]
                 },
-                "rest": null,
-                "generator": false,
-                "expression": false,
-                "async": true
+                rest: null,
+                generator: false,
+                expression: false,
+                async: true
             }
         },
     },
@@ -6579,70 +6579,70 @@ data = {
     'ES2018 for-await-of': {
         'async function f() {\n    for await (const x of ait) {\n        console.log(x);\n    }\n}': {
             generateFrom: {
-                "type": "FunctionDeclaration",
-                "id": {
-                    "type": "Identifier",
-                    "name": "f"
+                type: 'FunctionDeclaration',
+                id: {
+                    type: 'Identifier',
+                    name: 'f'
                 },
-                "params": [],
-                "body": {
-                    "type": "BlockStatement",
-                    "body": [
+                params: [],
+                body: {
+                    type: 'BlockStatement',
+                    body: [
                         {
-                            "type": "ForOfStatement",
-                            "left": {
-                                "type": "VariableDeclaration",
-                                "declarations": [
+                            type: 'ForOfStatement',
+                            left: {
+                                type: 'VariableDeclaration',
+                                declarations: [
                                     {
-                                        "type": "VariableDeclarator",
-                                        "id": {
-                                            "type": "Identifier",
-                                            "name": "x"
+                                        type: 'VariableDeclarator',
+                                        id: {
+                                            type: 'Identifier',
+                                            name: 'x'
                                         },
-                                        "init": null
+                                        init: null
                                     }
                                 ],
-                                "kind": "const"
+                                kind: 'const'
                             },
-                            "right": {
-                                "type": "Identifier",
-                                "name": "ait"
+                            right: {
+                                type: 'Identifier',
+                                name: 'ait'
                             },
-                            "body": {
-                                "type": "BlockStatement",
-                                "body": [
+                            body: {
+                                type: 'BlockStatement',
+                                body: [
                                     {
-                                        "type": "ExpressionStatement",
-                                        "expression": {
-                                            "type": "CallExpression",
-                                            "callee": {
-                                                "type": "MemberExpression",
-                                                "object": {
-                                                    "type": "Identifier",
-                                                    "name": "console"
+                                        type: 'ExpressionStatement',
+                                        expression: {
+                                            type: 'CallExpression',
+                                            callee: {
+                                                type: 'MemberExpression',
+                                                object: {
+                                                    type: 'Identifier',
+                                                    name: 'console'
                                                 },
-                                                "property": {
-                                                    "type": "Identifier",
-                                                    "name": "log"
+                                                property: {
+                                                    type: 'Identifier',
+                                                    name: 'log'
                                                 },
-                                                "computed": false
+                                                computed: false
                                             },
-                                            "arguments": [
+                                            arguments: [
                                                 {
-                                                    "type": "Identifier",
-                                                    "name": "x"
+                                                    type: 'Identifier',
+                                                    name: 'x'
                                                 }
                                             ]
                                         }
                                     }
                                 ]
                             },
-                            "await": true
+                            await: true
                         }
                     ]
                 },
-                "generator": false,
-                "async": true
+                generator: false,
+                async: true
             }
         }
 
@@ -6656,70 +6656,70 @@ data = {
                 }
             },
             generateFrom: {
-                "type": "FunctionDeclaration",
-                "id": {
-                    "type": "Identifier",
-                    "name": "f"
+                type: 'FunctionDeclaration',
+                id: {
+                    type: 'Identifier',
+                    name: 'f'
                 },
-                "params": [],
-                "body": {
-                    "type": "BlockStatement",
-                    "body": [
+                params: [],
+                body: {
+                    type: 'BlockStatement',
+                    body: [
                         {
-                            "type": "ForOfStatement",
-                            "left": {
-                                "type": "VariableDeclaration",
-                                "declarations": [
+                            type: 'ForOfStatement',
+                            left: {
+                                type: 'VariableDeclaration',
+                                declarations: [
                                     {
-                                        "type": "VariableDeclarator",
-                                        "id": {
-                                            "type": "Identifier",
-                                            "name": "x"
+                                        type: 'VariableDeclarator',
+                                        id: {
+                                            type: 'Identifier',
+                                            name: 'x'
                                         },
-                                        "init": null
+                                        init: null
                                     }
                                 ],
-                                "kind": "const"
+                                kind: 'const'
                             },
-                            "right": {
-                                "type": "Identifier",
-                                "name": "ait"
+                            right: {
+                                type: 'Identifier',
+                                name: 'ait'
                             },
-                            "body": {
-                                "type": "BlockStatement",
-                                "body": [
+                            body: {
+                                type: 'BlockStatement',
+                                body: [
                                     {
-                                        "type": "ExpressionStatement",
-                                        "expression": {
-                                            "type": "CallExpression",
-                                            "callee": {
-                                                "type": "MemberExpression",
-                                                "object": {
-                                                    "type": "Identifier",
-                                                    "name": "console"
+                                        type: 'ExpressionStatement',
+                                        expression: {
+                                            type: 'CallExpression',
+                                            callee: {
+                                                type: 'MemberExpression',
+                                                object: {
+                                                    type: 'Identifier',
+                                                    name: 'console'
                                                 },
-                                                "property": {
-                                                    "type": "Identifier",
-                                                    "name": "log"
+                                                property: {
+                                                    type: 'Identifier',
+                                                    name: 'log'
                                                 },
-                                                "computed": false
+                                                computed: false
                                             },
-                                            "arguments": [
+                                            arguments: [
                                                 {
-                                                    "type": "Identifier",
-                                                    "name": "x"
+                                                    type: 'Identifier',
+                                                    name: 'x'
                                                 }
                                             ]
                                         }
                                     }
                                 ]
                             },
-                            "await": true
+                            await: true
                         }
                     ]
                 },
-                "generator": false,
-                "async": true
+                generator: false,
+                async: true
             }
         }
 
@@ -6728,79 +6728,79 @@ data = {
     'ES2018 async generator method': {
         'class C {\n    async *readLines(file) {\n        while (!file.EOF) {\n            yield await file.readLine();\n        }\n    }\n}': {
             generateFrom: {
-                "type": "ClassDeclaration",
-                "id": {
-                    "type": "Identifier",
-                    "name": "C"
+                type: 'ClassDeclaration',
+                id: {
+                    type: 'Identifier',
+                    name: 'C'
                 },
-                "superClass": null,
-                "body": {
-                    "type": "ClassBody",
-                    "body": [
+                superClass: null,
+                body: {
+                    type: 'ClassBody',
+                    body: [
                         {
-                            "type": "MethodDefinition",
-                            "key": {
-                                "type": "Identifier",
-                                "name": "readLines"
+                            type: 'MethodDefinition',
+                            key: {
+                                type: 'Identifier',
+                                name: 'readLines'
                             },
-                            "value": {
-                                "type": "FunctionExpression",
-                                "id": null,
-                                "params": [
+                            value: {
+                                type: 'FunctionExpression',
+                                id: null,
+                                params: [
                                     {
-                                        "type": "Identifier",
-                                        "name": "file"
+                                        type: 'Identifier',
+                                        name: 'file'
                                     }
                                 ],
-                                "body": {
-                                    "type": "BlockStatement",
-                                    "body": [
+                                body: {
+                                    type: 'BlockStatement',
+                                    body: [
                                         {
-                                            "type": "WhileStatement",
-                                            "test": {
-                                                "type": "UnaryExpression",
-                                                "operator": "!",
-                                                "prefix": true,
-                                                "argument": {
-                                                    "type": "MemberExpression",
-                                                    "object": {
-                                                        "type": "Identifier",
-                                                        "name": "file"
+                                            type: 'WhileStatement',
+                                            test: {
+                                                type: 'UnaryExpression',
+                                                operator: '!',
+                                                prefix: true,
+                                                argument: {
+                                                    type: 'MemberExpression',
+                                                    object: {
+                                                        type: 'Identifier',
+                                                        name: 'file'
                                                     },
-                                                    "property": {
-                                                        "type": "Identifier",
-                                                        "name": "EOF"
+                                                    property: {
+                                                        type: 'Identifier',
+                                                        name: 'EOF'
                                                     },
-                                                    "computed": false
+                                                    computed: false
                                                 }
                                             },
-                                            "body": {
-                                                "type": "BlockStatement",
-                                                "body": [
+                                            body: {
+                                                type: 'BlockStatement',
+                                                body: [
                                                     {
-                                                        "type": "ExpressionStatement",
-                                                        "expression": {
-                                                            "type": "YieldExpression",
-                                                            "argument": {
-                                                                "type": "AwaitExpression",
-                                                                "argument": {
-                                                                    "type": "CallExpression",
-                                                                    "callee": {
-                                                                        "type": "MemberExpression",
-                                                                        "object": {
-                                                                            "type": "Identifier",
-                                                                            "name": "file"
+                                                        type: 'ExpressionStatement',
+                                                        expression: {
+                                                            type: 'YieldExpression',
+                                                            argument: {
+                                                                type: 'AwaitExpression',
+                                                                argument: {
+                                                                    type: 'CallExpression',
+                                                                    callee: {
+                                                                        type: 'MemberExpression',
+                                                                        object: {
+                                                                            type: 'Identifier',
+                                                                            name: 'file'
                                                                         },
-                                                                        "property": {
-                                                                            "type": "Identifier",
-                                                                            "name": "readLine"
+                                                                        property: {
+                                                                            type: 'Identifier',
+                                                                            name: 'readLine'
                                                                         },
-                                                                        "computed": false
+                                                                        computed: false
                                                                     },
-                                                                    "arguments": []
+                                                                    arguments: []
                                                                 }
                                                             },
-                                                            "delegate": false
+                                                            delegate: false
                                                         }
                                                     }
                                                 ]
@@ -6808,12 +6808,12 @@ data = {
                                         }
                                     ]
                                 },
-                                "generator": true,
-                                "async": true
+                                generator: true,
+                                async: true
                             },
-                            "kind": "method",
-                            "computed": false,
-                            "static": false
+                            kind: 'method',
+                            computed: false,
+                            static: false
                         }
                     ]
                 }
@@ -6823,101 +6823,101 @@ data = {
 
     // https://github.com/tc39/proposal-dynamic-import/#import
     'dynamic import': {
-        "import('foo').then(quux);": {
+        'import(\'foo\').then(quux);': {
             generateFrom: {
-                "type": "ExpressionStatement",
-                "expression": {
-                    "type": "CallExpression",
-                    "callee": {
-                        "type": "MemberExpression",
-                        "object": {
-                            "type": "ImportExpression",
-                            "source": {
-                                "type": "Literal",
-                                "value": "foo"
+                type: 'ExpressionStatement',
+                expression: {
+                    type: 'CallExpression',
+                    callee: {
+                        type: 'MemberExpression',
+                        object: {
+                            type: 'ImportExpression',
+                            source: {
+                                type: 'Literal',
+                                value: 'foo'
                             }
                         },
-                        "property": {
-                            "type": "Identifier",
-                            "name": "then"
+                        property: {
+                            type: 'Identifier',
+                            name: 'then'
                         },
-                        "computed": false
+                        computed: false
                     },
-                    "arguments": [
+                    arguments: [
                         {
-                            "type": "Identifier",
-                            "name": "quux"
+                            type: 'Identifier',
+                            name: 'quux'
                         }
                     ]
                 }
             }
         },
 
-        "import(('a', 'b'))": {
+        'import((\'a\', \'b\'))': {
             generateFrom: {
-                "type": "ImportExpression",
-                "source": {
-                    "type": "SequenceExpression",
-                    "expressions": [
+                type: 'ImportExpression',
+                source: {
+                    type: 'SequenceExpression',
+                    expressions: [
                         {
-                            "type": "Literal",
-                            "value": "a"
+                            type: 'Literal',
+                            value: 'a'
                         },
                         {
-                            "type": "Literal",
-                            "value": "b"
+                            type: 'Literal',
+                            value: 'b'
                         }
                     ]
                 }
             }
         },
 
-        "new (import('foo'))()": {
+        'new (import(\'foo\'))()': {
             generateFrom: {
-                "type": "NewExpression",
-                "callee": {
-                    "type": "ImportExpression",
-                    "source": {
-                        "type": "Literal",
-                        "value": "foo"
+                type: 'NewExpression',
+                callee: {
+                    type: 'ImportExpression',
+                    source: {
+                        type: 'Literal',
+                        value: 'foo'
                     }
                 },
-                "arguments": []
+                arguments: []
             }
         },
 
-        "import('foo' + bar).then(quux);": {
+        'import(\'foo\' + bar).then(quux);': {
             generateFrom: {
-                "type": "ExpressionStatement",
-                "expression": {
-                    "type": "CallExpression",
-                    "callee": {
-                        "type": "MemberExpression",
-                        "object": {
-                            "type": "ImportExpression",
-                            "source": {
-                                "type": "BinaryExpression",
-                                "left": {
-                                    "type": "Literal",
-                                    "value": "foo"
+                type: 'ExpressionStatement',
+                expression: {
+                    type: 'CallExpression',
+                    callee: {
+                        type: 'MemberExpression',
+                        object: {
+                            type: 'ImportExpression',
+                            source: {
+                                type: 'BinaryExpression',
+                                left: {
+                                    type: 'Literal',
+                                    value: 'foo'
                                 },
-                                "operator": "+",
-                                "right": {
-                                    "type": "Identifier",
-                                    "name": "bar"
+                                operator: '+',
+                                right: {
+                                    type: 'Identifier',
+                                    name: 'bar'
                                 }
                             }
                         },
-                        "property": {
-                            "type": "Identifier",
-                            "name": "then"
+                        property: {
+                            type: 'Identifier',
+                            name: 'then'
                         },
-                        "computed": false
+                        computed: false
                     },
-                    "arguments": [
+                    arguments: [
                         {
-                            "type": "Identifier",
-                            "name": "quux"
+                            type: 'Identifier',
+                            name: 'quux'
                         }
                     ]
                 }
@@ -6927,7 +6927,7 @@ data = {
 };
 
 function updateDeeply(target, override) {
-    var key, val;
+    let key, val;
 
     function isHashObject(target) {
         return typeof target === 'object' && target instanceof Object && !(target instanceof RegExp);
@@ -6963,7 +6963,7 @@ function adjustRegexLiteral(key, value) {
 
 function testIdentity(code, syntax) {
     'use strict';
-    var expected, tree, actual, actual2, options, StringObject;
+    let expected, tree, actual, actual2, options, StringObject;
 
     // alias, so that JSLint does not complain.
     StringObject = String;
@@ -6988,7 +6988,7 @@ function testIdentity(code, syntax) {
 
 function testGenerate(expected, result) {
     'use strict';
-    var actual, options;
+    let actual, options;
 
     options = {
         indent: '    ',
@@ -7022,7 +7022,7 @@ describe('harmony test', function () {
     Object.keys(data).forEach(function (category) {
         Object.keys(data[category]).forEach(function (source) {
             it(category, function () {
-                var expected = data[category][source];
+                const expected = data[category][source];
                 runTest(source, expected);
             });
         });
