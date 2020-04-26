@@ -307,15 +307,13 @@
     }
 
     function updateDeeply(target, override) {
-        let key, val;
-
         function isHashObject(target) {
             return typeof target === 'object' && target instanceof Object && !(target instanceof RegExp);
         }
 
-        for (key in override) {
+        for (const key in override) {
             if (Object.hasOwnProperty.call(override, key)) {
-                val = override[key];
+                const val = override[key];
                 if (isHashObject(val)) {
                     if (isHashObject(target[key])) {
                         updateDeeply(target[key], val);
@@ -331,8 +329,6 @@
     }
 
     function generateNumber(value) {
-        let result, point, temp, exponent, pos;
-
         if (value !== value) {
             throw new Error('Numeric literal whose value is NaN');
         }
@@ -344,19 +340,20 @@
             return json ? 'null' : renumber ? '1e400' : '1e+400';
         }
 
-        result = `${  value}`;
+        let result = `${  value}`;
         if (!renumber || result.length < 3) {
             return result;
         }
 
-        point = result.indexOf('.');
+        let point = result.indexOf('.');
         if (!json && result.charCodeAt(0) === 0x30  /* 0 */ && point === 1) {
             point = 0;
             result = result.slice(1);
         }
-        temp = result;
+        let temp = result;
         result = result.replace('e+', 'e');
-        exponent = 0;
+        let exponent = 0;
+        let pos;
         if ((pos = temp.indexOf('e')) > 0) {
             exponent = +temp.slice(pos + 1);
             temp = temp.slice(0, pos);
@@ -399,24 +396,22 @@
     }
 
     function generateRegExp(reg) {
-        let match, result, flags, i, iz, ch, characterInBrack, previousIsBackslash;
-
-        result = reg.toString();
+        let result = reg.toString();
 
         if (reg.source) {
             // extract flag from toString result
-            match = result.match(/\/([^/]*)$/);
+            const match = result.match(/\/([^/]*)$/);
             if (!match) {
                 return result;
             }
 
-            [, flags] = match;
+            const [, flags] = match;
             result = '';
 
-            characterInBrack = false;
-            previousIsBackslash = false;
-            for (i = 0, iz = reg.source.length; i < iz; ++i) {
-                ch = reg.source.charCodeAt(i);
+            let characterInBrack = false;
+            let previousIsBackslash = false;
+            for (let i = 0, iz = reg.source.length; i < iz; ++i) {
+                const ch = reg.source.charCodeAt(i);
 
                 if (!previousIsBackslash) {
                     if (characterInBrack) {
@@ -447,7 +442,7 @@
     }
 
     function escapeAllowedCharacter(code, next) {
-        let hex, result = '\\';
+        let result = '\\';
 
         switch (code) {
             case 0x08  /* \b */:
@@ -459,8 +454,8 @@
             case 0x09  /* \t */:
                 result += 't';
                 break;
-            default:
-                hex = code.toString(16).toUpperCase();
+            default: {
+                const hex = code.toString(16).toUpperCase();
                 if (json || code > 0xFF) {
                     result += `u${  '0000'.slice(hex.length)  }${hex}`;
                 } else if (code === 0x0000 && !esutils.code.isDecimalDigit(next)) {
@@ -471,6 +466,7 @@
                     result += `x${  '00'.slice(hex.length)  }${hex}`;
                 }
                 break;
+            }
         }
 
         return result;
@@ -502,11 +498,9 @@
     }
 
     function escapeDirective(str) {
-        let i, iz, code, quote;
-
-        quote = quotes === 'double' ? '"' : '\'';
-        for (i = 0, iz = str.length; i < iz; ++i) {
-            code = str.charCodeAt(i);
+        let quote = quotes === 'double' ? '"' : '\'';
+        for (let i = 0, iz = str.length; i < iz; ++i) {
+            const code = str.charCodeAt(i);
             if (code === 0x27  /* ' */) {
                 quote = '"';
                 break;
@@ -522,10 +516,10 @@
     }
 
     function escapeString(str) {
-        let result = '', i, len, code, singleQuotes = 0, doubleQuotes = 0;
+        let result = '', singleQuotes = 0, doubleQuotes = 0;
 
-        for (i = 0, len = str.length; i < len; ++i) {
-            code = str.charCodeAt(i);
+        for (let i = 0, len = str.length; i < len; ++i) {
+            const code = str.charCodeAt(i);
             if (code === 0x27  /* ' */) {
                 ++singleQuotes;
             } else if (code === 0x22  /* " */) {
@@ -552,8 +546,8 @@
         str = result;
         result = quote;
 
-        for (i = 0, len = str.length; i < len; ++i) {
-            code = str.charCodeAt(i);
+        for (let i = 0, len = str.length; i < len; ++i) {
+            const code = str.charCodeAt(i);
             if ((code === 0x27  /* ' */ && single) || (code === 0x22  /* " */ && !single)) {
                 result += '\\';
             }
@@ -568,9 +562,9 @@
      * either strings or nested arrays
      */
     function flattenToString(arr) {
-        let i, iz, elem, result = '';
-        for (i = 0, iz = arr.length; i < iz; ++i) {
-            elem = arr[i];
+        let result = '';
+        for (let i = 0, iz = arr.length; i < iz; ++i) {
+            const elem = arr[i];
             result += Array.isArray(elem) ? flattenToString(elem) : elem;
         }
         return result;
@@ -655,15 +649,13 @@
     }
 
     function adjustMultilineComment(value, specialBase) {
-        let i, len, line, j, spaces, previousBase, sn;
-
         const array = value.split(/\r\n|[\r\n]/);
-        spaces = Number.MAX_VALUE;
+        let spaces = Number.MAX_VALUE;
 
         // first line doesn't have indentation
-        for (i = 1, len = array.length; i < len; ++i) {
-            line = array[i];
-            j = 0;
+        for (let i = 1, len = array.length; i < len; ++i) {
+            const line = array[i];
+            let j = 0;
             while (j < line.length && esutils.code.isWhiteSpace(line.charCodeAt(j))) {
                 ++j;
             }
@@ -672,6 +664,7 @@
             }
         }
 
+        let previousBase;
         if (typeof specialBase !== 'undefined') {
             // pattern like
             // {
@@ -696,8 +689,8 @@
             previousBase = base;
         }
 
-        for (i = 1, len = array.length; i < len; ++i) {
-            sn = toSourceNodeWhenNeeded(addIndent(array[i].slice(spaces)));
+        for (let i = 1, len = array.length; i < len; ++i) {
+            const sn = toSourceNodeWhenNeeded(addIndent(array[i].slice(spaces)));
             array[i] = sourceMap ? sn.join('') : sn;
         }
 
@@ -722,12 +715,10 @@
     }
 
     function addComments(stmt, result) {
-        let i, len, comment, save, tailingToStatement, specialBase, fragment;
-
         if (stmt.leadingComments && stmt.leadingComments.length > 0) {
-            save = result;
+            const save = result;
 
-            [comment] = stmt.leadingComments;
+            const [comment] = stmt.leadingComments;
             result = [];
             if (safeConcatenation && stmt.type === Syntax.Program && stmt.body.length === 0) {
                 result.push('\n');
@@ -737,9 +728,9 @@
                 result.push('\n');
             }
 
-            for (i = 1, len = stmt.leadingComments.length; i < len; ++i) {
-                comment = stmt.leadingComments[i];
-                fragment = [generateComment(comment)];
+            for (let i = 1, len = stmt.leadingComments.length; i < len; ++i) {
+                const comment = stmt.leadingComments[i];
+                const fragment = [generateComment(comment)];
                 if (!endsWithLineTerminator(toSourceNodeWhenNeeded(fragment).toString())) {
                     fragment.push('\n');
                 }
@@ -750,10 +741,10 @@
         }
 
         if (stmt.trailingComments) {
-            tailingToStatement = !endsWithLineTerminator(toSourceNodeWhenNeeded(result).toString());
-            specialBase = stringRepeat(' ', calculateSpaces(toSourceNodeWhenNeeded([base, result, indent]).toString()));
-            for (i = 0, len = stmt.trailingComments.length; i < len; ++i) {
-                comment = stmt.trailingComments[i];
+            const tailingToStatement = !endsWithLineTerminator(toSourceNodeWhenNeeded(result).toString());
+            const specialBase = stringRepeat(' ', calculateSpaces(toSourceNodeWhenNeeded([base, result, indent]).toString()));
+            for (let i = 0, len = stmt.trailingComments.length; i < len; ++i) {
+                const comment = stmt.trailingComments[i];
                 if (tailingToStatement) {
                     // We assume target like following script
                     //
@@ -787,8 +778,6 @@
     }
 
     function maybeBlock(stmt, semicolonOptional, functionBody) {
-        let result;
-
         const noLeadingComment = !extra.comment || !stmt.leadingComments;
 
         if (stmt.type === Syntax.BlockStatement && noLeadingComment) {
@@ -799,6 +788,7 @@
             return ';';
         }
 
+        let result;
         withIndent(function () {
             result = [newline, addIndent(generateStatement(stmt, { semicolonOptional, functionBody }))];
         });
@@ -826,15 +816,15 @@
     }
 
     function generateVerbatim(expr, option) {
-        let result, prec;
         const verbatim = expr[extra.verbatim];
 
+        let result;
         if (typeof verbatim === 'string') {
             result = parenthesize(generateVerbatimString(verbatim), Precedence.Sequence, option.precedence);
         } else {
             // verbatim is object
             result = generateVerbatimString(verbatim.content);
-            prec = (verbatim.precedence != null) ? verbatim.precedence : Precedence.Sequence;
+            const prec = (verbatim.precedence != null) ? verbatim.precedence : Precedence.Sequence;
             result = parenthesize(result, prec, option.precedence);
         }
 
@@ -862,9 +852,8 @@
     }
 
     function generateFunctionParams(node) {
-        let i, iz, result, hasDefault;
-
-        hasDefault = false;
+        let result;
+        let hasDefault = false;
 
         if (node.type === Syntax.ArrowFunctionExpression &&
                 !node.rest && (!node.defaults || node.defaults.length === 0) &&
@@ -876,7 +865,7 @@
             if (node.defaults) {
                 hasDefault = true;
             }
-            for (i = 0, iz = node.params.length; i < iz; ++i) {
+            for (let i = 0, iz = node.params.length; i < iz; ++i) {
                 if (hasDefault && node.defaults[i]) {
                     // Handle default values.
                     result.push(generateAssignment(node.params[i], node.defaults[i], '=', {
@@ -915,8 +904,6 @@
     }
 
     function generateFunctionBody(node) {
-        let expr;
-
         const result = generateFunctionParams(node);
 
         if (node.type === Syntax.ArrowFunctionExpression) {
@@ -926,7 +913,7 @@
 
         if (node.expression) {
             result.push(space);
-            expr = generateExpression(node.body, {
+            let expr = generateExpression(node.body, {
                 precedence: Precedence.Assignment,
                 allowIn: true,
                 allowCall: true
@@ -975,12 +962,10 @@
     }
 
     function generateVariableDeclaration(stmt, semicolon, allowIn) {
-        let i, iz, node;
-
         const result = [ stmt.kind ];
 
         function block() {
-            [node] = stmt.declarations;
+            const [node] = stmt.declarations;
             if (extra.comment && node.leadingComments) {
                 result.push('\n');
                 result.push(addIndent(generateStatement(node, {
@@ -993,8 +978,8 @@
                 }));
             }
 
-            for (i = 1, iz = stmt.declarations.length; i < iz; ++i) {
-                node = stmt.declarations[i];
+            for (let i = 1, iz = stmt.declarations.length; i < iz; ++i) {
+                const node = stmt.declarations[i];
                 if (extra.comment && node.leadingComments) {
                     result.push(`,${  newline}`);
                     result.push(addIndent(generateStatement(node, {
@@ -1024,9 +1009,7 @@
         const result = [ '{', newline];
 
         withIndent(function (indent) {
-            let i, iz;
-
-            for (i = 0, iz = classBody.body.length; i < iz; ++i) {
+            for (let i = 0, iz = classBody.body.length; i < iz; ++i) {
                 result.push(indent);
                 result.push(generateExpression(classBody.body[i], {
                     precedence: Precedence.Sequence,
@@ -1049,10 +1032,9 @@
     }
 
     function generateLiteral(expr) {
-        let raw;
         if (Object.hasOwnProperty.call(expr, 'raw') && parse && extra.raw) {
             try {
-                raw = parse(expr.raw).body[0].expression;
+                const raw = parse(expr.raw).body[0].expression;
                 if (raw.type === Syntax.Literal) {
                     if (raw.value === expr.value) {
                         return expr.raw;
@@ -1124,21 +1106,6 @@
     }
 
     function generateExpression(expr, option) {
-        let result,
-            currentPrecedence,
-            i,
-            len,
-            fragment,
-            multiline,
-            leftCharCode,
-            leftSource,
-            rightCharCode,
-            allowIn,
-            allowUnparenthesizedNew,
-            property,
-            isGenerator;
-
-        ({ allowIn } = option);
         const { precedence, allowCall }  = option;
         const type = expr.type || option.type;
 
@@ -1146,11 +1113,13 @@
             return generateVerbatim(expr, option);
         }
 
+        let result;
+        let { allowIn } = option;
         switch (type) {
             case Syntax.SequenceExpression:
                 result = [];
                 allowIn |= (Precedence.Sequence < precedence);
-                for (i = 0, len = expr.expressions.length; i < len; ++i) {
+                for (let i = 0, len = expr.expressions.length; i < len; ++i) {
                     result.push(generateExpression(expr.expressions[i], {
                         precedence: Precedence.Assignment,
                         allowIn,
@@ -1200,18 +1169,18 @@
                 break;
 
             case Syntax.LogicalExpression:
-            case Syntax.BinaryExpression:
-                currentPrecedence = BinaryPrecedence[expr.operator];
+            case Syntax.BinaryExpression: {
+                const currentPrecedence = BinaryPrecedence[expr.operator];
 
                 allowIn |= (currentPrecedence < precedence);
 
-                fragment = generateExpression(expr.left, {
+                let fragment = generateExpression(expr.left, {
                     precedence: currentPrecedence,
                     allowIn,
                     allowCall: true
                 });
 
-                leftSource = fragment.toString();
+                const leftSource = fragment.toString();
 
                 if (leftSource.charCodeAt(leftSource.length - 1) === 0x2F /* / */ && esutils.code.isIdentifierPart(expr.operator.charCodeAt(0))) {
                     result = [fragment, noEmptySpace(), expr.operator];
@@ -1242,7 +1211,7 @@
 
                 break;
 
-            case Syntax.CallExpression:
+            } case Syntax.CallExpression:
                 result = [generateExpression(expr.callee, {
                     precedence: Precedence.Call,
                     allowIn: true,
@@ -1251,7 +1220,7 @@
                 })];
 
                 result.push('(');
-                for (i = 0, len = expr['arguments'].length; i < len; ++i) {
+                for (let i = 0, len = expr['arguments'].length; i < len; ++i) {
                     result.push(generateExpression(expr['arguments'][i], {
                         precedence: Precedence.Assignment,
                         allowIn: true,
@@ -1270,9 +1239,9 @@
                 }
                 break;
 
-            case Syntax.NewExpression:
-                len = expr['arguments'].length;
-                allowUnparenthesizedNew = option.allowUnparenthesizedNew === undefined || option.allowUnparenthesizedNew;
+            case Syntax.NewExpression: {
+                const len = expr['arguments'].length;
+                const allowUnparenthesizedNew = option.allowUnparenthesizedNew === undefined || option.allowUnparenthesizedNew;
 
                 result = join(
                     'new',
@@ -1286,7 +1255,7 @@
 
                 if (!allowUnparenthesizedNew || parentheses || len > 0) {
                     result.push('(');
-                    for (i = 0; i < len; ++i) {
+                    for (let i = 0; i < len; ++i) {
                         result.push(generateExpression(expr['arguments'][i], {
                             precedence: Precedence.Assignment,
                             allowIn: true,
@@ -1302,7 +1271,7 @@
                 result = parenthesize(result, Precedence.New, precedence);
                 break;
 
-            case Syntax.MemberExpression:
+            } case Syntax.MemberExpression:
                 result = [generateExpression(expr.object, {
                     precedence: Precedence.Call,
                     allowIn: true,
@@ -1320,7 +1289,7 @@
                     result.push(']');
                 } else {
                     if (expr.object.type === Syntax.Literal && typeof expr.object.value === 'number') {
-                        fragment = toSourceNodeWhenNeeded(result).toString();
+                        const fragment = toSourceNodeWhenNeeded(result).toString();
                         // When the following conditions are all true,
                         //   1. No floating point
                         //   2. Don't have exponents
@@ -1343,8 +1312,8 @@
                 result = parenthesize(result, Precedence.Member, precedence);
                 break;
 
-            case Syntax.UnaryExpression:
-                fragment = generateExpression(expr.argument, {
+            case Syntax.UnaryExpression: {
+                const fragment = generateExpression(expr.argument, {
                     precedence: Precedence.Unary,
                     allowIn: true,
                     allowCall: true
@@ -1361,9 +1330,9 @@
                     } else {
                     // Prevent inserting spaces between operator and argument if it is unnecessary
                     // like, `!cond`
-                        leftSource = toSourceNodeWhenNeeded(result).toString();
-                        leftCharCode = leftSource.charCodeAt(leftSource.length - 1);
-                        rightCharCode = fragment.toString().charCodeAt(0);
+                        const leftSource = toSourceNodeWhenNeeded(result).toString();
+                        const leftCharCode = leftSource.charCodeAt(leftSource.length - 1);
+                        const rightCharCode = fragment.toString().charCodeAt(0);
 
                         if (((leftCharCode === 0x2B  /* + */ || leftCharCode === 0x2D  /* - */) && leftCharCode === rightCharCode) ||
                             (esutils.code.isIdentifierPart(leftCharCode) && esutils.code.isIdentifierPart(rightCharCode))) {
@@ -1377,7 +1346,7 @@
                 result = parenthesize(result, Precedence.Unary, precedence);
                 break;
 
-            case Syntax.YieldExpression:
+            } case Syntax.YieldExpression:
                 if (expr.delegate) {
                     result = 'yield*';
                 } else {
@@ -1426,8 +1395,8 @@
                 }
                 break;
 
-            case Syntax.FunctionExpression:
-                isGenerator = expr.generator && !extra.moz.starlessGenerator;
+            case Syntax.FunctionExpression: {
+                const isGenerator = expr.generator && !extra.moz.starlessGenerator;
                 result = isGenerator ? 'function*' : 'function';
 
                 if (expr.id) {
@@ -1439,20 +1408,20 @@
                 }
                 break;
 
-            case Syntax.ExportBatchSpecifier:
+            } case Syntax.ExportBatchSpecifier:
                 result = '*';
                 break;
 
             case Syntax.ArrayPattern:
-            case Syntax.ArrayExpression:
+            case Syntax.ArrayExpression: {
                 if (!expr.elements.length) {
                     result = '[]';
                     break;
                 }
-                multiline = expr.elements.length > 1;
+                const multiline = expr.elements.length > 1;
                 result = ['[', multiline ? newline : ''];
                 withIndent(function (indent) {
-                    for (i = 0, len = expr.elements.length; i < len; ++i) {
+                    for (let i = 0, len = expr.elements.length; i < len; ++i) {
                         if (!expr.elements[i]) {
                             if (multiline) {
                                 result.push(indent);
@@ -1480,7 +1449,7 @@
                 result.push(']');
                 break;
 
-            case Syntax.ClassExpression:
+            } case Syntax.ClassExpression:
                 result = ['class'];
                 if (expr.id) {
                     result = join(result, generateExpression(expr.id, {
@@ -1489,7 +1458,7 @@
                     }));
                 }
                 if (expr.superClass) {
-                    fragment = join('extends', generateExpression(expr.superClass, {
+                    const fragment = join('extends', generateExpression(expr.superClass, {
                         precedence: Precedence.Assignment,
                         allowIn: true,
                         allowCall: true
@@ -1520,7 +1489,7 @@
                         generateFunctionBody(expr.value)
                     ]);
                 } else {
-                    fragment = [
+                    const fragment = [
                         generatePropertyKey(expr.key, expr.computed, {
                             precedence: Precedence.Sequence,
                             allowIn: true,
@@ -1584,13 +1553,14 @@
                 }
                 break;
 
-            case Syntax.ObjectExpression:
+            case Syntax.ObjectExpression: {
                 if (!expr.properties.length) {
                     result = '{}';
                     break;
                 }
-                multiline = expr.properties.length > 1;
+                const multiline = expr.properties.length > 1;
 
+                let fragment;
                 withIndent(function () {
                     fragment = generateExpression(expr.properties[0], {
                         precedence: Precedence.Sequence,
@@ -1620,7 +1590,7 @@
 
                     if (multiline) {
                         result.push(`,${  newline}`);
-                        for (i = 1, len = expr.properties.length; i < len; ++i) {
+                        for (let i = 1, len = expr.properties.length; i < len; ++i) {
                             result.push(indent);
                             result.push(generateExpression(expr.properties[i], {
                                 precedence: Precedence.Sequence,
@@ -1642,21 +1612,21 @@
                 result.push('}');
                 break;
 
-            case Syntax.ObjectPattern:
+            } case Syntax.ObjectPattern: {
                 if (!expr.properties.length) {
                     result = '{}';
                     break;
                 }
 
-                multiline = false;
+                let multiline = false;
                 if (expr.properties.length === 1) {
-                    [property] = expr.properties;
+                    const [property] = expr.properties;
                     if (property.value.type !== Syntax.Identifier) {
                         multiline = true;
                     }
                 } else {
-                    for (i = 0, len = expr.properties.length; i < len; ++i) {
-                        property = expr.properties[i];
+                    for (let i = 0, len = expr.properties.length; i < len; ++i) {
+                        const property = expr.properties[i];
                         if (!property.shorthand) {
                             multiline = true;
                             break;
@@ -1666,7 +1636,7 @@
                 result = ['{', multiline ? newline : '' ];
 
                 withIndent(function (indent) {
-                    for (i = 0, len = expr.properties.length; i < len; ++i) {
+                    for (let i = 0, len = expr.properties.length; i < len; ++i) {
                         result.push(multiline ? indent : '');
                         result.push(generateExpression(expr.properties[i], {
                             precedence: Precedence.Sequence,
@@ -1686,7 +1656,7 @@
                 result.push('}');
                 break;
 
-            case Syntax.ThisExpression:
+            } case Syntax.ThisExpression:
                 result = 'this';
                 break;
 
@@ -1724,7 +1694,7 @@
                 result = (type === Syntax.GeneratorExpression) ? ['('] : ['['];
 
                 if (extra.moz.comprehensionExpressionStartsWithAssignment) {
-                    fragment = generateExpression(expr.body, {
+                    const fragment = generateExpression(expr.body, {
                         precedence: Precedence.Assignment,
                         allowIn: true,
                         allowCall: true
@@ -1735,8 +1705,8 @@
 
                 if (expr.blocks) {
                     withIndent(function () {
-                        for (i = 0, len = expr.blocks.length; i < len; ++i) {
-                            fragment = generateExpression(expr.blocks[i], {
+                        for (let i = 0, len = expr.blocks.length; i < len; ++i) {
+                            const fragment = generateExpression(expr.blocks[i], {
                                 precedence: Precedence.Sequence,
                                 allowIn: true,
                                 allowCall: true
@@ -1753,7 +1723,7 @@
 
                 if (expr.filter) {
                     result = join(result, `if${  space}`);
-                    fragment = generateExpression(expr.filter, {
+                    const fragment = generateExpression(expr.filter, {
                         precedence: Precedence.Sequence,
                         allowIn: true,
                         allowCall: true
@@ -1762,7 +1732,7 @@
                 }
 
                 if (!extra.moz.comprehensionExpressionStartsWithAssignment) {
-                    fragment = generateExpression(expr.body, {
+                    const fragment = generateExpression(expr.body, {
                         precedence: Precedence.Assignment,
                         allowIn: true,
                         allowCall: true
@@ -1774,7 +1744,8 @@
                 result.push((type === Syntax.GeneratorExpression) ? ')' : ']');
                 break;
 
-            case Syntax.ComprehensionBlock:
+            case Syntax.ComprehensionBlock: {
+                let fragment;
                 if (expr.left.type === Syntax.VariableDeclaration) {
                     fragment = [
                         expr.left.kind, noEmptySpace(),
@@ -1800,7 +1771,7 @@
                 result = [ `for${  space  }(`, fragment, ')' ];
                 break;
 
-            case Syntax.SpreadElement:
+            } case Syntax.SpreadElement:
                 result = [
                     '...',
                     generateExpression(expr.argument, {
@@ -1834,7 +1805,7 @@
 
             case Syntax.TemplateLiteral:
                 result = [ '`' ];
-                for (i = 0, len = expr.quasis.length; i < len; ++i) {
+                for (let i = 0, len = expr.quasis.length; i < len; ++i) {
                     result.push(generateExpression(expr.quasis[i], {
                         precedence: Precedence.Primary,
                         allowIn: true,
@@ -1871,8 +1842,6 @@
     //     - import ImportClause FromClause ;
     //     - import ModuleSpecifier ;
     function generateImportDeclaration(stmt, semicolon) {
-        let result, cursor;
-
         // If no ImportClause is present,
         // this should be `import ModuleSpecifier` so skip `from`
         // ModuleSpecifier is StringLiteral.
@@ -1892,10 +1861,10 @@
         }
 
         // import ImportClause FromClause ;
-        result = [
+        let result = [
             'import'
         ];
-        cursor = 0;
+        let cursor = 0;
 
         // ImportedBinding
         if (stmt.specifiers[cursor].type === Syntax.ImportDefaultSpecifier) {
@@ -1943,9 +1912,8 @@
                     //    ...,
                     // } from "...";
                     withIndent(function (indent) {
-                        let i, iz;
                         result.push(newline);
-                        for (i = cursor, iz = stmt.specifiers.length; i < iz; ++i) {
+                        for (let i = cursor, iz = stmt.specifiers.length; i < iz; ++i) {
                             result.push(indent);
                             result.push(generateExpression(stmt.specifiers[i], {
                                 precedence: Precedence.Sequence,
@@ -1979,21 +1947,12 @@
     }
 
     function generateStatement(stmt, option) {
-        let i,
-            len,
-            result,
-            allowIn,
-            functionBody,
-            directiveContext,
-            fragment,
-            semicolon,
-            isGenerator,
-            guardedHandlers;
+        let result;
 
-        allowIn = true;
-        semicolon = ';';
-        functionBody = false;
-        directiveContext = false;
+        let allowIn = true;
+        let semicolon = ';';
+        let functionBody = false;
+        let directiveContext = false;
         if (option) {
             allowIn = option.allowIn === undefined || option.allowIn;
             if (!semicolons && option.semicolonOptional === true) {
@@ -2007,8 +1966,8 @@
                 result = ['{', newline];
 
                 withIndent(function () {
-                    for (i = 0, len = stmt.body.length; i < len; ++i) {
-                        fragment = addIndent(generateStatement(stmt.body[i], {
+                    for (let i = 0, len = stmt.body.length; i < len; ++i) {
+                        const fragment = addIndent(generateStatement(stmt.body[i], {
                             semicolonOptional: i === len - 1,
                             directiveContext: functionBody
                         }));
@@ -2045,7 +2004,7 @@
             case Syntax.ClassDeclaration:
                 result = [`class ${  stmt.id.name}`];
                 if (stmt.superClass) {
-                    fragment = join('extends', generateExpression(stmt.superClass, {
+                    const fragment = join('extends', generateExpression(stmt.superClass, {
                         precedence: Precedence.Assignment,
                         allowIn: true,
                         allowCall: true
@@ -2084,8 +2043,6 @@
 
             case Syntax.CatchClause:
                 withIndent(function () {
-                    let guard;
-
                     result = [
                         `catch${  space  }(`,
                         generateExpression(stmt.param, {
@@ -2097,7 +2054,7 @@
                     ];
 
                     if (stmt.guard) {
-                        guard = generateExpression(stmt.guard, {
+                        const guard = generateExpression(stmt.guard, {
                             precedence: Precedence.Sequence,
                             allowIn: true,
                             allowCall: true
@@ -2158,9 +2115,8 @@
                     } else {
                         result = join(result, '{');
                         withIndent(function (indent) {
-                            let i, iz;
                             result.push(newline);
-                            for (i = 0, iz = stmt.specifiers.length; i < iz; ++i) {
+                            for (let i = 0, iz = stmt.specifiers.length; i < iz; ++i) {
                                 result.push(indent);
                                 result.push(generateExpression(stmt.specifiers[i], {
                                     precedence: Precedence.Sequence,
@@ -2196,7 +2152,7 @@
                 }
                 break;
 
-            case Syntax.ExpressionStatement:
+            case Syntax.ExpressionStatement: {
                 result = [generateExpression(stmt.expression, {
                     precedence: Precedence.Sequence,
                     allowIn: true,
@@ -2204,7 +2160,7 @@
                 })];
                 // 12.4 '{', 'function', 'class' is not allowed in this position.
                 // wrap expression with parentheses
-                fragment = toSourceNodeWhenNeeded(result).toString();
+                const fragment = toSourceNodeWhenNeeded(result).toString();
                 if (fragment.charAt(0) === '{' ||  // ObjectExpression
                     (fragment.slice(0, 5) === 'class' && ' {'.indexOf(fragment.charAt(5)) >= 0) ||  // class
                     (fragment.slice(0, 8) === 'function' && '* ('.indexOf(fragment.charAt(8)) >= 0) ||  // function or generator
@@ -2215,7 +2171,7 @@
                 }
                 break;
 
-            case Syntax.ImportDeclaration:
+            } case Syntax.ImportDeclaration:
                 result = generateImportDeclaration(stmt, semicolon);
                 break;
 
@@ -2268,16 +2224,16 @@
 
                 if (stmt.handlers) {
                 // old interface
-                    for (i = 0, len = stmt.handlers.length; i < len; ++i) {
+                    for (let i = 0, len = stmt.handlers.length; i < len; ++i) {
                         result = join(result, generateStatement(stmt.handlers[i]));
                         if (stmt.finalizer || i + 1 !== len) {
                             result = maybeBlockSuffix(stmt.handlers[i].body, result);
                         }
                     }
                 } else {
-                    guardedHandlers = stmt.guardedHandlers || [];
+                    const guardedHandlers = stmt.guardedHandlers || [];
 
-                    for (i = 0, len = guardedHandlers.length; i < len; ++i) {
+                    for (let i = 0, len = guardedHandlers.length; i < len; ++i) {
                         result = join(result, generateStatement(guardedHandlers[i]));
                         if (stmt.finalizer || i + 1 !== len) {
                             result = maybeBlockSuffix(guardedHandlers[i].body, result);
@@ -2287,7 +2243,7 @@
                     // new interface
                     if (stmt.handler) {
                         if (Array.isArray(stmt.handler)) {
-                            for (i = 0, len = stmt.handler.length; i < len; ++i) {
+                            for (let i = 0, len = stmt.handler.length; i < len; ++i) {
                                 result = join(result, generateStatement(stmt.handler[i]));
                                 if (stmt.finalizer || i + 1 !== len) {
                                     result = maybeBlockSuffix(stmt.handler[i].body, result);
@@ -2319,8 +2275,8 @@
                     ];
                 });
                 if (stmt.cases) {
-                    for (i = 0, len = stmt.cases.length; i < len; ++i) {
-                        fragment = addIndent(generateStatement(stmt.cases[i], { semicolonOptional: i === len - 1 }));
+                    for (let i = 0, len = stmt.cases.length; i < len; ++i) {
+                        const fragment = addIndent(generateStatement(stmt.cases[i], { semicolonOptional: i === len - 1 }));
                         result.push(fragment);
                         if (!endsWithLineTerminator(toSourceNodeWhenNeeded(fragment).toString())) {
                             result.push(newline);
@@ -2345,10 +2301,10 @@
                         result = ['default:'];
                     }
 
-                    i = 0;
-                    len = stmt.consequent.length;
+                    let i = 0;
+                    const len = stmt.consequent.length;
                     if (len && stmt.consequent[0].type === Syntax.BlockStatement) {
-                        fragment = maybeBlock(stmt.consequent[0]);
+                        const fragment = maybeBlock(stmt.consequent[0]);
                         result.push(fragment);
                         i = 1;
                     }
@@ -2358,7 +2314,7 @@
                     }
 
                     for (; i < len; ++i) {
-                        fragment = addIndent(generateStatement(stmt.consequent[i], { semicolonOptional: i === len - 1 && semicolon === '' }));
+                        const fragment = addIndent(generateStatement(stmt.consequent[i], { semicolonOptional: i === len - 1 && semicolon === '' }));
                         result.push(fragment);
                         if (i + 1 !== len && !endsWithLineTerminator(toSourceNodeWhenNeeded(fragment).toString())) {
                             result.push(newline);
@@ -2450,11 +2406,11 @@
                 result = [`${stmt.label.name  }:`, maybeBlock(stmt.body, semicolon === '')];
                 break;
 
-            case Syntax.Program:
-                len = stmt.body.length;
+            case Syntax.Program: {
+                const len = stmt.body.length;
                 result = [safeConcatenation && len > 0 ? '\n' : ''];
-                for (i = 0; i < len; ++i) {
-                    fragment = addIndent(
+                for (let i = 0; i < len; ++i) {
+                    const fragment = addIndent(
                         generateStatement(stmt.body[i], {
                             semicolonOptional: !safeConcatenation && i === len - 1,
                             directiveContext: true
@@ -2467,8 +2423,8 @@
                 }
                 break;
 
-            case Syntax.FunctionDeclaration:
-                isGenerator = stmt.generator && !extra.moz.starlessGenerator;
+            } case Syntax.FunctionDeclaration: {
+                const isGenerator = stmt.generator && !extra.moz.starlessGenerator;
                 result = [
                     (isGenerator ? 'function*' : 'function'),
                     (isGenerator ? space : noEmptySpace()),
@@ -2477,7 +2433,7 @@
                 ];
                 break;
 
-            case Syntax.ReturnStatement:
+            } case Syntax.ReturnStatement:
                 if (stmt.argument) {
                     result = [join(
                         'return',
@@ -2532,7 +2488,7 @@
             result = addComments(stmt, result);
         }
 
-        fragment = toSourceNodeWhenNeeded(result).toString();
+        const fragment = toSourceNodeWhenNeeded(result).toString();
         if (stmt.type === Syntax.Program && !safeConcatenation && newline === '' &&  fragment.charAt(fragment.length - 1) === '\n') {
             result = sourceMap ? toSourceNodeWhenNeeded(result).replaceRight(/\s+$/, '') : fragment.replace(/\s+$/, '');
         }
@@ -2558,8 +2514,6 @@
 
     function generate(node, options) {
         const defaultOptions = getDefaultOptions();
-        let pair;
-
         if (options != null) {
             // Obsolete options
             //
@@ -2611,12 +2565,12 @@
         const result = generateInternal(node);
 
         if (!sourceMap) {
-            pair = { code: result.toString(), map: null };
+            const pair = { code: result.toString(), map: null };
             return options.sourceMapWithCode ? pair : pair.code;
         }
 
 
-        pair = result.toStringWithSourceMap({
+        const pair = result.toStringWithSourceMap({
             file: options.file,
             sourceRoot: options.sourceMapRoot
         });
