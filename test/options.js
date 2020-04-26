@@ -967,7 +967,6 @@ function adjustRegexLiteral(key, value) {
 }
 
 function runTest(options, source, expectedCode) {
-    let tree;
     const optionsParser = {
         raw: true
     };
@@ -977,7 +976,7 @@ function runTest(options, source, expectedCode) {
         optionsParser.loc = true;
         optionsParser.tokens = true;
     }
-    tree = esprima.parse(source);
+    let tree = esprima.parse(source);
     const expectedTree = JSON.stringify(tree, adjustRegexLiteral, 4);
     tree = esprima.parse(source, optionsParser);
     if (options.comment) {

@@ -56,8 +56,6 @@ const fixtures = [
 ];
 
 function testIdentity(code) {
-    let tree, actual, commentTree;
-
     // once
     const options = {
         comment: false,
@@ -67,10 +65,10 @@ function testIdentity(code) {
         raw: false
     };
 
-    tree = esprima.parse(code, options);
+    let tree = esprima.parse(code, options);
     const expected = JSON.stringify(tree, adjustRegexLiteral, 4);
     tree = esprima.parse(escodegen.generate(tree), options);
-    actual = JSON.stringify(tree, adjustRegexLiteral, 4);
+    let actual = JSON.stringify(tree, adjustRegexLiteral, 4);
     expect(actual).to.be.equal(expected);
 
     // second, attachComments
@@ -82,7 +80,7 @@ function testIdentity(code) {
         raw: false
     };
 
-    commentTree = esprima.parse(code, commentOptions);
+    let commentTree = esprima.parse(code, commentOptions);
     commentTree = escodegen.attachComments(commentTree, commentTree.comments, commentTree.tokens);
     tree = esprima.parse(escodegen.generate(commentTree), options);
     actual = JSON.stringify(tree, adjustRegexLiteral, 4);

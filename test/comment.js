@@ -56,12 +56,11 @@ function test(code, expected) {
 
 describe('comment test', function () {
     fs.readdirSync(`${__dirname  }/comment`).sort().forEach(function(file) {
-        let code, expected, p;
         if (/\.js$/.test(file) && !/expected\.js$/.test(file)) {
             it(file, function () {
-                p = file.replace(/\.js$/, '.expected.js');
-                code = fs.readFileSync(`${__dirname  }/comment/${  file}`, 'utf-8');
-                expected = fs.readFileSync(`${__dirname  }/comment/${  p}`, 'utf-8');
+                const p = file.replace(/\.js$/, '.expected.js');
+                const code = fs.readFileSync(`${__dirname  }/comment/${  file}`, 'utf-8');
+                const expected = fs.readFileSync(`${__dirname  }/comment/${  p}`, 'utf-8');
                 test(code, expected);
             });
         }

@@ -221,8 +221,7 @@
     }
 
     function merge(target, override) {
-        let key;
-        for (key in override) {
+        for (const key in override) {
             if (Object.hasOwnProperty.call(override, key)) {
                 target[key] = override[key];
             }
@@ -231,15 +230,13 @@
     }
 
     function updateDeeply(target, override) {
-        let key, val;
-
         function isHashObject(target) {
             return typeof target === 'object' && target instanceof Object && !(target instanceof RegExp);
         }
 
-        for (key in override) {
+        for (const key in override) {
             if (Object.hasOwnProperty.call(override, key)) {
-                val = override[key];
+                const val = override[key];
                 if (isHashObject(val)) {
                     if (isHashObject(target[key])) {
                         updateDeeply(target[key], val);
@@ -255,8 +252,6 @@
     }
 
     function generateNumber(value) {
-        let result, point, temp, exponent, pos;
-
         if (value !== value) {
             throw new Error('Numeric literal whose value is NaN');
         }
@@ -268,19 +263,20 @@
             return json ? 'null' : renumber ? '1e400' : '1e+400';
         }
 
-        result = `${  value}`;
+        let result = `${  value}`;
         if (!renumber || result.length < 3) {
             return result;
         }
 
-        point = result.indexOf('.');
+        let point = result.indexOf('.');
         if (!json && result.charCodeAt(0) === 0x30  /* 0 */ && point === 1) {
             point = 0;
             result = result.slice(1);
         }
-        temp = result;
+        let temp = result;
         result = result.replace('e+', 'e');
-        exponent = 0;
+        let exponent = 0;
+        let pos;
         if ((pos = temp.indexOf('e')) > 0) {
             exponent = +temp.slice(pos + 1);
             temp = temp.slice(0, pos);
@@ -323,24 +319,22 @@
     }
 
     function generateRegExp(reg) {
-        let match, result, flags, i, iz, ch, characterInBrack, previousIsBackslash;
-
-        result = reg.toString();
+        let result = reg.toString();
 
         if (reg.source) {
             // extract flag from toString result
-            match = result.match(/\/([^/]*)$/);
+            const match = result.match(/\/([^/]*)$/);
             if (!match) {
                 return result;
             }
 
-            [, flags] = match;
+            const [, flags] = match;
             result = '';
 
-            characterInBrack = false;
-            previousIsBackslash = false;
-            for (i = 0, iz = reg.source.length; i < iz; ++i) {
-                ch = reg.source.charCodeAt(i);
+            let characterInBrack = false;
+            let previousIsBackslash = false;
+            for (let i = 0, iz = reg.source.length; i < iz; ++i) {
+                const ch = reg.source.charCodeAt(i);
 
                 if (!previousIsBackslash) {
                     if (characterInBrack) {
@@ -420,11 +414,9 @@
     }
 
     function escapeDirective(str) {
-        let i, iz, code, quote;
-
-        quote = quotes === 'double' ? '"' : '\'';
-        for (i = 0, iz = str.length; i < iz; ++i) {
-            code = str.charCodeAt(i);
+        let quote = quotes === 'double' ? '"' : '\'';
+        for (let i = 0, iz = str.length; i < iz; ++i) {
+            const code = str.charCodeAt(i);
             if (code === 0x27  /* ' */) {
                 quote = '"';
                 break;
@@ -440,10 +432,10 @@
     }
 
     function escapeString(str) {
-        let result = '', i, len, code, singleQuotes = 0, doubleQuotes = 0;
+        let result = '', singleQuotes = 0, doubleQuotes = 0;
 
-        for (i = 0, len = str.length; i < len; ++i) {
-            code = str.charCodeAt(i);
+        for (let i = 0, len = str.length; i < len; ++i) {
+            const code = str.charCodeAt(i);
             if (code === 0x27  /* ' */) {
                 ++singleQuotes;
             } else if (code === 0x22  /* " */) {
@@ -470,8 +462,8 @@
         str = result;
         result = quote;
 
-        for (i = 0, len = str.length; i < len; ++i) {
-            code = str.charCodeAt(i);
+        for (let i = 0, len = str.length; i < len; ++i) {
+            const code = str.charCodeAt(i);
             if ((code === 0x27  /* ' */ && single) || (code === 0x22  /* " */ && !single)) {
                 result += '\\';
             }
@@ -486,9 +478,9 @@
      * either strings or nested arrays
      */
     function flattenToString(arr) {
-        let i, iz, elem, result = '';
-        for (i = 0, iz = arr.length; i < iz; ++i) {
-            elem = arr[i];
+        let result = '';
+        for (let i = 0, iz = arr.length; i < iz; ++i) {
+            const elem = arr[i];
             result += Array.isArray(elem) ? flattenToString(elem) : elem;
         }
         return result;
@@ -572,15 +564,13 @@
     }
 
     function adjustMultilineComment(value, specialBase) {
-        let i, len, line, j, spaces, previousBase, sn;
-
         const array = value.split(/\r\n|[\r\n]/);
-        spaces = Number.MAX_VALUE;
+        let spaces = Number.MAX_VALUE;
 
         // first line doesn't have indentation
-        for (i = 1, len = array.length; i < len; ++i) {
-            line = array[i];
-            j = 0;
+        for (let i = 1, len = array.length; i < len; ++i) {
+            const line = array[i];
+            let j = 0;
             while (j < line.length && esutils.code.isWhiteSpace(line.charCodeAt(j))) {
                 ++j;
             }
@@ -589,6 +579,7 @@
             }
         }
 
+        let previousBase;
         if (typeof specialBase !== 'undefined') {
             // pattern like
             // {
@@ -613,8 +604,8 @@
             previousBase = base;
         }
 
-        for (i = 1, len = array.length; i < len; ++i) {
-            sn = toSourceNodeWhenNeeded(addIndent(array[i].slice(spaces)));
+        for (let i = 1, len = array.length; i < len; ++i) {
+            const sn = toSourceNodeWhenNeeded(addIndent(array[i].slice(spaces)));
             array[i] = sourceMap ? sn.join('') : sn;
         }
 
@@ -643,21 +634,18 @@
     }
 
     function addComments(stmt, result) {
-        let i, len, comment, save, tailingToStatement, specialBase, fragment,
-            extRange, range, prevRange, prefix, infix, suffix, count;
-
         if (stmt.leadingComments && stmt.leadingComments.length > 0) {
-            save = result;
+            const save = result;
 
             if (preserveBlankLines) {
-                [comment] = stmt.leadingComments;
+                const [comment] = stmt.leadingComments;
                 result = [];
 
-                extRange = comment.extendedRange;
-                ({ range } = comment);
+                const extRange = comment.extendedRange;
+                let { range } = comment;
 
-                prefix = sourceCode.substring(extRange[0], range[0]);
-                count = (prefix.match(/\n/g) || []).length;
+                const prefix = sourceCode.substring(extRange[0], range[0]);
+                let count = (prefix.match(/\n/g) || []).length;
                 if (count > 0) {
                     result.push(stringRepeat('\n', count));
                     result.push(addIndent(generateComment(comment)));
@@ -666,25 +654,25 @@
                     result.push(generateComment(comment));
                 }
 
-                prevRange = range;
+                let prevRange = range;
 
-                for (i = 1, len = stmt.leadingComments.length; i < len; i++) {
-                    comment = stmt.leadingComments[i];
+                for (let i = 1, len = stmt.leadingComments.length; i < len; i++) {
+                    const comment = stmt.leadingComments[i];
                     ({ range } = comment);
 
-                    infix = sourceCode.substring(prevRange[1], range[0]);
-                    count = (infix.match(/\n/g) || []).length;
+                    const infix = sourceCode.substring(prevRange[1], range[0]);
+                    const count = (infix.match(/\n/g) || []).length;
                     result.push(stringRepeat('\n', count));
                     result.push(addIndent(generateComment(comment)));
 
                     prevRange = range;
                 }
 
-                suffix = sourceCode.substring(range[1], extRange[1]);
+                const suffix = sourceCode.substring(range[1], extRange[1]);
                 count = (suffix.match(/\n/g) || []).length;
                 result.push(stringRepeat('\n', count));
             } else {
-                [comment] = stmt.leadingComments;
+                const [comment] = stmt.leadingComments;
                 result = [];
                 if (safeConcatenation && stmt.type === Syntax.Program && stmt.body.length === 0) {
                     result.push('\n');
@@ -694,9 +682,9 @@
                     result.push('\n');
                 }
 
-                for (i = 1, len = stmt.leadingComments.length; i < len; ++i) {
-                    comment = stmt.leadingComments[i];
-                    fragment = [generateComment(comment)];
+                for (let i = 1, len = stmt.leadingComments.length; i < len; ++i) {
+                    const comment = stmt.leadingComments[i];
+                    const fragment = [generateComment(comment)];
                     if (!endsWithLineTerminator(toSourceNodeWhenNeeded(fragment).toString())) {
                         fragment.push('\n');
                     }
@@ -710,12 +698,12 @@
         if (stmt.trailingComments) {
 
             if (preserveBlankLines) {
-                [comment] = stmt.trailingComments;
-                extRange = comment.extendedRange;
-                ({ range } = comment);
+                const [comment] = stmt.trailingComments;
+                const extRange = comment.extendedRange;
+                const { range } = comment;
 
-                prefix = sourceCode.substring(extRange[0], range[0]);
-                count = (prefix.match(/\n/g) || []).length;
+                const prefix = sourceCode.substring(extRange[0], range[0]);
+                const count = (prefix.match(/\n/g) || []).length;
 
                 if (count > 0) {
                     result.push(stringRepeat('\n', count));
@@ -725,10 +713,10 @@
                     result.push(generateComment(comment));
                 }
             } else {
-                tailingToStatement = !endsWithLineTerminator(toSourceNodeWhenNeeded(result).toString());
-                specialBase = stringRepeat(' ', calculateSpaces(toSourceNodeWhenNeeded([base, result, indent]).toString()));
-                for (i = 0, len = stmt.trailingComments.length; i < len; ++i) {
-                    comment = stmt.trailingComments[i];
+                const tailingToStatement = !endsWithLineTerminator(toSourceNodeWhenNeeded(result).toString());
+                const specialBase = stringRepeat(' ', calculateSpaces(toSourceNodeWhenNeeded([base, result, indent]).toString()));
+                for (let i = 0, len = stmt.trailingComments.length; i < len; ++i) {
+                    const comment = stmt.trailingComments[i];
                     if (tailingToStatement) {
                         // We assume target like following script
                         //
@@ -756,15 +744,15 @@
     }
 
     function generateBlankLines(start, end, result) {
-        let j, newlineCount = 0;
+        let newlineCount = 0;
 
-        for (j = start; j < end; j++) {
+        for (let j = start; j < end; j++) {
             if (sourceCode[j] === '\n') {
                 newlineCount++;
             }
         }
 
-        for (j = 1; j < newlineCount; j++) {
+        for (let j = 1; j < newlineCount; j++) {
             result.push(newline);
         }
     }
@@ -785,15 +773,15 @@
     }
 
     function generateVerbatim(expr, precedence) {
-        let result, prec;
         const verbatim = expr[extra.verbatim];
 
+        let result;
         if (typeof verbatim === 'string') {
             result = parenthesize(generateVerbatimString(verbatim), Precedence.Sequence, precedence);
         } else {
             // verbatim is object
             result = generateVerbatimString(verbatim.content);
-            prec = (verbatim.precedence != null) ? verbatim.precedence : Precedence.Sequence;
+            const prec = (verbatim.precedence != null) ? verbatim.precedence : Precedence.Sequence;
             result = parenthesize(result, prec, precedence);
         }
 
@@ -806,7 +794,6 @@
     // Helpers.
 
     CodeGenerator.prototype.maybeBlock = function(stmt, flags) {
-        let result;
         const that = this;
 
         const noLeadingComment = !extra.comment || !stmt.leadingComments;
@@ -819,6 +806,7 @@
             return ';';
         }
 
+        let result;
         withIndent(function () {
             result = [
                 newline,
@@ -874,9 +862,8 @@
     };
 
     CodeGenerator.prototype.generateFunctionParams = function (node) {
-        let i, iz, result, hasDefault;
-
-        hasDefault = false;
+        let result;
+        let hasDefault = false;
 
         if (node.type === Syntax.ArrowFunctionExpression &&
                 !node.rest && (!node.defaults || node.defaults.length === 0) &&
@@ -889,7 +876,7 @@
             if (node.defaults) {
                 hasDefault = true;
             }
-            for (i = 0, iz = node.params.length; i < iz; ++i) {
+            for (let i = 0, iz = node.params.length; i < iz; ++i) {
                 if (hasDefault && node.defaults[i]) {
                     // Handle default values.
                     result.push(this.generateAssignment(node.params[i], node.defaults[i], '=', Precedence.Assignment, E_TTT));
@@ -916,8 +903,6 @@
     };
 
     CodeGenerator.prototype.generateFunctionBody = function (node) {
-        let expr;
-
         const result = this.generateFunctionParams(node);
 
         if (node.type === Syntax.ArrowFunctionExpression) {
@@ -927,7 +912,7 @@
 
         if (node.expression) {
             result.push(space);
-            expr = this.generateExpression(node.body, Precedence.Assignment, E_TTT);
+            let expr = this.generateExpression(node.body, Precedence.Assignment, E_TTT);
             if (expr.toString().charAt(0) === '{') {
                 expr = ['(', expr, ')'];
             }
@@ -1007,14 +992,14 @@
 
         BlockStatement (stmt, flags) {
             const that = this;
-            let range, content, result = ['{', newline];
+            let result = ['{', newline];
 
             withIndent(function () {
                 // handle functions without any code
                 if (stmt.body.length === 0 && preserveBlankLines) {
-                    ({ range } = stmt);
+                    const { range } = stmt;
                     if (range[1] - range[0] > 2) {
-                        content = sourceCode.substring(range[0] + 1, range[1] - 1);
+                        const content = sourceCode.substring(range[0] + 1, range[1] - 1);
                         if (content[0] === '\n') {
                             result = ['{'];
                         }
@@ -1022,19 +1007,18 @@
                     }
                 }
 
-                let i, iz, fragment, bodyFlags;
-                bodyFlags = S_TFFF;
+                let bodyFlags = S_TFFF;
                 if (flags & F_FUNC_BODY) {
                     bodyFlags |= F_DIRECTIVE_CTX;
                 }
 
-                for (i = 0, iz = stmt.body.length; i < iz; ++i) {
+                for (let i = 0, iz = stmt.body.length; i < iz; ++i) {
                     if (preserveBlankLines) {
                         // handle spaces before the first line
                         if (i === 0) {
                             if (stmt.body[0].leadingComments) {
-                                range = stmt.body[0].leadingComments[0].extendedRange;
-                                content = sourceCode.substring(range[0], range[1]);
+                                const range = stmt.body[0].leadingComments[0].extendedRange;
+                                const content = sourceCode.substring(range[0], range[1]);
                                 if (content[0] === '\n') {
                                     result = ['{'];
                                 }
@@ -1056,6 +1040,7 @@
                         bodyFlags |= F_SEMICOLON_OPT;
                     }
 
+                    let fragment;
                     if (stmt.body[i].leadingComments && preserveBlankLines) {
                         fragment = that.generateStatement(stmt.body[i], bodyFlags);
                     } else {
@@ -1108,9 +1093,7 @@
             const result = [ '{', newline], that = this;
 
             withIndent(function (indent) {
-                let i, iz;
-
-                for (i = 0, iz = stmt.body.length; i < iz; ++i) {
+                for (let i = 0, iz = stmt.body.length; i < iz; ++i) {
                     result.push(indent);
                     result.push(that.generateExpression(stmt.body[i], Precedence.Sequence, E_TTT));
                     if (i + 1 < iz) {
@@ -1128,13 +1111,12 @@
         },
 
         ClassDeclaration (stmt, flags) {
-            let result, fragment;
-            result  = ['class'];
+            let result  = ['class'];
             if (stmt.id) {
                 result = join(result, this.generateExpression(stmt.id, Precedence.Sequence, E_TTT));
             }
             if (stmt.superClass) {
-                fragment = join('extends', this.generateExpression(stmt.superClass, Precedence.Unary, E_TTT));
+                const fragment = join('extends', this.generateExpression(stmt.superClass, Precedence.Unary, E_TTT));
                 result = join(result, fragment);
             }
             result.push(space);
@@ -1164,8 +1146,6 @@
             const that = this;
             let result;
             withIndent(function () {
-                let guard;
-
                 if (stmt.param) {
                     result = [
                         `catch${  space  }(`,
@@ -1174,7 +1154,7 @@
                     ];
 
                     if (stmt.guard) {
-                        guard = that.generateExpression(stmt.guard, Precedence.Sequence, E_TTT);
+                        const guard = that.generateExpression(stmt.guard, Precedence.Sequence, E_TTT);
                         result.splice(2, 0, ' if ', guard);
                     }
                 } else {
@@ -1231,9 +1211,8 @@
                 } else {
                     result = join(result, '{');
                     withIndent(function (indent) {
-                        let i, iz;
                         result.push(newline);
-                        for (i = 0, iz = stmt.specifiers.length; i < iz; ++i) {
+                        for (let i = 0, iz = stmt.specifiers.length; i < iz; ++i) {
                             result.push(indent);
                             result.push(that.generateExpression(stmt.specifiers[i], Precedence.Sequence, E_TTT));
                             if (i + 1 < iz) {
@@ -1274,8 +1253,6 @@
         },
 
         ExpressionStatement (stmt, flags) {
-            let result;
-
             function isClassPrefixed(fragment) {
                 if (fragment.slice(0, 5) !== 'class') {
                     return false;
@@ -1293,13 +1270,13 @@
             }
 
             function isAsyncPrefixed(fragment) {
-                let i, iz;
                 if (fragment.slice(0, 5) !== 'async') {
                     return false;
                 }
                 if (!esutils.code.isWhiteSpace(fragment.charCodeAt(5))) {
                     return false;
                 }
+                let i, iz;
                 for (i = 6, iz = fragment.length; i < iz; ++i) {
                     if (!esutils.code.isWhiteSpace(fragment.charCodeAt(i))) {
                         break;
@@ -1315,7 +1292,7 @@
                 return code === 0x28 /* '(' */ || esutils.code.isWhiteSpace(code) || code === 0x2A  /* '*' */ || esutils.code.isLineTerminator(code);
             }
 
-            result = [this.generateExpression(stmt.expression, Precedence.Sequence, E_TTT)];
+            let result = [this.generateExpression(stmt.expression, Precedence.Sequence, E_TTT)];
             // 12.4 '{', 'function', 'class' is not allowed in this position.
             // wrap expression with parentheses
             const fragment = toSourceNodeWhenNeeded(result).toString();
@@ -1336,7 +1313,6 @@
             //     - import ImportClause FromClause ;
             //     - import ModuleSpecifier ;
             const that = this;
-            let result, cursor;
 
             // If no ImportClause is present,
             // this should be `import ModuleSpecifier` so skip `from`
@@ -1353,10 +1329,10 @@
             }
 
             // import ImportClause FromClause ;
-            result = [
+            let result = [
                 'import'
             ];
-            cursor = 0;
+            let cursor = 0;
 
             // ImportedBinding
             if (stmt.specifiers[cursor].type === Syntax.ImportDefaultSpecifier) {
@@ -1392,9 +1368,8 @@
                         //    ...,
                         // } from "...";
                         withIndent(function (indent) {
-                            let i, iz;
                             result.push(newline);
-                            for (i = cursor, iz = stmt.specifiers.length; i < iz; ++i) {
+                            for (let i = cursor, iz = stmt.specifiers.length; i < iz; ++i) {
                                 result.push(indent);
                                 result.push(that.generateExpression(stmt.specifiers[i], Precedence.Sequence, E_TTT));
                                 if (i + 1 < iz) {
@@ -1438,14 +1413,13 @@
             // but joined with comma (not LineTerminator).
             // So if comment is attached to target node, we should specialize.
             const that = this;
-            let i, iz, node;
 
             const result = [ stmt.kind ];
 
             const bodyFlags = (flags & F_ALLOW_IN) ? S_TFFF : S_FFFF;
 
             function block() {
-                [node] = stmt.declarations;
+                const [node] = stmt.declarations;
                 if (extra.comment && node.leadingComments) {
                     result.push('\n');
                     result.push(addIndent(that.generateStatement(node, bodyFlags)));
@@ -1454,8 +1428,8 @@
                     result.push(that.generateStatement(node, bodyFlags));
                 }
 
-                for (i = 1, iz = stmt.declarations.length; i < iz; ++i) {
-                    node = stmt.declarations[i];
+                for (let i = 1, iz = stmt.declarations.length; i < iz; ++i) {
+                    const node = stmt.declarations[i];
                     if (extra.comment && node.leadingComments) {
                         result.push(`,${  newline}`);
                         result.push(addIndent(that.generateStatement(node, bodyFlags)));
@@ -1485,23 +1459,21 @@
         },
 
         TryStatement (stmt, flags) {
-            let result, i, iz, guardedHandlers;
-
-            result = ['try', this.maybeBlock(stmt.block, S_TFFF)];
+            let result = ['try', this.maybeBlock(stmt.block, S_TFFF)];
             result = this.maybeBlockSuffix(stmt.block, result);
 
             if (stmt.handlers) {
                 // old interface
-                for (i = 0, iz = stmt.handlers.length; i < iz; ++i) {
+                for (let i = 0, iz = stmt.handlers.length; i < iz; ++i) {
                     result = join(result, this.generateStatement(stmt.handlers[i], S_TFFF));
                     if (stmt.finalizer || i + 1 !== iz) {
                         result = this.maybeBlockSuffix(stmt.handlers[i].body, result);
                     }
                 }
             } else {
-                guardedHandlers = stmt.guardedHandlers || [];
+                const guardedHandlers = stmt.guardedHandlers || [];
 
-                for (i = 0, iz = guardedHandlers.length; i < iz; ++i) {
+                for (let i = 0, iz = guardedHandlers.length; i < iz; ++i) {
                     result = join(result, this.generateStatement(guardedHandlers[i], S_TFFF));
                     if (stmt.finalizer || i + 1 !== iz) {
                         result = this.maybeBlockSuffix(guardedHandlers[i].body, result);
@@ -1511,7 +1483,7 @@
                 // new interface
                 if (stmt.handler) {
                     if (Array.isArray(stmt.handler)) {
-                        for (i = 0, iz = stmt.handler.length; i < iz; ++i) {
+                        for (let i = 0, iz = stmt.handler.length; i < iz; ++i) {
                             result = join(result, this.generateStatement(stmt.handler[i], S_TFFF));
                             if (stmt.finalizer || i + 1 !== iz) {
                                 result = this.maybeBlockSuffix(stmt.handler[i].body, result);
@@ -1533,7 +1505,7 @@
 
         SwitchStatement (stmt, flags) {
             const that = this;
-            let result, fragment, i, iz, bodyFlags;
+            let result;
             withIndent(function () {
                 result = [
                     `switch${  space  }(`,
@@ -1542,12 +1514,12 @@
                 ];
             });
             if (stmt.cases) {
-                bodyFlags = S_TFFF;
-                for (i = 0, iz = stmt.cases.length; i < iz; ++i) {
+                let bodyFlags = S_TFFF;
+                for (let i = 0, iz = stmt.cases.length; i < iz; ++i) {
                     if (i === iz - 1) {
                         bodyFlags |= F_SEMICOLON_OPT;
                     }
-                    fragment = addIndent(this.generateStatement(stmt.cases[i], bodyFlags));
+                    const fragment = addIndent(this.generateStatement(stmt.cases[i], bodyFlags));
                     result.push(fragment);
                     if (!endsWithLineTerminator(toSourceNodeWhenNeeded(fragment).toString())) {
                         result.push(newline);
@@ -1560,7 +1532,7 @@
 
         SwitchCase (stmt, flags) {
             const that = this;
-            let result, fragment, i, iz, bodyFlags;
+            let result;
             withIndent(function () {
                 if (stmt.test) {
                     result = [
@@ -1571,10 +1543,10 @@
                     result = ['default:'];
                 }
 
-                i = 0;
-                iz = stmt.consequent.length;
+                let i = 0;
+                const iz = stmt.consequent.length;
                 if (iz && stmt.consequent[0].type === Syntax.BlockStatement) {
-                    fragment = that.maybeBlock(stmt.consequent[0], S_TFFF);
+                    const fragment = that.maybeBlock(stmt.consequent[0], S_TFFF);
                     result.push(fragment);
                     i = 1;
                 }
@@ -1583,12 +1555,12 @@
                     result.push(newline);
                 }
 
-                bodyFlags = S_TFFF;
+                let bodyFlags = S_TFFF;
                 for (; i < iz; ++i) {
                     if (i === iz - 1 && flags & F_SEMICOLON_OPT) {
                         bodyFlags |= F_SEMICOLON_OPT;
                     }
-                    fragment = addIndent(that.generateStatement(stmt.consequent[i], bodyFlags));
+                    const fragment = addIndent(that.generateStatement(stmt.consequent[i], bodyFlags));
                     result.push(fragment);
                     if (i + 1 !== iz && !endsWithLineTerminator(toSourceNodeWhenNeeded(fragment).toString())) {
                         result.push(newline);
@@ -1600,7 +1572,7 @@
 
         IfStatement (stmt, flags) {
             const that = this;
-            let result, bodyFlags;
+            let result;
             withIndent(function () {
                 result = [
                     `if${  space  }(`,
@@ -1609,7 +1581,7 @@
                 ];
             });
             const semicolonOptional = flags & F_SEMICOLON_OPT;
-            bodyFlags = S_TFFF;
+            let bodyFlags = S_TFFF;
             if (semicolonOptional) {
                 bodyFlags |= F_SEMICOLON_OPT;
             }
@@ -1678,11 +1650,10 @@
         },
 
         Program (stmt, flags) {
-            let fragment, i, bodyFlags;
             const iz = stmt.body.length;
             const result = [safeConcatenation && iz > 0 ? '\n' : ''];
-            bodyFlags = S_TFTF;
-            for (i = 0; i < iz; ++i) {
+            let bodyFlags = S_TFTF;
+            for (let i = 0; i < iz; ++i) {
                 if (!safeConcatenation && i === iz - 1) {
                     bodyFlags |= F_SEMICOLON_OPT;
                 }
@@ -1703,7 +1674,7 @@
                     }
                 }
 
-                fragment = addIndent(this.generateStatement(stmt.body[i], bodyFlags));
+                const fragment = addIndent(this.generateStatement(stmt.body[i], bodyFlags));
                 result.push(fragment);
                 if (i + 1 < iz && !endsWithLineTerminator(toSourceNodeWhenNeeded(fragment).toString())) {
                     if (preserveBlankLines) {
@@ -1827,7 +1798,6 @@
         },
 
         BinaryExpression (expr, precedence, flags) {
-            let result, fragment;
             const currentPrecedence = BinaryPrecedence[expr.operator];
             const leftPrecedence = expr.operator === '**' ? Precedence.Postfix : currentPrecedence;
             const rightPrecedence = expr.operator === '**' ? currentPrecedence : currentPrecedence + 1;
@@ -1836,10 +1806,11 @@
                 flags |= F_ALLOW_IN;
             }
 
-            fragment = this.generateExpression(expr.left, leftPrecedence, flags);
+            let fragment = this.generateExpression(expr.left, leftPrecedence, flags);
 
             const leftSource = fragment.toString();
 
+            let result;
             if (leftSource.charCodeAt(leftSource.length - 1) === 0x2F /* / */ && esutils.code.isIdentifierPartES5(expr.operator.charCodeAt(0))) {
                 result = [fragment, noEmptySpace(), expr.operator];
             } else {
@@ -1864,11 +1835,10 @@
         },
 
         CallExpression (expr, precedence, flags) {
-            let i, iz;
             // F_ALLOW_UNPARATH_NEW becomes false.
             const result = [this.generateExpression(expr.callee, Precedence.Call, E_TTF)];
             result.push('(');
-            for (i = 0, iz = expr['arguments'].length; i < iz; ++i) {
+            for (let i = 0, iz = expr['arguments'].length; i < iz; ++i) {
                 result.push(this.generateExpression(expr['arguments'][i], Precedence.Assignment, E_TTT));
                 if (i + 1 < iz) {
                     result.push(`,${  space}`);
@@ -1883,7 +1853,6 @@
         },
 
         NewExpression (expr, precedence, flags) {
-            let i, iz;
             const { length } = expr['arguments'];
 
             // F_ALLOW_CALL becomes false.
@@ -1897,7 +1866,7 @@
 
             if (!(flags & F_ALLOW_UNPARATH_NEW) || parentheses || length > 0) {
                 result.push('(');
-                for (i = 0, iz = length; i < iz; ++i) {
+                for (let i = 0, iz = length; i < iz; ++i) {
                     result.push(this.generateExpression(expr['arguments'][i], Precedence.Assignment, E_TTT));
                     if (i + 1 < iz) {
                         result.push(`,${  space}`);
@@ -1910,8 +1879,6 @@
         },
 
         MemberExpression (expr, precedence, flags) {
-            let fragment;
-
             // F_ALLOW_UNPARATH_NEW becomes false.
             const result = [this.generateExpression(expr.object, Precedence.Call, (flags & F_ALLOW_CALL) ? E_TTF : E_TFF)];
 
@@ -1921,7 +1888,7 @@
                 result.push(']');
             } else {
                 if (expr.object.type === Syntax.Literal && typeof expr.object.value === 'number') {
-                    fragment = toSourceNodeWhenNeeded(result).toString();
+                    const fragment = toSourceNodeWhenNeeded(result).toString();
                     // When the following conditions are all true,
                     //   1. No floating point
                     //   2. Don't have exponents
@@ -1954,9 +1921,9 @@
         },
 
         UnaryExpression (expr, precedence, flags) {
-            let result, rightCharCode, leftSource, leftCharCode;
             const fragment = this.generateExpression(expr.argument, Precedence.Unary, E_TTT);
 
+            let result;
             if (space === '') {
                 result = join(expr.operator, fragment);
             } else {
@@ -1968,9 +1935,9 @@
                 } else {
                     // Prevent inserting spaces between operator and argument if it is unnecessary
                     // like, `!cond`
-                    leftSource = toSourceNodeWhenNeeded(result).toString();
-                    leftCharCode = leftSource.charCodeAt(leftSource.length - 1);
-                    rightCharCode = fragment.toString().charCodeAt(0);
+                    const leftSource = toSourceNodeWhenNeeded(result).toString();
+                    const leftCharCode = leftSource.charCodeAt(leftSource.length - 1);
+                    const rightCharCode = fragment.toString().charCodeAt(0);
 
                     if (((leftCharCode === 0x2B  /* + */ || leftCharCode === 0x2D  /* - */) && leftCharCode === rightCharCode) ||
                             (esutils.code.isIdentifierPartES5(leftCharCode) && esutils.code.isIdentifierPartES5(rightCharCode))) {
@@ -2056,8 +2023,7 @@
             const multiline = isPattern ? false : expr.elements.length > 1;
             const result = ['[', multiline ? newline : ''];
             withIndent(function (indent) {
-                let i, iz;
-                for (i = 0, iz = expr.elements.length; i < iz; ++i) {
+                for (let i = 0, iz = expr.elements.length; i < iz; ++i) {
                     if (!expr.elements[i]) {
                         if (multiline) {
                             result.push(indent);
@@ -2087,13 +2053,12 @@
         },
 
         ClassExpression (expr, precedence, flags) {
-            let result, fragment;
-            result = ['class'];
+            let result = ['class'];
             if (expr.id) {
                 result = join(result, this.generateExpression(expr.id, Precedence.Sequence, E_TTT));
             }
             if (expr.superClass) {
-                fragment = join('extends', this.generateExpression(expr.superClass, Precedence.Unary, E_TTT));
+                const fragment = join('extends', this.generateExpression(expr.superClass, Precedence.Unary, E_TTT));
                 result = join(result, fragment);
             }
             result.push(space);
@@ -2102,12 +2067,13 @@
         },
 
         MethodDefinition (expr, precedence, flags) {
-            let result, fragment;
+            let result;
             if (expr['static']) {
                 result = [`static${  space}`];
             } else {
                 result = [];
             }
+            let fragment;
             if (expr.kind === 'get' || expr.kind === 'set') {
                 fragment = [
                     join(expr.kind, this.generatePropertyKey(expr.key, expr.computed)),
@@ -2156,13 +2122,13 @@
 
         ObjectExpression (expr, precedence, flags) {
             const that = this;
-            let result, fragment;
 
             if (!expr.properties.length) {
                 return '{}';
             }
             const multiline = expr.properties.length > 1;
 
+            let fragment;
             withIndent(function () {
                 fragment = that.generateExpression(expr.properties[0], Precedence.Sequence, E_TTT);
             });
@@ -2181,13 +2147,13 @@
                 }
             }
 
+            let result;
             withIndent(function (indent) {
-                let i, iz;
                 result = [ '{', newline, indent, fragment ];
 
                 if (multiline) {
                     result.push(`,${  newline}`);
-                    for (i = 1, iz = expr.properties.length; i < iz; ++i) {
+                    for (let i = 1, iz = expr.properties.length; i < iz; ++i) {
                         result.push(indent);
                         result.push(that.generateExpression(expr.properties[i], Precedence.Sequence, E_TTT));
                         if (i + 1 < iz) {
@@ -2211,14 +2177,13 @@
 
         ObjectPattern (expr, precedence, flags) {
             const that = this;
-            let i, iz, multiline, property;
             if (!expr.properties.length) {
                 return '{}';
             }
 
-            multiline = false;
+            let multiline = false;
             if (expr.properties.length === 1) {
-                [property] = expr.properties;
+                const [property] = expr.properties;
                 if (
                     property.type === Syntax.Property
                     && property.value.type !== Syntax.Identifier
@@ -2226,8 +2191,8 @@
                     multiline = true;
                 }
             } else {
-                for (i = 0, iz = expr.properties.length; i < iz; ++i) {
-                    property = expr.properties[i];
+                for (let i = 0, iz = expr.properties.length; i < iz; ++i) {
+                    const property = expr.properties[i];
                     if (
                         property.type === Syntax.Property
                         && !property.shorthand
@@ -2240,8 +2205,7 @@
             const result = ['{', multiline ? newline : '' ];
 
             withIndent(function (indent) {
-                let i, iz;
-                for (i = 0, iz = expr.properties.length; i < iz; ++i) {
+                for (let i = 0, iz = expr.properties.length; i < iz; ++i) {
                     result.push(multiline ? indent : '');
                     result.push(that.generateExpression(expr.properties[i], Precedence.Sequence, E_TTT));
                     if (i + 1 < iz) {
@@ -2304,10 +2268,9 @@
         },
 
         Literal (expr, precedence, flags) {
-            let raw;
             if (Object.hasOwnProperty.call(expr, 'raw') && parse && extra.raw) {
                 try {
-                    raw = parse(expr.raw).body[0].expression;
+                    const raw = parse(expr.raw).body[0].expression;
                     if (raw.type === Syntax.Literal) {
                         if (raw.value === expr.value) {
                             return expr.raw;
@@ -2350,9 +2313,9 @@
             // Due to https://bugzilla.mozilla.org/show_bug.cgi?id=883468 position of expr.body can differ in Spidermonkey and ES6
 
             const that = this;
-            let result, i, iz, fragment;
-            result = (expr.type === Syntax.GeneratorExpression) ? ['('] : ['['];
+            let result = (expr.type === Syntax.GeneratorExpression) ? ['('] : ['['];
 
+            let fragment;
             if (extra.moz.comprehensionExpressionStartsWithAssignment) {
                 fragment = this.generateExpression(expr.body, Precedence.Assignment, E_TTT);
                 result.push(fragment);
@@ -2360,7 +2323,7 @@
 
             if (expr.blocks) {
                 withIndent(function () {
-                    for (i = 0, iz = expr.blocks.length; i < iz; ++i) {
+                    for (let i = 0, iz = expr.blocks.length; i < iz; ++i) {
                         fragment = that.generateExpression(expr.blocks[i], Precedence.Sequence, E_TTT);
                         if (i > 0 || extra.moz.comprehensionExpressionStartsWithAssignment) {
                             result = join(result, fragment);
@@ -2430,9 +2393,8 @@
         },
 
         TemplateLiteral (expr, precedence, flags) {
-            let i, iz;
             const result = [ '`' ];
-            for (i = 0, iz = expr.quasis.length; i < iz; ++i) {
+            for (let i = 0, iz = expr.quasis.length; i < iz; ++i) {
                 result.push(this.generateExpression(expr.quasis[i], Precedence.Primary, E_TTT));
                 if (i + 1 < iz) {
                     result.push(`\${${  space}`);
@@ -2461,16 +2423,13 @@
     merge(CodeGenerator.prototype, CodeGenerator.Expression);
 
     CodeGenerator.prototype.generateExpression = function (expr, precedence, flags) {
-        let result;
-
         const type = expr.type || Syntax.Property;
 
         if (extra.verbatim && Object.hasOwnProperty.call(expr, extra.verbatim)) {
             return generateVerbatim(expr, precedence);
         }
 
-        result = this[type](expr, precedence, flags);
-
+        let result = this[type](expr, precedence, flags);
 
         if (extra.comment) {
             result = addComments(expr, result);
@@ -2479,9 +2438,7 @@
     };
 
     CodeGenerator.prototype.generateStatement = function (stmt, flags) {
-        let result;
-
-        result = this[stmt.type](stmt, flags);
+        let result = this[stmt.type](stmt, flags);
 
         // Attach comments
 
@@ -2512,8 +2469,6 @@
 
     function generate(node, options) {
         const defaultOptions = getDefaultOptions();
-        let pair;
-
         if (options != null) {
             // Obsolete options
             //
@@ -2564,6 +2519,8 @@
         }
 
         const result = generateInternal(node);
+
+        let pair;
 
         if (!sourceMap) {
             pair = { code: result.toString(), map: null };
