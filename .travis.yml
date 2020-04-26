@@ -2,7 +2,7 @@ sudo: false
 language: node_js
 script:
   - npm run build
-  - npm run test:ci
+  - npm test
 node_js:
   - 10
   - 12
