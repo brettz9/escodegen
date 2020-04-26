@@ -21,12 +21,8 @@
   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
   THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-'use strict';
 
-const fs = require('fs'),
-    path = require('path'),
-    root = path.join(path.dirname(fs.realpathSync(__filename)), '..'),
-    escodegen = require(root);
+import escodegen from '../src/escodegen.js';
 
 // Make generate's first argument freezed.
 function freezing(escodegen) {
@@ -39,6 +35,6 @@ function freezing(escodegen) {
     return escodegen;
 }
 
-module.exports = freezing(escodegen);
+export default freezing(escodegen);
 
 /* vim: set sw=4 ts=4 et tw=80 : */

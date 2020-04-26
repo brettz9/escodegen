@@ -25,10 +25,10 @@
 
 /*jslint sloppy:true node:true */
 
-const fs = require('fs'),
-    path = require('path'),
+import fs from 'fs';
+import path from 'path';
     root = path.join(path.dirname(fs.realpathSync(__filename)), '..'),
-    esprima = require('esprima'),
+import esprima from 'esprima';
     escodegen = require(root),
     optionator = require('optionator')({
         prepend: 'Usage: escodegen [options] file...',

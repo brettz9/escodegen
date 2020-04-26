@@ -23,11 +23,9 @@
   THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-'use strict';
-
-const // esprima = require('esprima'),
-    escodegen = require('./loader'),
-    sourcemap = require('source-map');
+// import esprima from 'esprima';
+import escodegen from './loader.js';
+import sourcemap from 'source-map';
 
 describe('source map test', function () {
     it('function expression identifier test', function () {

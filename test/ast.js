@@ -22,10 +22,8 @@
   THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-'use strict';
-
-const esprima = require('esprima'),
-    escodegen = require('./loader');
+import esprima from 'esprima';
+import escodegen from './loader.js';
 
 const data = {
     'RegExp string': [

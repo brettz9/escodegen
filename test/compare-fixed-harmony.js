@@ -22,11 +22,9 @@
   THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-'use strict';
-
-const fs = require('fs'),
-    esprima = require('./3rdparty/esprima-harmony.patched'),
-    escodegen = require('./loader');
+import fs from 'fs';
+import esprima from './3rdparty/esprima-harmony.patched.js';
+import escodegen from './loader.js';
 
 function test(code, expected) {
     const options = {

@@ -25,8 +25,8 @@
 
 /*jslint sloppy:true node:true */
 
-const fs = require('fs'),
-    path = require('path'),
+import fs from 'fs';
+import path from 'path';
     root = path.join(path.dirname(fs.realpathSync(__filename)), '..'),
     escodegen = require(root),
     optionator = require('optionator')({

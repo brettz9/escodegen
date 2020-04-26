@@ -22,11 +22,9 @@
   THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-'use strict';
-
-const fs = require('fs'),
-    acorn = require('acorn'),
-    escodegen = require('./loader');
+import fs from 'fs';
+import acorn from 'acorn';
+import escodegen from './loader.js';
 
 function test(code, expected) {
     const options = {

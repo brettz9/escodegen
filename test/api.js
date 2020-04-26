@@ -22,10 +22,8 @@
   THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-'use strict';
-
-const // esprima = require('./3rdparty/esprima-1.0.0-dev'),
-    escodegen = require('./loader');
+// import esprima from './3rdparty/esprima-1.0.0-dev.js';
+import escodegen from './loader.js';
 
 /*
 function slug(name) {

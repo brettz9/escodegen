@@ -25,10 +25,11 @@
 
 /*jslint sloppy:true node:true */
 
-const fs = require('fs'),
-    path = require('path'),
-    root = path.join(path.dirname(fs.realpathSync(__filename)), '..'),
-    child_process = require('child_process');
+import fs from 'fs';
+import path from 'path';
+import child_process from 'child_process';
+
+const root = path.join(path.dirname(fs.realpathSync(__filename)), '..');
 
 function execFile(cmd, args) {
     return new Promise(function (resolve, reject) {

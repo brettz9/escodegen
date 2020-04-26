@@ -29,10 +29,8 @@
   THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-'use strict';
-
-const esprima = require('./3rdparty/esprima-harmony.original'),
-    escodegen = require('./loader');
+import esprima from './3rdparty/esprima-harmony.original.js';
+import escodegen from './loader.js';
 
 const data = {
     'Yield (with star, harmony proposed)': {
@@ -6949,7 +6947,6 @@ function updateDeeply(target, override) {
 // convert it to a string literal, otherwise it will be decoded
 // as object "{}" and the regular expression would be lost.
 function adjustRegexLiteral(key, value) {
-    'use strict';
     if (key === 'value' && value instanceof RegExp) {
         value = value.toString();
     }
@@ -6957,8 +6954,6 @@ function adjustRegexLiteral(key, value) {
 }
 
 function testIdentity(code, syntax) {
-    'use strict';
-
     const options = {
         comment: false,
         range: false,
@@ -6978,7 +6973,6 @@ function testIdentity(code, syntax) {
 }
 
 function testGenerate(expected, result) {
-    'use strict';
     let options = {
         indent: '    ',
         parse: esprima.parse

@@ -1,4 +1,4 @@
-const fs = require('fs'),
+import fs from 'fs';
     path = require('path');
     // esprima = require('esprima');
 

@@ -22,12 +22,11 @@
  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-'use strict';
+import fs from 'fs';
+import esprima from './3rdparty/esprima-2.7.1.js';
+import escodegen from './loader.js';
 
-const fs = require('fs'),
-    esprima = require('./3rdparty/esprima-2.7.1'),
-    escodegen = require('./loader'),
-    DIR = 'compare-esprima2';
+const DIR = 'compare-esprima2';
 
 function test(code, expected) {
     const options = {

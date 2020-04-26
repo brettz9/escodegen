@@ -22,8 +22,7 @@
   THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-(function () {
-    'use strict';
-    global.escodegen = require('../escodegen');
-    global.escodegen.browser = true;
-}());
+import escodegen from '../escodegen.js';
+
+global.escodegen = escodegen;
+global.escodegen.browser = true;
