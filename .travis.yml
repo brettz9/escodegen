@@ -1,6 +1,9 @@
 sudo: false
 language: node_js
+script:
+  - npm run build
+  - npm test
 node_js:
-  - "4"
-  - "6"
-  - "8"
+  - 10
+  - 12
+  - 14
