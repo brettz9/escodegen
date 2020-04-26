@@ -25,7 +25,7 @@
 
 'use strict';
 
-const // esprima = require('./3rdparty/esprima-1.0.0-dev'),
+const // esprima = require('esprima'),
     escodegen = require('./loader'),
     sourcemap = require('source-map'),
     chai = require('chai'),
