@@ -33,7 +33,6 @@ module.exports = {
     }],
     rules: {
         // 'push-with-multiple-arguments': 2,
-        /*
         'no-unused-vars': [
             2,
             {
@@ -41,9 +40,6 @@ module.exports = {
                 args: 'none'
             }
         ],
-        */
-        'no-unused-vars': 0,
-        'no-prototype-builtins': 0,
         'new-cap': [
             2,
             {
@@ -51,15 +47,15 @@ module.exports = {
             }
         ],
         semi: ['error'],
-        // indent: ['error', 4, { SwitchCase: 1 }],
+        indent: ['error', 4, { SwitchCase: 1 }],
         'prefer-const': ['error'],
-        // 'no-var': ['error'],
-        // 'prefer-destructuring': ['error'],
-        // 'object-shorthand': ['error'],
-        // 'object-curly-spacing': ['error', 'always'],
-        // quotes: ['error', 'single'],
-        // 'quote-props': ['error', 'as-needed'],
-        'brace-style': ['error', '1tbs', { allowSingleLine: true }]
-        // 'prefer-template': ['error']
+        'no-var': ['error'],
+        'prefer-destructuring': ['error'],
+        'object-shorthand': ['error'],
+        'object-curly-spacing': ['error', 'always'],
+        quotes: ['error', 'single'],
+        'quote-props': ['error', 'as-needed'],
+        'brace-style': ['error', '1tbs', { allowSingleLine: true }],
+        'prefer-template': ['error']
     }
 };
