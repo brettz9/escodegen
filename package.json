@@ -50,13 +50,27 @@
         "chai": "^4.2.0",
         "eslint": "^7.3.1",
         "mocha": "^8.0.1",
+        "nyc": "^15.1.0",
         "semver": "^7.3.2",
         "uglifyify": "^5.0.2"
     },
     "license": "BSD-2-Clause",
+    "nyc": {
+        "branches": 100,
+        "lines": 100,
+        "functions": 100,
+        "statements": 100,
+        "reporter": [
+            "html",
+            "text"
+        ],
+        "exclude": [
+            "test"
+        ]
+    },
     "scripts": {
         "test": "npm run unit-test && npm run lint",
-        "unit-test": "mocha test/*.js --timeout 100000",
+        "unit-test": "nyc mocha test/*.js --timeout 100000",
         "lint": "eslint --rulesdir tools/rules/ .",
         "release": "node tools/release.js",
         "build-min": "browserify -t uglifyify -e tools/entry-point.js -o escodegen.browser.min.js",
