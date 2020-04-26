@@ -8,3 +8,4 @@ test/*/*.js
 
 escodegen.browser.min.js
 escodegen.browser.js
+escodegen.js
