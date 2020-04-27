@@ -16,3 +16,5 @@ escodegen.browser.min.js
 escodegen.browser.js
 escodegen.js
 escodegen.js.map
+
+!src/escodegen.js
