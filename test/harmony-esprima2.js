@@ -32,9 +32,7 @@
 'use strict';
 
 const esprima = require('./3rdparty/esprima-2.7.1'),
-    escodegen = require('./loader'),
-    chai = require('chai'),
-    { expect } = chai;
+    escodegen = require('./loader');
 
 const data = {
     'Harmony MetaProperty': {

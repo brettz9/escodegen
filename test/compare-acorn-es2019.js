@@ -26,9 +26,7 @@
 
 const fs = require('fs'),
     acorn = require('acorn'),
-    escodegen = require('./loader'),
-    chai = require('chai'),
-    { expect } = chai;
+    escodegen = require('./loader');
 
 function test(code, expected) {
     const options = {

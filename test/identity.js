@@ -26,9 +26,7 @@
 
 const fs = require('fs'),
     esprima = require('./3rdparty/esprima-1.0.0-dev'),
-    escodegen = require('./loader'),
-    chai = require('chai'),
-    { expect } = chai;
+    escodegen = require('./loader');
 
 function slug(name) {
     return name.toLowerCase().replace(/\s/g, '-');

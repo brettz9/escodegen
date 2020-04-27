@@ -32,9 +32,7 @@
 'use strict';
 
 const esprima = require('./3rdparty/esprima-harmony.original'),
-    escodegen = require('./loader'),
-    chai = require('chai'),
-    { expect } = chai;
+    escodegen = require('./loader');
 
 const data = {
     'Yield (with star, harmony proposed)': {
