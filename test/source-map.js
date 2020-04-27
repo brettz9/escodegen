@@ -27,9 +27,7 @@
 
 const // esprima = require('esprima'),
     escodegen = require('./loader'),
-    sourcemap = require('source-map'),
-    chai = require('chai'),
-    { expect } = chai;
+    sourcemap = require('source-map');
 
 describe('source map test', function () {
     it('function expression identifier test', function () {

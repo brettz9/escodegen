@@ -26,9 +26,7 @@
 
 const fs = require('fs'),
     esprima = require('./3rdparty/esprima-harmony.patched'),
-    escodegen = require('./loader'),
-    chai = require('chai'),
-    { expect } = chai;
+    escodegen = require('./loader');
 
 function test(code, expected) {
     const options = {

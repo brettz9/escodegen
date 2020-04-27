@@ -27,9 +27,7 @@
 
 const fs = require('fs'),
     esprima = require('esprima'),
-    escodegen = require('./loader'),
-    chai = require('chai'),
-    { expect } = chai;
+    escodegen = require('./loader');
 
 function test(code, expected) {
     let options = {

@@ -27,8 +27,6 @@
 const fs = require('fs'),
     esprima = require('./3rdparty/esprima-2.7.1'),
     escodegen = require('./loader'),
-    chai = require('chai'),
-    { expect } = chai,
     DIR = 'compare-esprima2';
 
 function test(code, expected) {

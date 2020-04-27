@@ -25,9 +25,7 @@
 'use strict';
 
 const esprima = require('esprima'),
-    escodegen = require('./loader'),
-    chai = require('chai'),
-    { expect } = chai;
+    escodegen = require('./loader');
 
 const data = {
     DirectiveStatement: {

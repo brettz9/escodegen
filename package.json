@@ -76,7 +76,7 @@
         "browser-build-min": "browserify -t uglifyify -e tools/entry-point.js -o escodegen.browser.min.js",
         "browser-build": "browserify -e tools/entry-point.js -o escodegen.browser.js",
         "test": "npm run unit-test && npm run lint",
-        "unit-test": "nyc mocha test/*.js --timeout 100000",
+        "unit-test": "nyc --require chai/register-expect mocha test/*.js --timeout 100000",
         "lint": "eslint --rulesdir tools/rules/ .",
         "release": "node tools/release.js"
     }
