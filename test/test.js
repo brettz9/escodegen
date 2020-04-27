@@ -14958,10 +14958,9 @@ function runTest(code, result) {
 }
 
 describe('general test', function () {
-    Object.keys(data).forEach(function (category) {
+    Object.entries(data).forEach(function ([category, testObj]) {
         it(category, function () {
-            Object.keys(data[category]).forEach(function (source) {
-                const expected = data[category][source];
+            Object.entries(testObj).forEach(function ([source, expected]) {
                 runTest(source, expected);
             });
         });

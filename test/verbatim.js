@@ -128,10 +128,9 @@ const StringData = {
 
 describe('verbatim string test', function () {
     const data = StringData;
-    Object.keys(data).forEach(function (category) {
+    Object.entries(data).forEach(function ([category, sources]) {
         it(category, function () {
-            Object.keys(data[category]).forEach(function (source) {
-                const expected = data[category][source];
+            Object.entries(sources).forEach(function ([source, expected]) {
                 runTest(source, expected, category);
             });
         });
@@ -164,10 +163,9 @@ const ObjectData = {
 
 describe('verbatim object test', function () {
     const data = ObjectData;
-    Object.keys(data).forEach(function (category) {
+    Object.entries(data).forEach(function ([category, sources]) {
         it(category, function () {
-            Object.keys(data[category]).forEach(function (source) {
-                const expected = data[category][source];
+            Object.entries(sources).forEach(function ([source, expected]) {
                 runTest(source, expected, category);
             });
         });
