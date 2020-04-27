@@ -7008,10 +7008,9 @@ function runTest(code, result) {
 }
 
 describe('harmony test', function () {
-    Object.keys(data).forEach(function (category) {
-        Object.keys(data[category]).forEach(function (source) {
+    Object.entries(data).forEach(function ([category, sources]) {
+        Object.entries(sources).forEach(function ([source, expected]) {
             it(category, function () {
-                const expected = data[category][source];
                 runTest(source, expected);
             });
         });

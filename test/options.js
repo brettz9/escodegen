@@ -991,8 +991,7 @@ describe('options test', function () {
     data.forEach(function (category, index) {
         it(`data[${  index  }]`, function () {
             const { options } = category;
-            Object.keys(category.items).forEach(function (source) {
-                const expectedCode = category.items[source];
+            Object.entries(category.items).forEach(function ([source, expectedCode]) {
                 if (options.parse) {
                     options.parse = esprima.parse;
                 }

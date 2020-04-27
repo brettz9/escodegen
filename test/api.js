@@ -205,9 +205,9 @@ function testAPI(code, result) {
 }
 
 describe('API test', function () {
-    Object.keys(fixtures).forEach(function(key) {
+    Object.entries(fixtures).forEach(function([key, result]) {
         it(key, function () {
-            testAPI(key, fixtures[key]);
+            testAPI(key, result);
         });
     });
 });

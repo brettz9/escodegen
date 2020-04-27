@@ -202,10 +202,10 @@ function runTest(expected, result) {
 }
 
 describe('directive support', function () {
-    Object.keys(data).forEach(function (category) {
+    Object.entries(data).forEach(function ([category, testObj]) {
         it(category, function () {
-            Object.keys(data[category]).forEach(function (source) {
-                runTest(source, data[category][source]);
+            Object.entries(testObj).forEach(function ([source, result]) {
+                runTest(source, result);
             });
         });
     });
