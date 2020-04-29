@@ -30,10 +30,10 @@ const fs = require('fs'),
     root = path.join(path.dirname(fs.realpathSync(__filename)), '..'),
     child_process = require('child_process');
 
-function exec(cmd) {
+function execFile(cmd, args) {
     return new Promise(function (resolve, reject) {
         console.log(cmd);
-        child_process.exec(cmd, function (error, stdout, stderr) {
+        child_process.execFile(cmd, args, function (error, stdout, stderr) {
             resolve(error, stdout, stderr);
         });
     });
@@ -51,8 +51,8 @@ function exec(cmd) {
     const [, version] = matched;
     config.version = version;
 
-    await exec(`git branch -D ${version}`);
-    await exec(`git checkout -b ${version}`);
+    await execFile('git', ['branch', '-D', version]);
+    await execFile('git', ['checkout', '-b', version]);
 
     // generate configs
     const dependencies = {},
@@ -65,16 +65,16 @@ function exec(cmd) {
     fs.writeFileSync(path.join(root, 'component.json'), JSON.stringify(config, null, 4), 'utf-8');
 
     // browserify
-    await exec('npm run-script build');
-    await exec('npm run-script build-min');
+    await execFile('npm', ['run-script', 'build']);
+    await execFile('npm', ['run-script', 'build-min']);
     // git add
-    await exec(`git add "${root}"`);
+    await execFile('git', ['add', root]);
     // git commit
-    await exec(`git commit -m "Bump version ${version}"`);
+    await execFile('git', ['commit', '-m', `Bump version ${version}`]);
     // git delete tag
-    await exec(`git tag -d ${version}`);
+    await execFile('git', ['tag', '-d', version]);
     // git add tag
-    await exec(`git tag -a ${version} -m "version ${version}"`);
+    await execFile('git', ['tag', '-a', version, '-m', `version ${version}`]);
     console.log('Finally you should execute npm publish and git push --tags');
 })();
 
