@@ -333,26 +333,26 @@
 
             let characterInBrack = false;
             let previousIsBackslash = false;
-            for (let i = 0, iz = reg.source.length; i < iz; ++i) {
-                const ch = reg.source.charCodeAt(i);
+            for (const ch of reg.source) {
+                const code = ch.charCodeAt();
 
                 if (!previousIsBackslash) {
                     if (characterInBrack) {
-                        if (ch === 93) {  // ]
+                        if (code === 93) {  // ]
                             characterInBrack = false;
                         }
                     } else {
-                        if (ch === 47) {  // /
+                        if (code === 47) {  // /
                             result += '\\';
-                        } else if (ch === 91) {  // [
+                        } else if (code === 91) {  // [
                             characterInBrack = true;
                         }
                     }
-                    result += escapeRegExpCharacter(ch, previousIsBackslash);
-                    previousIsBackslash = ch === 92;  // \
+                    result += escapeRegExpCharacter(code, previousIsBackslash);
+                    previousIsBackslash = code === 92;  // \
                 } else {
                     // if new RegExp("\\\n') is provided, create /\n/
-                    result += escapeRegExpCharacter(ch, previousIsBackslash);
+                    result += escapeRegExpCharacter(code, previousIsBackslash);
                     // prevent like /\\[/]/
                     previousIsBackslash = false;
                 }
@@ -415,8 +415,8 @@
 
     function escapeDirective(str) {
         let quote = quotes === 'double' ? '"' : '\'';
-        for (let i = 0, iz = str.length; i < iz; ++i) {
-            const code = str.charCodeAt(i);
+        for (const [i, ch] of Object.entries(str)) {
+            const code = ch.charCodeAt();
             if (code === 0x27  /* ' */) {
                 quote = '"';
                 break;
@@ -434,8 +434,8 @@
     function escapeString(str) {
         let result = '', singleQuotes = 0, doubleQuotes = 0;
 
-        for (let i = 0, len = str.length; i < len; ++i) {
-            const code = str.charCodeAt(i);
+        for (const [i, ch] of Object.entries(str)) {
+            const code = ch.charCodeAt();
             if (code === 0x27  /* ' */) {
                 ++singleQuotes;
             } else if (code === 0x22  /* " */) {
@@ -462,8 +462,8 @@
         str = result;
         result = quote;
 
-        for (let i = 0, len = str.length; i < len; ++i) {
-            const code = str.charCodeAt(i);
+        for (const ch of str) {
+            const code = ch.charCodeAt();
             if ((code === 0x27  /* ' */ && single) || (code === 0x22  /* " */ && !single)) {
                 result += '\\';
             }
@@ -479,8 +479,7 @@
      */
     function flattenToString(arr) {
         let result = '';
-        for (let i = 0, iz = arr.length; i < iz; ++i) {
-            const elem = arr[i];
+        for (const elem of arr) {
             result += Array.isArray(elem) ? flattenToString(elem) : elem;
         }
         return result;
@@ -2191,8 +2190,7 @@
                     multiline = true;
                 }
             } else {
-                for (let i = 0, iz = expr.properties.length; i < iz; ++i) {
-                    const property = expr.properties[i];
+                for (const property of expr.properties) {
                     if (
                         property.type === Syntax.Property
                         && !property.shorthand
