@@ -48,6 +48,7 @@
         "@babel/cli": "^7.8.4",
         "@babel/preset-env": "^7.9.5",
         "acorn": "^7.1.1",
+        "babel-plugin-transform-es2017-object-entries": "0.0.5",
         "browserify": "^16.5.1",
         "chai": "^4.2.0",
         "eslint": "^6.8.0",
