@@ -23,7 +23,7 @@ function slug(name) {
 }
 
 module.exports = FILES.map(function (file) {
-    const astJson = fs.readFileSync(`${FILES_PATH  }/${  slug(file)  }-ast.json`);
+    const astJson = fs.readFileSync(`${FILES_PATH}/${slug(file)}-ast.json`);
 
     return JSON.parse(astJson);
 });

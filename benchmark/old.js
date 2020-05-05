@@ -340,7 +340,7 @@
             return json ? 'null' : renumber ? '1e400' : '1e+400';
         }
 
-        let result = `${  value}`;
+        let result = `${value}`;
         if (!renumber || result.length < 3) {
             return result;
         }
@@ -360,7 +360,7 @@
         }
         if (point >= 0) {
             exponent -= temp.length - point - 1;
-            temp = `${+(temp.slice(0, point) + temp.slice(point + 1))  }`;
+            temp = `${+(temp.slice(0, point) + temp.slice(point + 1))}`;
         }
         pos = 0;
         while (temp.charCodeAt(temp.length + pos - 1) === 0x30  /* 0 */) {
@@ -371,10 +371,10 @@
             temp = temp.slice(0, pos);
         }
         if (exponent !== 0) {
-            temp += `e${  exponent}`;
+            temp += `e${exponent}`;
         }
         if ((temp.length < result.length ||
-                    (hexadecimal && value > 1e12 && Math.floor(value) === value && (temp = `0x${  value.toString(16)}`).length < result.length)) &&
+                    (hexadecimal && value > 1e12 && Math.floor(value) === value && (temp = `0x${value.toString(16)}`).length < result.length)) &&
                 +temp === value) {
             result = temp;
         }
@@ -435,7 +435,7 @@
                 }
             }
 
-            return `/${  result  }/${  flags}`;
+            return `/${result}/${flags}`;
         }
 
         return result;
@@ -457,13 +457,13 @@
             default: {
                 const hex = code.toString(16).toUpperCase();
                 if (json || code > 0xFF) {
-                    result += `u${  '0000'.slice(hex.length)  }${hex}`;
+                    result += `u${'0000'.slice(hex.length)}${hex}`;
                 } else if (code === 0x0000 && !esutils.code.isDecimalDigit(next)) {
                     result += '0';
                 } else if (code === 0x000B  /* \v */) { // '\v'
                     result += 'x0B';
                 } else {
-                    result += `x${  '00'.slice(hex.length)  }${hex}`;
+                    result += `x${'00'.slice(hex.length)}${hex}`;
                 }
                 break;
             }
@@ -702,16 +702,16 @@
     function generateComment(comment, specialBase) {
         if (comment.type === 'Line') {
             if (endsWithLineTerminator(comment.value)) {
-                return `//${  comment.value}`;
+                return `//${comment.value}`;
             } else {
                 // Always use LineTerminator
-                return `//${  comment.value  }\n`;
+                return `//${comment.value}\n`;
             }
         }
         if (extra.format.indent.adjustMultilineComment && /[\n\r]/.test(comment.value)) {
-            return adjustMultilineComment(`/*${  comment.value  }*/`, specialBase);
+            return adjustMultilineComment(`/*${comment.value}*/`, specialBase);
         }
-        return `/*${  comment.value  }*/`;
+        return `/*${comment.value}*/`;
     }
 
     function addComments(stmt, result) {
@@ -881,13 +881,13 @@
                     }));
                 }
                 if (i + 1 < iz) {
-                    result.push(`,${  space}`);
+                    result.push(`,${space}`);
                 }
             }
 
             if (node.rest) {
                 if (node.params.length) {
-                    result.push(`,${  space}`);
+                    result.push(`,${space}`);
                 }
                 result.push('...');
                 result.push(generateIdentifier(node.rest, {
@@ -930,7 +930,7 @@
     }
 
     function generateIterationForStatement(operator, stmt, semicolonIsNotNeeded) {
-        let result = [`for${  space  }(`];
+        let result = [`for${space}(`];
         withIndent(function () {
             if (stmt.left.type === Syntax.VariableDeclaration) {
                 withIndent(function () {
@@ -981,12 +981,12 @@
             for (let i = 1, iz = stmt.declarations.length; i < iz; ++i) {
                 const node = stmt.declarations[i];
                 if (extra.comment && node.leadingComments) {
-                    result.push(`,${  newline}`);
+                    result.push(`,${newline}`);
                     result.push(addIndent(generateStatement(node, {
                         allowIn
                     })));
                 } else {
-                    result.push(`,${  space}`);
+                    result.push(`,${space}`);
                     result.push(generateStatement(node, {
                         allowIn
                     }));
@@ -1126,7 +1126,7 @@
                         allowCall: true
                     }));
                     if (i + 1 < len) {
-                        result.push(`,${  space}`);
+                        result.push(`,${space}`);
                     }
                 }
                 result = parenthesize(result, Precedence.Sequence, precedence);
@@ -1150,13 +1150,13 @@
                             allowIn,
                             allowCall: true
                         }),
-                        `${space  }?${  space}`,
+                        `${space}?${space}`,
                         generateExpression(expr.consequent, {
                             precedence: Precedence.Assignment,
                             allowIn,
                             allowCall: true
                         }),
-                        `${space  }:${  space}`,
+                        `${space}:${space}`,
                         generateExpression(expr.alternate, {
                             precedence: Precedence.Assignment,
                             allowIn,
@@ -1227,7 +1227,7 @@
                         allowCall: true
                     }));
                     if (i + 1 < len) {
-                        result.push(`,${  space}`);
+                        result.push(`,${space}`);
                     }
                 }
                 result.push(')');
@@ -1262,7 +1262,7 @@
                             allowCall: true
                         }));
                         if (i + 1 < len) {
-                            result.push(`,${  space}`);
+                            result.push(`,${space}`);
                         }
                     }
                     result.push(')');
@@ -1438,7 +1438,7 @@
                             }));
                         }
                         if (i + 1 < len) {
-                            result.push(`,${  multiline ? newline : space}`);
+                            result.push(`,${multiline ? newline : space}`);
                         }
                     }
                 });
@@ -1474,7 +1474,7 @@
 
             case Syntax.MethodDefinition:
                 if (expr['static']) {
-                    result = [`static${  space}`];
+                    result = [`static${space}`];
                 } else {
                     result = [];
                 }
@@ -1542,7 +1542,7 @@
                                 allowIn: true,
                                 allowCall: true
                             }),
-                            `:${  space}`,
+                            `:${space}`,
                             generateExpression(expr.value, {
                                 precedence: Precedence.Assignment,
                                 allowIn: true,
@@ -1589,7 +1589,7 @@
                     result = [ '{', newline, indent, fragment ];
 
                     if (multiline) {
-                        result.push(`,${  newline}`);
+                        result.push(`,${newline}`);
                         for (let i = 1, len = expr.properties.length; i < len; ++i) {
                             result.push(indent);
                             result.push(generateExpression(expr.properties[i], {
@@ -1599,7 +1599,7 @@
                                 type: Syntax.Property
                             }));
                             if (i + 1 < len) {
-                                result.push(`,${  newline}`);
+                                result.push(`,${newline}`);
                             }
                         }
                     }
@@ -1644,7 +1644,7 @@
                             allowCall: true
                         }));
                         if (i + 1 < len) {
-                            result.push(`,${  multiline ? newline : space}`);
+                            result.push(`,${multiline ? newline : space}`);
                         }
                     }
                 });
@@ -1671,7 +1671,7 @@
             case Syntax.ImportNamespaceSpecifier:
                 result = ['*'];
                 if (expr.id) {
-                    result.push(`${space  }as${  noEmptySpace()  }${generateIdentifier(expr.id)}`);
+                    result.push(`${space}as${noEmptySpace()}${generateIdentifier(expr.id)}`);
                 }
                 break;
 
@@ -1679,7 +1679,7 @@
             case Syntax.ExportSpecifier:
                 result = [ expr.id.name ];
                 if (expr.name) {
-                    result.push(`${noEmptySpace()  }as${  noEmptySpace()  }${generateIdentifier(expr.name)}`);
+                    result.push(`${noEmptySpace()}as${noEmptySpace()}${generateIdentifier(expr.name)}`);
                 }
                 break;
 
@@ -1722,7 +1722,7 @@
                 }
 
                 if (expr.filter) {
-                    result = join(result, `if${  space}`);
+                    result = join(result, `if${space}`);
                     const fragment = generateExpression(expr.filter, {
                         precedence: Precedence.Sequence,
                         allowIn: true,
@@ -1768,7 +1768,7 @@
                     allowCall: true
                 }));
 
-                result = [ `for${  space  }(`, fragment, ')' ];
+                result = [ `for${space}(`, fragment, ')' ];
                 break;
 
             } case Syntax.SpreadElement:
@@ -1812,13 +1812,13 @@
                         allowCall: true
                     }));
                     if (i + 1 < len) {
-                        result.push(`\${${  space}`);
+                        result.push(`\${${space}`);
                         result.push(generateExpression(expr.expressions[i], {
                             precedence: Precedence.Sequence,
                             allowIn: true,
                             allowCall: true
                         }));
-                        result.push(`${space  }}`);
+                        result.push(`${space}}`);
                     }
                 }
                 result.push('`');
@@ -1829,7 +1829,7 @@
                 break;
 
             default:
-                throw new Error(`Unknown expression type: ${  expr.type}`);
+                throw new Error(`Unknown expression type: ${expr.type}`);
         }
 
         if (extra.comment) {
@@ -1895,7 +1895,7 @@
                 ]);
             } else {
                 // NamedImports
-                result.push(`${space  }{`);
+                result.push(`${space}{`);
 
                 if ((stmt.specifiers.length - cursor) === 1) {
                     // import { ... } from "...";
@@ -1905,7 +1905,7 @@
                         allowIn: true,
                         allowCall: true
                     }));
-                    result.push(`${space  }}${  space}`);
+                    result.push(`${space}}${space}`);
                 } else {
                     // import {
                     //    ...,
@@ -1921,20 +1921,20 @@
                                 allowCall: true
                             }));
                             if (i + 1 < iz) {
-                                result.push(`,${  newline}`);
+                                result.push(`,${newline}`);
                             }
                         }
                     });
                     if (!endsWithLineTerminator(toSourceNodeWhenNeeded(result).toString())) {
                         result.push(newline);
                     }
-                    result.push(`${base  }}${  space}`);
+                    result.push(`${base}}${space}`);
                 }
             }
         }
 
         result = join(result, [
-            `from${  space}`,
+            `from${space}`,
             // ModuleSpecifier
             generateExpression(stmt.source, {
                 precedence: Precedence.Sequence,
@@ -1983,17 +1983,17 @@
 
             case Syntax.BreakStatement:
                 if (stmt.label) {
-                    result = `break ${  stmt.label.name  }${semicolon}`;
+                    result = `break ${stmt.label.name}${semicolon}`;
                 } else {
-                    result = `break${  semicolon}`;
+                    result = `break${semicolon}`;
                 }
                 break;
 
             case Syntax.ContinueStatement:
                 if (stmt.label) {
-                    result = `continue ${  stmt.label.name  }${semicolon}`;
+                    result = `continue ${stmt.label.name}${semicolon}`;
                 } else {
-                    result = `continue${  semicolon}`;
+                    result = `continue${semicolon}`;
                 }
                 break;
 
@@ -2002,7 +2002,7 @@
                 break;
 
             case Syntax.ClassDeclaration:
-                result = [`class ${  stmt.id.name}`];
+                result = [`class ${stmt.id.name}`];
                 if (stmt.superClass) {
                     const fragment = join('extends', generateExpression(stmt.superClass, {
                         precedence: Precedence.Assignment,
@@ -2031,20 +2031,20 @@
                 result = join('do', maybeBlock(stmt.body));
                 result = maybeBlockSuffix(stmt.body, result);
                 result = join(result, [
-                    `while${  space  }(`,
+                    `while${space}(`,
                     generateExpression(stmt.test, {
                         precedence: Precedence.Sequence,
                         allowIn: true,
                         allowCall: true
                     }),
-                    `)${  semicolon}`
+                    `)${semicolon}`
                 ]);
                 break;
 
             case Syntax.CatchClause:
                 withIndent(function () {
                     result = [
-                        `catch${  space  }(`,
+                        `catch${space}(`,
                         generateExpression(stmt.param, {
                             precedence: Precedence.Sequence,
                             allowIn: true,
@@ -2067,7 +2067,7 @@
                 break;
 
             case Syntax.DebuggerStatement:
-                result = `debugger${  semicolon}`;
+                result = `debugger${semicolon}`;
                 break;
 
             case Syntax.EmptyStatement:
@@ -2105,7 +2105,7 @@
                 // export ExportClause ;
                 if (stmt.specifiers) {
                     if (stmt.specifiers.length === 0) {
-                        result = join(result, `{${  space  }}`);
+                        result = join(result, `{${space}}`);
                     } else if (stmt.specifiers[0].type === Syntax.ExportBatchSpecifier) {
                         result = join(result, generateExpression(stmt.specifiers[0], {
                             precedence: Precedence.Sequence,
@@ -2124,19 +2124,19 @@
                                     allowCall: true
                                 }));
                                 if (i + 1 < iz) {
-                                    result.push(`,${  newline}`);
+                                    result.push(`,${newline}`);
                                 }
                             }
                         });
                         if (!endsWithLineTerminator(toSourceNodeWhenNeeded(result).toString())) {
                             result.push(newline);
                         }
-                        result.push(`${base  }}`);
+                        result.push(`${base}}`);
                     }
 
                     if (stmt.source) {
                         result = join(result, [
-                            `from${  space}`,
+                            `from${space}`,
                             // ModuleSpecifier
                             generateExpression(stmt.source, {
                                 precedence: Precedence.Sequence,
@@ -2165,7 +2165,7 @@
                     (fragment.slice(0, 5) === 'class' && ' {'.indexOf(fragment.charAt(5)) >= 0) ||  // class
                     (fragment.slice(0, 8) === 'function' && '* ('.indexOf(fragment.charAt(8)) >= 0) ||  // function or generator
                     (directive && directiveContext && stmt.expression.type === Syntax.Literal && typeof stmt.expression.value === 'string')) {
-                    result = ['(', result, `)${  semicolon}`];
+                    result = ['(', result, `)${semicolon}`];
                 } else {
                     result.push(semicolon);
                 }
@@ -2265,13 +2265,13 @@
             case Syntax.SwitchStatement:
                 withIndent(function () {
                     result = [
-                        `switch${  space  }(`,
+                        `switch${space}(`,
                         generateExpression(stmt.discriminant, {
                             precedence: Precedence.Sequence,
                             allowIn: true,
                             allowCall: true
                         }),
-                        `)${  space  }{${  newline}`
+                        `)${space}{${newline}`
                     ];
                 });
                 if (stmt.cases) {
@@ -2326,7 +2326,7 @@
             case Syntax.IfStatement:
                 withIndent(function () {
                     result = [
-                        `if${  space  }(`,
+                        `if${space}(`,
                         generateExpression(stmt.test, {
                             precedence: Precedence.Sequence,
                             allowIn: true,
@@ -2350,7 +2350,7 @@
 
             case Syntax.ForStatement:
                 withIndent(function () {
-                    result = [`for${  space  }(`];
+                    result = [`for${space}(`];
                     if (stmt.init) {
                         if (stmt.init.type === Syntax.VariableDeclaration) {
                             result.push(generateStatement(stmt.init, { allowIn: false }));
@@ -2403,7 +2403,7 @@
                 break;
 
             case Syntax.LabeledStatement:
-                result = [`${stmt.label.name  }:`, maybeBlock(stmt.body, semicolon === '')];
+                result = [`${stmt.label.name}:`, maybeBlock(stmt.body, semicolon === '')];
                 break;
 
             case Syntax.Program: {
@@ -2444,14 +2444,14 @@
                         })
                     ), semicolon];
                 } else {
-                    result = [`return${  semicolon}`];
+                    result = [`return${semicolon}`];
                 }
                 break;
 
             case Syntax.WhileStatement:
                 withIndent(function () {
                     result = [
-                        `while${  space  }(`,
+                        `while${space}(`,
                         generateExpression(stmt.test, {
                             precedence: Precedence.Sequence,
                             allowIn: true,
@@ -2466,7 +2466,7 @@
             case Syntax.WithStatement:
                 withIndent(function () {
                     result = [
-                        `with${  space  }(`,
+                        `with${space}(`,
                         generateExpression(stmt.object, {
                             precedence: Precedence.Sequence,
                             allowIn: true,
@@ -2479,7 +2479,7 @@
                 break;
 
             default:
-                throw new Error(`Unknown statement type: ${  stmt.type}`);
+                throw new Error(`Unknown statement type: ${stmt.type}`);
         }
 
         // Attach comments
@@ -2509,7 +2509,7 @@
             });
         }
 
-        throw new Error(`Unknown node type: ${  node.type}`);
+        throw new Error(`Unknown node type: ${node.type}`);
     }
 
     function generate(node, options) {

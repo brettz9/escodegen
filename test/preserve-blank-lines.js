@@ -53,12 +53,12 @@ function test(code, expected) {
 }
 
 describe('preserve blank lines test', function () {
-    fs.readdirSync(`${__dirname  }/preserve-blank-lines`).sort().forEach(function(file) {
+    fs.readdirSync(`${__dirname}/preserve-blank-lines`).sort().forEach(function(file) {
         if (/\.js$/.test(file) && !/expected\.js$/.test(file)) {
             it(file, function () {
                 const p = file.replace(/\.js$/, '.expected.js');
-                const code = fs.readFileSync(`${__dirname  }/preserve-blank-lines/${  file}`, 'utf-8');
-                const expected = fs.readFileSync(`${__dirname  }/preserve-blank-lines/${  p}`, 'utf-8');
+                const code = fs.readFileSync(`${__dirname}/preserve-blank-lines/${file}`, 'utf-8');
+                const expected = fs.readFileSync(`${__dirname}/preserve-blank-lines/${p}`, 'utf-8');
                 test(code, expected);
             });
         }

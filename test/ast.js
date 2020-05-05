@@ -177,7 +177,7 @@ function runTest(ast, expected) {
 
 describe('AST', function () {
     Object.entries(data).forEach(function ([category, asts]) {
-        it(`${category  } test`, function () {
+        it(`${category} test`, function () {
             asts.forEach(function (ast) {
                 runTest(ast, ast.expected);
             });

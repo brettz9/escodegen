@@ -263,7 +263,7 @@
             return json ? 'null' : renumber ? '1e400' : '1e+400';
         }
 
-        let result = `${  value}`;
+        let result = `${value}`;
         if (!renumber || result.length < 3) {
             return result;
         }
@@ -283,7 +283,7 @@
         }
         if (point >= 0) {
             exponent -= temp.length - point - 1;
-            temp = `${+(temp.slice(0, point) + temp.slice(point + 1))  }`;
+            temp = `${+(temp.slice(0, point) + temp.slice(point + 1))}`;
         }
         pos = 0;
         while (temp.charCodeAt(temp.length + pos - 1) === 0x30  /* 0 */) {
@@ -294,10 +294,10 @@
             temp = temp.slice(0, pos);
         }
         if (exponent !== 0) {
-            temp += `e${  exponent}`;
+            temp += `e${exponent}`;
         }
         if ((temp.length < result.length ||
-                    (hexadecimal && value > 1e12 && Math.floor(value) === value && (temp = `0x${  value.toString(16)}`).length < result.length)) &&
+                    (hexadecimal && value > 1e12 && Math.floor(value) === value && (temp = `0x${value.toString(16)}`).length < result.length)) &&
                 +temp === value) {
             result = temp;
         }
@@ -358,7 +358,7 @@
                 }
             }
 
-            return `/${  result  }/${  flags}`;
+            return `/${result}/${flags}`;
         }
 
         return result;
@@ -379,13 +379,13 @@
 
         const hex = code.toString(16).toUpperCase();
         if (json || code > 0xFF) {
-            return `\\u${  '0000'.slice(hex.length)  }${hex}`;
+            return `\\u${'0000'.slice(hex.length)}${hex}`;
         } else if (code === 0x0000 && !esutils.code.isDecimalDigit(next)) {
             return '\\0';
         } else if (code === 0x000B  /* \v */) { // '\v'
             return '\\x0B';
         } else {
-            return `\\x${  '00'.slice(hex.length)  }${hex}`;
+            return `\\x${'00'.slice(hex.length)}${hex}`;
         }
     }
 
@@ -616,10 +616,10 @@
     function generateComment(comment, specialBase) {
         if (comment.type === 'Line') {
             if (endsWithLineTerminator(comment.value)) {
-                return `//${  comment.value}`;
+                return `//${comment.value}`;
             } else {
                 // Always use LineTerminator
-                let result = `//${  comment.value}`;
+                let result = `//${comment.value}`;
                 if (!preserveBlankLines) {
                     result += '\n';
                 }
@@ -627,9 +627,9 @@
             }
         }
         if (extra.format.indent.adjustMultilineComment && /[\n\r]/.test(comment.value)) {
-            return adjustMultilineComment(`/*${  comment.value  }*/`, specialBase);
+            return adjustMultilineComment(`/*${comment.value}*/`, specialBase);
         }
-        return `/*${  comment.value  }*/`;
+        return `/*${comment.value}*/`;
     }
 
     function addComments(stmt, result) {
@@ -792,12 +792,12 @@
     }
 
     function generateAsyncPrefix(node, spaceRequired) {
-        return node.async ? `async${  spaceRequired ? noEmptySpace() : space}` : '';
+        return node.async ? `async${spaceRequired ? noEmptySpace() : space}` : '';
     }
 
     function generateStarSuffix(node) {
         const isGenerator = node.generator && !extra.moz.starlessGenerator;
-        return isGenerator ? `*${  space}` : '';
+        return isGenerator ? `*${space}` : '';
     }
 
     function generateMethodPrefix(prop) {
@@ -881,13 +881,13 @@
                         result.push(this.generatePattern(node.params[i], Precedence.Assignment, E_TTT));
                     }
                     if (i + 1 < iz) {
-                        result.push(`,${  space}`);
+                        result.push(`,${space}`);
                     }
                 }
 
                 if (node.rest) {
                     if (node.params.length) {
-                        result.push(`,${  space}`);
+                        result.push(`,${space}`);
                     }
                     result.push('...');
                     result.push(generateIdentifier(node.rest));
@@ -923,7 +923,7 @@
 
         generateIterationForStatement (operator, stmt, flags) {
             const that = this;
-            let result = [`for${  stmt.await ? `${noEmptySpace()  }await` : ''  }${space  }(`];
+            let result = [`for${stmt.await ? `${noEmptySpace()}await` : ''}${space}(`];
             withIndent(function () {
                 if (stmt.left.type === Syntax.VariableDeclaration) {
                     withIndent(function () {
@@ -1107,16 +1107,16 @@
 
         BreakStatement (stmt, flags) {
             if (stmt.label) {
-                return `break ${  stmt.label.name  }${this.semicolon(flags)}`;
+                return `break ${stmt.label.name}${this.semicolon(flags)}`;
             }
-            return `break${  this.semicolon(flags)}`;
+            return `break${this.semicolon(flags)}`;
         },
 
         ContinueStatement (stmt, flags) {
             if (stmt.label) {
-                return `continue ${  stmt.label.name  }${this.semicolon(flags)}`;
+                return `continue ${stmt.label.name}${this.semicolon(flags)}`;
             }
-            return `continue${  this.semicolon(flags)}`;
+            return `continue${this.semicolon(flags)}`;
         },
 
         ClassBody (stmt, flags) {
@@ -1166,9 +1166,9 @@
             let result = join('do', this.maybeBlock(stmt.body, S_TFFF));
             result = this.maybeBlockSuffix(stmt.body, result);
             return join(result, [
-                `while${  space  }(`,
+                `while${space}(`,
                 this.generateExpression(stmt.test, Precedence.Sequence, E_TTT),
-                `)${  this.semicolon(flags)}`
+                `)${this.semicolon(flags)}`
             ]);
         },
 
@@ -1178,7 +1178,7 @@
             withIndent(function () {
                 if (stmt.param) {
                     result = [
-                        `catch${  space  }(`,
+                        `catch${space}(`,
                         that.generateExpression(stmt.param, Precedence.Sequence, E_TTT),
                         ')'
                     ];
@@ -1196,7 +1196,7 @@
         },
 
         DebuggerStatement (stmt, flags) {
-            return `debugger${  this.semicolon(flags)}`;
+            return `debugger${this.semicolon(flags)}`;
         },
 
         EmptyStatement (stmt, flags) {
@@ -1235,7 +1235,7 @@
             // export ExportClause ;
             if (stmt.specifiers) {
                 if (stmt.specifiers.length === 0) {
-                    result = join(result, `{${  space  }}`);
+                    result = join(result, `{${space}}`);
                 } else if (stmt.specifiers[0].type === Syntax.ExportBatchSpecifier) {
                     result = join(result, this.generateExpression(stmt.specifiers[0], Precedence.Sequence, E_TTT));
                 } else {
@@ -1246,19 +1246,19 @@
                             result.push(indent);
                             result.push(that.generateExpression(stmt.specifiers[i], Precedence.Sequence, E_TTT));
                             if (i + 1 < iz) {
-                                result.push(`,${  newline}`);
+                                result.push(`,${newline}`);
                             }
                         }
                     });
                     if (!endsWithLineTerminator(toSourceNodeWhenNeeded(result).toString())) {
                         result.push(newline);
                     }
-                    result.push(`${base  }}`);
+                    result.push(`${base}}`);
                 }
 
                 if (stmt.source) {
                     result = join(result, [
-                        `from${  space}`,
+                        `from${space}`,
                         // ModuleSpecifier
                         this.generateExpression(stmt.source, Precedence.Sequence, E_TTT),
                         this.semicolon(flags)
@@ -1273,9 +1273,9 @@
         ExportAllDeclaration (stmt, flags) {
             // export * FromClause ;
             return [
-                `export${  space}`,
-                `*${  space}`,
-                `from${  space}`,
+                `export${space}`,
+                `*${space}`,
+                `from${space}`,
                 // ModuleSpecifier
                 this.generateExpression(stmt.source, Precedence.Sequence, E_TTT),
                 this.semicolon(flags)
@@ -1331,7 +1331,7 @@
                     isFunctionPrefixed(fragment) ||
                     isAsyncPrefixed(fragment) ||
                     (directive && (flags & F_DIRECTIVE_CTX) && stmt.expression.type === Syntax.Literal && typeof stmt.expression.value === 'string')) {
-                result = ['(', result, `)${  this.semicolon(flags)}`];
+                result = ['(', result, `)${this.semicolon(flags)}`];
             } else {
                 result.push(this.semicolon(flags));
             }
@@ -1385,13 +1385,13 @@
                     ]);
                 } else {
                     // NamedImports
-                    result.push(`${space  }{`);
+                    result.push(`${space}{`);
 
                     if ((stmt.specifiers.length - cursor) === 1) {
                         // import { ... } from "...";
                         result.push(space);
                         result.push(this.generateExpression(stmt.specifiers[cursor], Precedence.Sequence, E_TTT));
-                        result.push(`${space  }}${  space}`);
+                        result.push(`${space}}${space}`);
                     } else {
                         // import {
                         //    ...,
@@ -1403,20 +1403,20 @@
                                 result.push(indent);
                                 result.push(that.generateExpression(stmt.specifiers[i], Precedence.Sequence, E_TTT));
                                 if (i + 1 < iz) {
-                                    result.push(`,${  newline}`);
+                                    result.push(`,${newline}`);
                                 }
                             }
                         });
                         if (!endsWithLineTerminator(toSourceNodeWhenNeeded(result).toString())) {
                             result.push(newline);
                         }
-                        result.push(`${base  }}${  space}`);
+                        result.push(`${base}}${space}`);
                     }
                 }
             }
 
             result = join(result, [
-                `from${  space}`,
+                `from${space}`,
                 // ModuleSpecifier
                 this.generateExpression(stmt.source, Precedence.Sequence, E_TTT),
                 this.semicolon(flags)
@@ -1461,10 +1461,10 @@
                 for (let i = 1, iz = stmt.declarations.length; i < iz; ++i) {
                     const node = stmt.declarations[i];
                     if (extra.comment && node.leadingComments) {
-                        result.push(`,${  newline}`);
+                        result.push(`,${newline}`);
                         result.push(addIndent(that.generateStatement(node, bodyFlags)));
                     } else {
-                        result.push(`,${  space}`);
+                        result.push(`,${space}`);
                         result.push(that.generateStatement(node, bodyFlags));
                     }
                 }
@@ -1538,9 +1538,9 @@
             let result;
             withIndent(function () {
                 result = [
-                    `switch${  space  }(`,
+                    `switch${space}(`,
                     that.generateExpression(stmt.discriminant, Precedence.Sequence, E_TTT),
-                    `)${  space  }{${  newline}`
+                    `)${space}{${newline}`
                 ];
             });
             if (stmt.cases) {
@@ -1605,7 +1605,7 @@
             let result;
             withIndent(function () {
                 result = [
-                    `if${  space  }(`,
+                    `if${space}(`,
                     that.generateExpression(stmt.test, Precedence.Sequence, E_TTT),
                     ')'
                 ];
@@ -1633,7 +1633,7 @@
             const that = this;
             let result;
             withIndent(function () {
-                result = [`for${  space  }(`];
+                result = [`for${space}(`];
                 if (stmt.init) {
                     if (stmt.init.type === Syntax.VariableDeclaration) {
                         result.push(that.generateStatement(stmt.init, S_FFFF));
@@ -1676,7 +1676,7 @@
         },
 
         LabeledStatement (stmt, flags) {
-            return [`${stmt.label.name  }:`, this.maybeBlock(stmt.body, flags & F_SEMICOLON_OPT ? S_TFFT : S_TFFF)];
+            return [`${stmt.label.name}:`, this.maybeBlock(stmt.body, flags & F_SEMICOLON_OPT ? S_TFFT : S_TFFF)];
         },
 
         Program (stmt, flags) {
@@ -1745,7 +1745,7 @@
                     this.generateExpression(stmt.argument, Precedence.Sequence, E_TTT)
                 ), this.semicolon(flags)];
             }
-            return [`return${  this.semicolon(flags)}`];
+            return [`return${this.semicolon(flags)}`];
         },
 
         WhileStatement (stmt, flags) {
@@ -1753,7 +1753,7 @@
             let result;
             withIndent(function () {
                 result = [
-                    `while${  space  }(`,
+                    `while${space}(`,
                     that.generateExpression(stmt.test, Precedence.Sequence, E_TTT),
                     ')'
                 ];
@@ -1767,7 +1767,7 @@
             let result;
             withIndent(function () {
                 result = [
-                    `with${  space  }(`,
+                    `with${space}(`,
                     that.generateExpression(stmt.object, Precedence.Sequence, E_TTT),
                     ')'
                 ];
@@ -1792,7 +1792,7 @@
             for (let i = 0, iz = expr.expressions.length; i < iz; ++i) {
                 result.push(this.generateExpression(expr.expressions[i], Precedence.Assignment, flags));
                 if (i + 1 < iz) {
-                    result.push(`,${  space}`);
+                    result.push(`,${space}`);
                 }
             }
             return parenthesize(result, Precedence.Sequence, precedence);
@@ -1813,9 +1813,9 @@
             return parenthesize(
                 [
                     this.generateExpression(expr.test, Precedence.LogicalOR, flags),
-                    `${space  }?${  space}`,
+                    `${space}?${space}`,
                     this.generateExpression(expr.consequent, Precedence.Assignment, flags),
-                    `${space  }:${  space}`,
+                    `${space}:${space}`,
                     this.generateExpression(expr.alternate, Precedence.Assignment, flags)
                 ],
                 Precedence.Conditional,
@@ -1871,7 +1871,7 @@
             for (let i = 0, iz = expr['arguments'].length; i < iz; ++i) {
                 result.push(this.generateExpression(expr['arguments'][i], Precedence.Assignment, E_TTT));
                 if (i + 1 < iz) {
-                    result.push(`,${  space}`);
+                    result.push(`,${space}`);
                 }
             }
             result.push(')');
@@ -1899,7 +1899,7 @@
                 for (let i = 0, iz = length; i < iz; ++i) {
                     result.push(this.generateExpression(expr['arguments'][i], Precedence.Assignment, E_TTT));
                     if (i + 1 < iz) {
-                        result.push(`,${  space}`);
+                        result.push(`,${space}`);
                     }
                 }
                 result.push(')');
@@ -2066,7 +2066,7 @@
                         result.push(that.generateExpression(expr.elements[i], Precedence.Assignment, E_TTT));
                     }
                     if (i + 1 < iz) {
-                        result.push(`,${  multiline ? newline : space}`);
+                        result.push(`,${multiline ? newline : space}`);
                     }
                 }
             });
@@ -2079,7 +2079,7 @@
         },
 
         RestElement(expr, precedence, flags) {
-            return `...${  this.generatePattern(expr.argument)}`;
+            return `...${this.generatePattern(expr.argument)}`;
         },
 
         ClassExpression (expr, precedence, flags) {
@@ -2099,7 +2099,7 @@
         MethodDefinition (expr, precedence, flags) {
             let result;
             if (expr['static']) {
-                result = [`static${  space}`];
+                result = [`static${space}`];
             } else {
                 result = [];
             }
@@ -2145,7 +2145,7 @@
 
             return [
                 this.generatePropertyKey(expr.key, expr.computed),
-                `:${  space}`,
+                `:${space}`,
                 this.generateExpression(expr.value, Precedence.Assignment, E_TTT)
             ];
         },
@@ -2182,12 +2182,12 @@
                 result = [ '{', newline, indent, fragment ];
 
                 if (multiline) {
-                    result.push(`,${  newline}`);
+                    result.push(`,${newline}`);
                     for (let i = 1, iz = expr.properties.length; i < iz; ++i) {
                         result.push(indent);
                         result.push(that.generateExpression(expr.properties[i], Precedence.Sequence, E_TTT));
                         if (i + 1 < iz) {
-                            result.push(`,${  newline}`);
+                            result.push(`,${newline}`);
                         }
                     }
                 }
@@ -2238,7 +2238,7 @@
                     result.push(multiline ? indent : '');
                     result.push(that.generateExpression(expr.properties[i], Precedence.Sequence, E_TTT));
                     if (i + 1 < iz) {
-                        result.push(`,${  multiline ? newline : space}`);
+                        result.push(`,${multiline ? newline : space}`);
                     }
                 }
             });
@@ -2271,7 +2271,7 @@
             const result = ['*'];
             const id = expr.id || expr.local;
             if (id) {
-                result.push(`${space  }as${  noEmptySpace()  }${generateIdentifier(id)}`);
+                result.push(`${space}as${noEmptySpace()}${generateIdentifier(id)}`);
             }
             return result;
         },
@@ -2281,7 +2281,7 @@
             const result = [ imported.name ];
             const { local } = expr;
             if (local && local.name !== imported.name) {
-                result.push(`${noEmptySpace()  }as${  noEmptySpace()  }${generateIdentifier(local)}`);
+                result.push(`${noEmptySpace()}as${noEmptySpace()}${generateIdentifier(local)}`);
             }
             return result;
         },
@@ -2291,7 +2291,7 @@
             const result = [ local.name ];
             const { exported } = expr;
             if (exported && exported.name !== local.name) {
-                result.push(`${noEmptySpace()  }as${  noEmptySpace()  }${generateIdentifier(exported)}`);
+                result.push(`${noEmptySpace()}as${noEmptySpace()}${generateIdentifier(exported)}`);
             }
             return result;
         },
@@ -2311,7 +2311,7 @@
             }
 
             if (expr.regex) {
-                return `/${  expr.regex.pattern  }/${  expr.regex.flags}`;
+                return `/${expr.regex.pattern}/${expr.regex.flags}`;
             }
 
             if (expr.value === null) {
@@ -2364,7 +2364,7 @@
             }
 
             if (expr.filter) {
-                result = join(result, `if${  space}`);
+                result = join(result, `if${space}`);
                 fragment = this.generateExpression(expr.filter, Precedence.Sequence, E_TTT);
                 result = join(result, [ '(', fragment, ')' ]);
             }
@@ -2393,7 +2393,7 @@
             fragment = join(fragment, expr.of ? 'of' : 'in');
             fragment = join(fragment, this.generateExpression(expr.right, Precedence.Sequence, E_TTT));
 
-            return [ `for${  space  }(`, fragment, ')' ];
+            return [ `for${space}(`, fragment, ')' ];
         },
 
         SpreadElement (expr, precedence, flags) {
@@ -2426,9 +2426,9 @@
             for (let i = 0, iz = expr.quasis.length; i < iz; ++i) {
                 result.push(this.generateExpression(expr.quasis[i], Precedence.Primary, E_TTT));
                 if (i + 1 < iz) {
-                    result.push(`\${${  space}`);
+                    result.push(`\${${space}`);
                     result.push(this.generateExpression(expr.expressions[i], Precedence.Sequence, E_TTT));
-                    result.push(`${space  }}`);
+                    result.push(`${space}}`);
                 }
             }
             result.push('`');
@@ -2461,7 +2461,7 @@
             return codegen.generateExpression(node, Precedence.Sequence, E_TTT);
         }
 
-        throw new Error(`Unknown node type: ${  node.type}`);
+        throw new Error(`Unknown node type: ${node.type}`);
     }
 
     function generate(node, options) {

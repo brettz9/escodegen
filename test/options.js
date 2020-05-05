@@ -989,7 +989,7 @@ function runTest(options, source, expectedCode) {
 
 describe('options test', function () {
     data.forEach(function (category, index) {
-        it(`data[${  index  }]`, function () {
+        it(`data[${index}]`, function () {
             const { options } = category;
             Object.entries(category.items).forEach(function ([source, expectedCode]) {
                 if (options.parse) {

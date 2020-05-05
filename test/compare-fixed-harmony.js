@@ -39,7 +39,7 @@ function test(code, expected) {
     const tree = esprima.parse(code, options);
 
     // for UNIX text comment
-    const actual = `${escodegen.generate(tree).replace(/[\n\r]$/, '')  }\n`;
+    const actual = `${escodegen.generate(tree).replace(/[\n\r]$/, '')}\n`;
     expect(actual).to.be.equal(expected);
 }
 
@@ -70,16 +70,16 @@ function testMin(code, expected) {
 }
 
 describe('compare harmony test', function () {
-    fs.readdirSync(`${__dirname  }/compare-fixed-harmony`).sort().forEach(function(file) {
+    fs.readdirSync(`${__dirname}/compare-fixed-harmony`).sort().forEach(function(file) {
         if (/\.js$/.test(file) && !/expected\.js$/.test(file) && !/expected\.min\.js$/.test(file)) {
             it(file, function () {
                 const exp = file.replace(/\.js$/, '.expected.js');
                 const min = file.replace(/\.js$/, '.expected.min.js');
-                const code = fs.readFileSync(`${__dirname  }/compare-fixed-harmony/${  file}`, 'utf-8');
-                let expected = fs.readFileSync(`${__dirname  }/compare-fixed-harmony/${  exp}`, 'utf-8');
+                const code = fs.readFileSync(`${__dirname}/compare-fixed-harmony/${file}`, 'utf-8');
+                let expected = fs.readFileSync(`${__dirname}/compare-fixed-harmony/${exp}`, 'utf-8');
                 test(code, expected);
-                if (fs.existsSync(`${__dirname  }/compare-fixed-harmony/${  min}`)) {
-                    expected = fs.readFileSync(`${__dirname  }/compare-fixed-harmony/${  min}`, 'utf-8');
+                if (fs.existsSync(`${__dirname}/compare-fixed-harmony/${min}`)) {
+                    expected = fs.readFileSync(`${__dirname}/compare-fixed-harmony/${min}`, 'utf-8');
                     testMin(code, expected);
                 }
             });

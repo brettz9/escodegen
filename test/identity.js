@@ -88,7 +88,7 @@ function testIdentity(code) {
 describe('identity test', function () {
     fixtures.forEach(function (filename) {
         it(filename, function () {
-            const source = fs.readFileSync(`${__dirname  }/3rdparty/${  slug(filename)  }.js`, 'utf-8');
+            const source = fs.readFileSync(`${__dirname}/3rdparty/${slug(filename)}.js`, 'utf-8');
             // const size = source.length;
             testIdentity(source);
         });
