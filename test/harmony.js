@@ -2560,7 +2560,7 @@ const data = {
                                     properties: [
                                         {
                                             type: 'RestElement',
-                                            'argument': {
+                                            argument: {
                                                 type: 'Identifier',
                                                 name: 'foo'
                                             }
@@ -2576,7 +2576,7 @@ const data = {
                         kind: 'const'
                     }
                 ],
-                sourceType: "script"
+                sourceType: 'script'
             }
         }
     },
@@ -2635,7 +2635,7 @@ const data = {
                         kind: 'const'
                     }
                 ],
-                sourceType: "script"
+                sourceType: 'script'
             }
         }
     },
@@ -2670,7 +2670,7 @@ const data = {
                                         },
                                         {
                                             type: 'RestElement',
-                                            'argument': {
+                                            argument: {
                                                 type: 'Identifier',
                                                 name: 'bar'
                                             }
@@ -2686,7 +2686,7 @@ const data = {
                         kind: 'const'
                     }
                 ],
-                sourceType: "script"
+                sourceType: 'script'
             }
         }
     },
@@ -2738,7 +2738,7 @@ const data = {
                         kind: 'const'
                     }
                 ],
-                sourceType: "script"
+                sourceType: 'script'
             }
         }
     },
@@ -2797,7 +2797,7 @@ const data = {
                         kind: 'const'
                     }
                 ],
-                sourceType: "script"
+                sourceType: 'script'
             }
         }
     },
