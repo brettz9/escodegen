@@ -21,9 +21,9 @@
         "escodegen.browser.js",
         "package.json"
     ],
-    "version": "1.14.3",
+    "version": "2.0.0",
     "engines": {
-        "node": ">=4.0"
+        "node": ">=6.0"
     },
     "author": {
         "name": "Yusuke Suzuki",
@@ -37,7 +37,7 @@
     },
     "dependencies": {
         "esprima": "^4.0.1",
-        "estraverse": "^5.1.0",
+        "estraverse": "^5.2.0",
         "esutils": "^2.0.3",
         "optionator": "^0.9.1"
     },
@@ -47,14 +47,15 @@
     "devDependencies": {
         "@babel/cli": "^7.8.4",
         "@babel/preset-env": "^7.9.5",
-        "acorn": "^7.3.1",
+        "acorn": "^8.0.5",
         "babel-plugin-transform-es2017-object-entries": "0.0.5",
-        "browserify": "^16.5.1",
-        "chai": "^4.2.0",
-        "eslint": "^7.3.1",
-        "mocha": "^8.0.1",
+        "browserify": "^17.0.0",
+        "chai": "^4.3.0",
+        "chai-exclude": "^2.0.2",
+        "eslint": "^7.19.0",
+        "mocha": "^8.2.1",
         "nyc": "^15.1.0",
-        "semver": "^7.3.2",
+        "source-map": "~0.7.3",
         "uglifyify": "^5.0.2"
     },
     "license": "BSD-2-Clause",
@@ -76,9 +77,9 @@
         "build": "babel src/escodegen.js --out-file escodegen.js --source-maps",
         "browser-build-min": "browserify -t uglifyify -e tools/entry-point.js -o escodegen.browser.min.js",
         "browser-build": "browserify -e tools/entry-point.js -o escodegen.browser.js",
-        "test": "npm run unit-test && npm run lint",
-        "unit-test": "nyc --require chai/register-expect mocha test/*.js --timeout 100000",
         "lint": "eslint --rulesdir tools/rules/ .",
+        "unit-test": "nyc --require chai/register-expect mocha test/*.js --timeout 100000",
+        "test": "npm run unit-test && npm run lint",
         "release": "node tools/release.js"
     }
 }
